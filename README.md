@@ -44,5 +44,8 @@ Youssef Jallouli
 ## Resources and  Acknowledgments
 
 Inspiration, code snippets, etc.
-* Resource #1
-* Resource #2
+* Documentation for google calendar API: https://developers.google.com/calendar/api/guides/overview
+* Outlook API (everything we can do with calendars) - https://learn.microsoft.com/en-us/graph/outlook-calendar-concept-overview
+* Video on how to add events to google calendar (python): https://www.youtube.com/watch?v=tNo9IoZMelI&ab_channel=GoogleDevelopers
+* NER to find dates in PDFs - https://towardsdatascience.com/implementing-named-entity-recognition-to-find-dates-in-pdfs-e2d7dcea8f7a
+* Video for Outlook calendar event integration - https://www.youtube.com/watch?v=orVsKsRs2Us
