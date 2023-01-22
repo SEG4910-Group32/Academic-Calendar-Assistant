@@ -55,3 +55,4 @@ Inspiration, code snippets, etc.
 * Video on how to add events to google calendar (python): https://www.youtube.com/watch?v=tNo9IoZMelI&ab_channel=GoogleDevelopers
 * NER to find dates in PDFs - https://towardsdatascience.com/implementing-named-entity-recognition-to-find-dates-in-pdfs-e2d7dcea8f7a
 * Video for Outlook calendar event integration - https://www.youtube.com/watch?v=orVsKsRs2Us
+* Website similar to our project: https://www.syllabuddy.com/ Source code : https://github.com/kjs5107/syllabuddy/tree/master/src/app
