@@ -25,14 +25,20 @@ To be establised
 
 ## Authors
 
-Contributors names
+### Contributors names
 
 Ghazal Sadeghpour
+
 Hedi Ben Abid
+
 Jeremy Fang
+
 Mahdi Chiboub
+
 Sam Sunny
+
 Youssef Jallouli
+
 
 ## Version History
 
