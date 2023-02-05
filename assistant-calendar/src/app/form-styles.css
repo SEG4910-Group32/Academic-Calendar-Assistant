@@ -1,0 +1,84 @@
+.form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    padding: 2em;
+    border-radius: 0.8em;
+    border: 2px solid var(--border-gray);
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section+.section {
+    margin-top: 1em;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-item+.form-item {
+    margin-top: 2em;
+}
+
+.form-item label {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.form-item input {
+    margin-top: 0.3em;
+}
+
+.submit-btn {
+    font-size: 1.05em;
+    font-weight: 600;
+    padding: 0.5em;
+    border: 1px solid var(--border-green);
+    background-color: var(--background-green);
+    border-radius: 1em;
+    width: 5em;
+    align-self: center;
+}
+
+.submit-btn:hover {
+    background-color: var(--background-green-hover);
+}
+
+.form-item input {
+    background-color: var(--background-gray);
+    border: 1px solid var(--border-gray);
+    border-radius: 5px;
+    font-size: 1.1em;
+    padding: 0.4em 0.3em;
+}
+
+.footer-section .form-item {
+    margin-top: 0.5em;
+    flex-direction: row;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.form-item > div {
+    margin-right: 0.3em;
+}
+
+a {
+    color: blue;
+}
+
+a:active {
+    color: purple;
+}

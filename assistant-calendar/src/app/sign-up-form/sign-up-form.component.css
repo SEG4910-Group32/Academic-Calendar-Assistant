@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "../form-styles.css";
+
+/* .form {
+    display: none;
+} */
+
+.form-item.name-group {
+    flex-direction: row;
+    width: 100%;
+}
+
+.name-item input {
+    width: 100%;
+}
+
+.last-name {
+    margin-left: 0.3em;
+}

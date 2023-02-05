@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    font-family: 'Inter', sans-serif;
+    --border-gray: #A4A4A4;
+    --background-gray: #F1EFFF;
+    --border-green: #308B2E;
+    --background-green: #66CC64;
+    --background-green-hover: #8be08a;
+    --nav-bar-background: #526DA3;
+    --nav-bar-main-text: #DDDBF1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
