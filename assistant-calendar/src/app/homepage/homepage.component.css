@@ -1,0 +1,50 @@
+.coverImageContainer{
+  display: flex;
+}
+#coverImage{
+  max-height: 400px;
+}
+#coverDescription{
+  margin: 50px;
+  position: center;
+  align-items: center;
+  align-self: center;
+}
+#coverDescription h1{
+  font-size: 40px;
+  letter-spacing: 7px;
+  line-height: 1.2;
+}
+#coverDescription p{
+  font-size: 20px;
+  line-height: 1.1;
+}
+.coverButtons{
+  margin: 50px;
+}
+.promo1{
+  background-color: black;
+  color: aliceblue;
+  text-align: center;
+  padding: 20px;
+}
+.promo1 h1{
+  font-size: 40px;
+  font-weight: bold;
+}
+.promo1 p{
+  font-size: 20px;
+}
+#demoButton{
+  color: #F44336;
+  margin-right: 25px;
+}
+#demoButton:hover {
+  cursor: pointer;
+}
+#demoButton button{
+  margin-left: 5px;
+  width: fit-content;
+  height: fit-content;
+  top: 6px;
+}
