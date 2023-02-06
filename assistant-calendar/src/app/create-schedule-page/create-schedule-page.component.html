@@ -1,0 +1,13 @@
+<div class="containerWrap">
+  <app-import-schedule *ngIf="currentContainer == 0"></app-import-schedule>
+  <app-create-schedule *ngIf="currentContainer == 1"></app-create-schedule>
+  <app-submit-schedule *ngIf="currentContainer == 2"></app-submit-schedule>
+</div>
+<div class="navigationButtons">
+  <button type="button" class="previousBtn" *ngIf="currentContainer !=0" (click)="changeContainer(-1)">
+    <mat-icon>arrow_left</mat-icon>
+  </button>
+  <button type="button" class="nextBtn" *ngIf="currentContainer !=2" (click)="changeContainer(1)">
+    <mat-icon>arrow_right</mat-icon>
+  </button>
+</div>
