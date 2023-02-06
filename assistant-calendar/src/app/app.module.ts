@@ -11,7 +11,13 @@ import { CreateSchedulePageComponent } from "./create-schedule-page/create-sched
 import { CreateScheduleComponent } from './create-schedule-page/create-schedule/create-schedule.component';
 import { ImportScheduleComponent } from './create-schedule-page/import-schedule/import-schedule.component';
 import { SubmitScheduleComponent } from './create-schedule-page/submit-schedule/submit-schedule.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -29,7 +35,14 @@ import { SubmitScheduleComponent } from './create-schedule-page/submit-schedule/
         MatButtonModule,
         BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatGridListModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatDialogModule
     ]
 })
 export class AppModule { }
