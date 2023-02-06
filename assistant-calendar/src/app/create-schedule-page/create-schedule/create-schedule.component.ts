@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
+import {MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'app-create-schedule',
   templateUrl: './create-schedule.component.html',
@@ -13,4 +13,15 @@ export class CreateScheduleComponent {
   deliverable1Date = new FormControl('');
   deliverable2Date = new FormControl('');
   deliverable13Date = new FormControl('');
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(DialogElementsExampleDialog);
+  }
 }
+@Component({
+  selector: 'dialog-elements-example-dialog',
+  templateUrl: './dialog-elements-example-dialog.html',
+})
+export class DialogElementsExampleDialog {}

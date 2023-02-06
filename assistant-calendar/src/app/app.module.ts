@@ -18,7 +18,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatRippleModule} from '@angular/material/core';
 @NgModule({
     declarations: [
         AppComponent,
@@ -42,7 +42,10 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatGridListModule,
         MatInputModule,
         MatDatepickerModule,
-        MatDialogModule
+        MatDialogModule,
+        MatRippleModule,
+        MatFormFieldModule,
+        MatButtonModule
     ]
 })
 export class AppModule { }
