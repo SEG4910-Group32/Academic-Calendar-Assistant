@@ -5,16 +5,15 @@
       <p>Quickly integrate your schedule to Outlook/Google Calendar or download it in ics format.</p>
       <div class="coverButtons">
         <label id="demoButton">WATCH DEMO
-          <button mat-fab color="warn" aria-label="Watch a demonstration to import your calendar.">
+          <button mat-fab color="warn" aria-label="Watch a demonstration to import your calendar." (click)="clickDemoButton()">
             <mat-icon>play_arrow</mat-icon>
           </button>
         </label>
-        <button mat-raised-button color="warn">GET STARTED NOW</button>
+        <button mat-raised-button color="warn" (click)="clickGetStarted()">GET STARTED NOW</button>
       </div>
     </div>
     <img id="coverImage" src="/assets/images/schedule-cover.png" alt="drawing of people trying to put together a physical calendar">
   </div>
-
 </section>
 <section>
   <div class="promo1">
@@ -23,4 +22,3 @@
       <br>the easiest way to plan your work/school schedule and integrate it to your calendar.</p>
   </div>
 </section>
-
