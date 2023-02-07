@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Dialog with elements</h1>
+<div mat-dialog-content>
+    <mat-grid-list cols="1" rowHeight="1:1">
+        <mat-grid-tile>
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Deliverable type: </mat-label>
+            <input matInput #input maxlength="10" placeholder="Ex. Assignment" >
+            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+          </mat-form-field>
+        
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Due date: </mat-label>
+            <input matInput #input maxlength="10" placeholder="Ex. 2023-02-06"  >
+            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Add</button>
+</div>
