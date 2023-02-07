@@ -1,6 +1,7 @@
 /* styling outerbox */
 ngx-file-drop ::ng-deep > div {
   padding: 150px;
+  border-radius: 50px !important;
 }
 /* styling innerbox
 ngx-file-drop ::ng-deep > div> div {

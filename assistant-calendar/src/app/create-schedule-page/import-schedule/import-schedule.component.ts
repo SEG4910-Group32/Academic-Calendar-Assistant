@@ -12,6 +12,6 @@ export class ImportScheduleComponent {
   constructor(public dialog: MatDialog) {}
 
   openImportDialog() {
-    this.dialog.open(ImportSyllabusComponent, {height: '509px', width:'683px'});
+    this.dialog.open(ImportSyllabusComponent, {height: '509px', width:'683px', panelClass: 'dialogClass'});
   }
 }
