@@ -1,0 +1,22 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-about-us',
+  template: `
+    <div class="about-us-container">
+      <h1>About Us</h1>
+      <p>We are a team of passionate developers who have come together to create the ultimate calendar web app using Angular. Our goal is to provide a seamless and intuitive platform that streamlines scheduling, enhances productivity, and makes life easier for individuals and organizations alike.</p>
+      <p>Our web app is designed with the user in mind and incorporates the latest technology to ensure that it is fast, reliable, and user-friendly. The Angular framework provides a robust and flexible foundation that allows us to build an app that is both scalable and customizable.</p>
+      <p>Whether you are an individual looking to keep track of your personal schedule or a business looking for an efficient way to manage team calendars, our web app has you covered. With features like custom reminders, automatic syncing, and detailed analytics, you'll be able to stay on top of your schedule like never before.</p>
+      <p>At our core, we believe that technology should make life easier, not more complicated. That's why we've created a calendar web app that is both simple to use and incredibly powerful. We're committed to providing you with the best possible experience and welcome your feedback as we continue to develop and improve our app.</p>
+      <p>So why wait? Sign up today and experience the power of our calendar web app for yourself!</p>
+
+      <div class="team-grid">
+        <div class="team-member" *ngFor="let member of team">
+          <img [src]="member.imageUrl" alt="{{ member.name }}">
+          <h3>{{ member.name }}</h3>
+          <p>{{ member.title }}</p>
+          <p>{{ member.bio }}</p>
+        </div>
+      </div>
+  `,

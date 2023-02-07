@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+src/styles.css
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.team-member {
+  width: calc(100% / 6);
+  text-align: center;
+}
