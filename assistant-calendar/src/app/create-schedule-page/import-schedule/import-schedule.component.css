@@ -17,6 +17,16 @@ p{
   margin: 200px 50px 50px;
   font-size: 40px;
 }
+.syllabus button{
+  padding: 32px;
+  font-size: 32px;
+  background-color: #F6F6F6;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ACACAC;
+  color: #3C3C3C;
+  margin: -10px 0 0 400px;
+}
 .hint{
   position: absolute;
   bottom: 0;
