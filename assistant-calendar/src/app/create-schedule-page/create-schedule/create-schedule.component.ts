@@ -16,6 +16,9 @@ export class CreateScheduleComponent {
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
-    this.dialog.open(AddScheduleComponent);
+    this.dialog.open(AddScheduleComponent, {
+      height: '200px',
+      width: '400px',
+    });
   }
 }
