@@ -1,22 +1,28 @@
-<div class="ddZone">
-  <ngx-file-drop
-    accept =".pdf"
-    [multiple] = "true"
-    (onFileDrop)="fileUploadHandler($event)">
-    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-      <label>
-        Drag and drop the file here to upload it
-        <button type="button" (click)="openFileSelector()">
-          Browse Files
-        </button>
-      </label>
-    </ng-template>
-  </ngx-file-drop>
-</div>
-<div class="files">
-  <ul class="file" *ngFor="let file of files; let i=index;">
-    <!--<mat-icon *ngIf="file.">picture_as_pdf</mat-icon>-->
-    <li>{{data[i].name}}</li>
-    <li>{{data[i].size}}</li>
-  </ul>
-</div>
+<mat-dialog-content>
+  <div class="ddZone">
+    <ngx-file-drop
+      accept =".pdf"
+      [multiple] = "true"
+      (onFileDrop)="fileUploadHandler($event)">
+      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+        <label>
+          Drag and drop the file here to upload it
+          <button type="button" (click)="openFileSelector()">
+            Browse Files
+          </button>
+        </label>
+      </ng-template>
+    </ngx-file-drop>
+  </div>
+  <div class="files">
+    <ul class="file" *ngFor="let file of files; let i=index;">
+      <!--<mat-icon *ngIf="file.">picture_as_pdf</mat-icon>-->
+      <li>{{data[i].name}}</li>
+      <li>{{data[i].size}}</li>
+    </ul>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true">Attach file</button>
+</mat-dialog-actions>
