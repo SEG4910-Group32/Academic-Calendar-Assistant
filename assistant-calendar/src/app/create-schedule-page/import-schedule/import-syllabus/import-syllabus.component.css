@@ -7,6 +7,7 @@ ngx-file-drop ::ng-deep > div> div {
 }
 */
 label{
+  text-align: center;
 }
 #browseBtn{
   background-color: #93E1FA;
@@ -16,7 +17,7 @@ label{
   border-color: #9AD8EC;
   border-radius: 20px;
   font-size: 16px;
-  margin: 10px;
+  margin: 10px 100px 0;
 }
 
 #browseBtn:hover{
