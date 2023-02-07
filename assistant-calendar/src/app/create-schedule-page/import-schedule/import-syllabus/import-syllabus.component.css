@@ -1,0 +1,24 @@
+/* styling outerbox */
+ngx-file-drop ::ng-deep > div {
+  padding: 150px;
+}
+/* styling innerbox
+ngx-file-drop ::ng-deep > div> div {
+}
+*/
+label{
+}
+#browseBtn{
+  background-color: #93E1FA;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #9AD8EC;
+  border-radius: 20px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+#browseBtn:hover{
+  cursor: pointer;
+}
