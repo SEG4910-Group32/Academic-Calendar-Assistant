@@ -9,9 +9,9 @@ import { SubmitScheduleComponent } from './create-schedule-page/submit-schedule/
 import { AddScheduleComponent } from './create-schedule-page/create-schedule/add-schedule/add-schedule.component';
 import { ImportSyllabusComponent } from './create-schedule-page/import-schedule/import-syllabus/import-syllabus.component';
 
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-import {NgxFileDropModule} from "ngx-file-drop";
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
+import { NgxFileDropModule } from "ngx-file-drop";
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
