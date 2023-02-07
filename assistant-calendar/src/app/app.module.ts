@@ -20,6 +20,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatRippleModule} from '@angular/material/core';
 import { AddScheduleComponent } from './create-schedule-page/create-schedule/add-schedule/add-schedule.component';
+import { ImportSyllabusComponent } from './create-schedule-page/import-schedule/import-syllabus/import-syllabus.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -28,7 +29,8 @@ import { AddScheduleComponent } from './create-schedule-page/create-schedule/add
         CreateScheduleComponent,
         ImportScheduleComponent,
         SubmitScheduleComponent,
-        AddScheduleComponent
+        AddScheduleComponent,
+        ImportSyllabusComponent
     ],
     providers: [],
     bootstrap: [AppComponent],

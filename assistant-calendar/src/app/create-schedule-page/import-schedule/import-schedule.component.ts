@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ImportSyllabusComponent} from "./import-syllabus/import-syllabus.component";
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-import-schedule',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class ImportScheduleComponent {
 
+  constructor(public dialog: MatDialog) {}
+
+  openImportDialog() {
+    this.dialog.open(ImportSyllabusComponent);
+  }
 }
