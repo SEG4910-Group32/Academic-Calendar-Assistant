@@ -1,4 +1,43 @@
 .example-container mat-form-field + mat-form-field {
     margin-left: 8px;
   }
-  
+  *{
+    letter-spacing: normal;
+    line-height: normal;
+  }
+  h2{
+    font-size: 64px;
+    margin: 30px 0 20px;
+  }
+  p{
+    margin: 100px 0 50px;
+    font-size: 24px;
+  }
+  .createScheduleDescription{
+    margin-top: 50px;
+  }
+  .hint{
+    position: absolute;
+    bottom: 0;
+  }
+  .hint p {
+    font-size: 16px;
+  }
+  mat-icon{
+    margin: -6px 0;
+    border-color: #AEAEAE;
+    background-color: #FCFCFC;
+    color: #526DA3;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50%;
+  }
+  .addButton{
+  background-color: #FCFCFC;
+  position: absolute;
+  width:20%;
+  border-color: #AEAEAE;
+  color: #308B2E;
+  margin-left: 42.5%;
+  padding-top: 5%;
+  }

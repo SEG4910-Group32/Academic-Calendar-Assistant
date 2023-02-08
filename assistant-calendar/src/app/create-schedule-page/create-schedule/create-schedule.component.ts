@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
@@ -12,13 +12,14 @@ import { mockSchedules } from './mock-schedules';
 })
 export class CreateScheduleComponent {
   deliverables = mockSchedules;
- 
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
     this.dialog.open(AddScheduleComponent, {
-      height: '200px',
-      width: '400px',
+      height: '300px',
+      width: '500px',
     });
   }
 }
+
+
