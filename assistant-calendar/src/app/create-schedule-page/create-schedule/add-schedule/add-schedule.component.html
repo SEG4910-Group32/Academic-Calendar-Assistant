@@ -17,9 +17,8 @@
       </mat-grid-list>
     
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data.type" cdkFocusInitial>Add</button>
+  <!-- anything in  [mat-dialog-close] is shown in the first input box -->
+  <button mat-button [mat-dialog-close]="data" >Add</button>
+  
   <button mat-button mat-dialog-close (click)="onNoClick()">Clear</button>
 </div>
-//1st share data btw 2 components
-//update the data from child element
-//show the data

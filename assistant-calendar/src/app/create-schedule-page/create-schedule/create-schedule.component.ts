@@ -21,23 +21,20 @@ export class CreateScheduleComponent {
   deliverables = mockSchedules;
   constructor(public dialog: MatDialog) {}
 
-  // openDialog() {
-  //   this.dialog.open(AddScheduleComponent, {
-  //     height: '300px',
-  //     width: '500px',
-  //   });
-  // }
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
+
+     height: '300px',
+     width: '500px',
+
       data: {task: this.type, dueDate: this.dueDate},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //mockSchedules.push({this.type, this.dueDate})
-      this.type = result;
+      this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({type:result, dueDate:"2023-02-09"})
+      mockSchedules.push({type:result.type , dueDate:result.dueDate})
     });
     
   }
