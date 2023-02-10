@@ -13,18 +13,18 @@ import { mockSchedules } from './mock-schedules';
   styleUrls: ['./create-schedule.component.css']
 })
 export class CreateScheduleComponent {
-  type: string | undefined;
-  dueDate: string | undefined;
+  type?: string ;
+  dueDate?: string;
 
-  tmpType: string| undefined;
-  tmpDueDate: string| undefined;
+  // tmpType: string| undefined;
+  // tmpDueDate: string| undefined;
   deliverables = mockSchedules;
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
 
-     height: '300px',
+     height: '250px',
      width: '500px',
 
       data: {task: this.type, dueDate: this.dueDate},
@@ -34,7 +34,9 @@ export class CreateScheduleComponent {
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({type:result.type , dueDate:result.dueDate})
+      mockSchedules.push({type:result.type , dueDate:result.dueDate});
+      console.log("result.type",result.type);
+      console.log(mockSchedules);
     });
     
   }

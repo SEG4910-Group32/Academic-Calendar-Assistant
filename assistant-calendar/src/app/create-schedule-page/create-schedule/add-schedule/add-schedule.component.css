@@ -1,0 +1,10 @@
+.addNewDelButton{
+    position: absolute;
+    right:    0;
+    bottom:   0;
+}
+.cancelNewDelButton{
+    position: absolute;
+    right:    20;
+    bottom:   0;
+}

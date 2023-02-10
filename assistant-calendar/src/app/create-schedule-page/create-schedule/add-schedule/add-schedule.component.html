@@ -10,15 +10,13 @@
         
           <mat-form-field hintLabel="Max 10 characters" appearance="fill">
             <mat-label>Due date: </mat-label>
-            <input matInput #input maxlength="8" placeholder="Ex. 2023-02-06"  [(ngModel)]="data.dueDate">
-            <mat-hint align="end">{{input.value.length}}/8</mat-hint>
+            <input matInput #input maxlength="10" placeholder="Ex. 2023-02-06"  [(ngModel)]="data.dueDate">
+            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
     
-<div mat-dialog-actions>
-  <!-- anything in  [mat-dialog-close] is shown in the first input box -->
+<div mat-dialog-actions  align="end">
+  <button mat-button mat-dialog-close (click)="onNoClick()" >Cancel</button>
   <button mat-button [mat-dialog-close]="data" >Add</button>
-  
-  <button mat-button mat-dialog-close (click)="onNoClick()">Clear</button>
 </div>
