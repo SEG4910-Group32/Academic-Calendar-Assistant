@@ -1,28 +1,45 @@
 <mat-dialog-content>
+  <div class="title">
+    <h3>
+      Upload and attach files
+    </h3>
+    <p>
+      Upload a file to populate your schedule with deadlines.
+    </p>
+  </div>
   <div>
     <ngx-file-drop
       accept =".pdf"
       [multiple] = "true"
       (onFileDrop)="fileUploadHandler($event)">
       <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-        <label>
-          Drag and drop the file here to upload it
-          <button type="button" id="browseBtn" (click)="openFileSelector()">
-            Browse Files
-          </button>
-        </label>
+        <div class="hints">
+          <mat-icon id="cloud-icon">cloud_upload</mat-icon>
+          <label (click)="openFileSelector()" id="browse">
+            <b><u>Click to upload</u></b> or drag and drop
+          </label>
+          <label id="size-hint">Maximum file size x MB.</label>
+        </div>
       </ng-template>
     </ngx-file-drop>
   </div>
   <div class="files">
-    <ul class="file" *ngFor="let file of files; let i=index;">
-      <!--<mat-icon *ngIf="file.">picture_as_pdf</mat-icon>-->
-      <li>{{data[i].name}}</li>
-      <li>{{data[i].size}}</li>
-    </ul>
+    <mat-card class="file" *ngFor="let file of data; let i=index;">
+      <mat-card-content>
+        <!--<mat-icon *ngIf="file.">picture_as_pdf</mat-icon>-->
+        <img class="fileIcon" src="/assets/images/create schedule page/import schedule/pdficon.png" alt="pdf icon" height="20" width="20">
+        <mat-card-title >
+          {{file.name}}
+          <mat-card-subtitle>
+            {{file.size}}
+          </mat-card-subtitle>
+        </mat-card-title>
+        <!--add delete file functionality here-->
+      </mat-card-content>
+    </mat-card>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true">Attach file</button>
+  <button id="cancelbtn" mat-button mat-dialog-close>Cancel</button>
+  <button id="attachbtn" mat-button [mat-dialog-close]="true">Attach file</button>
 </mat-dialog-actions>

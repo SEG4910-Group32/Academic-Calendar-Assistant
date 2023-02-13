@@ -1,26 +1,110 @@
 /* styling outerbox */
 ngx-file-drop ::ng-deep > div {
-  padding: 150px;
-  border-radius: 50px !important;
+  height: 171px !important;
+  width: 642px;
+  border-radius: 27px !important;
+  border: 1px dashed #000000 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 /* styling innerbox
 ngx-file-drop ::ng-deep > div> div {
 }
 */
+.title h3{
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.025em;
+  color: #0E2655;
+  margin: 0;
+}
+.title p{
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.025em;
+  color: #465A83;
+}
+
+.hints{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#cloud-icon{
+  transform: scale(2.5);
+  margin-bottom: 15px;
+  color: #0E2655;
+}
+
 label{
   text-align: center;
 }
-#browseBtn{
-  background-color: #93E1FA;
-  padding: 10px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #9AD8EC;
-  border-radius: 20px;
-  font-size: 16px;
-  margin: 10px 100px 0;
+
+#browse{
+  cursor: pointer;
+  color: #0E2655;
+}
+#size-hint{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  color: #465A83;
+}
+mat-card{
+  border: 1px solid #A4A4A4;
+  border-radius: 15px;
+  margin: 10px 0;
+  width: 642px;
+  box-shadow: none;
 }
 
-#browseBtn:hover{
-  cursor: pointer;
+.fileIcon{
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  border: 1px solid #B1B1B1;
+  padding: 7px 5px 10px 5px;
+  border-radius: 4px;
+  opacity: 0.7;
+}
+
+mat-card-title {
+  color: black;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 16px;
+  position: relative;
+  top: -3px;
+}
+mat-card-subtitle{
+  font-size: 14px;
+}
+mat-dialog-actions{
+  position: absolute;
+  width: 100%;
+  bottom: 0%;
+  right: 10px;
+}
+mat-dialog-actions #attachbtn{
+  width: 318px;
+  height: 47px;
+  background: #435A86;
+  border: 1px solid #676D7A;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+mat-dialog-actions #cancelbtn{
+  background: #FFFFFF;
+  border: 1px solid #A4A4A4;
+  border-radius: 10px;
+  width: 318px;
+  height: 47px;
+  color: #434343;
+  font-weight: 700;
+  font-size: 16px;
 }

@@ -25,6 +25,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
     declarations: [
@@ -57,7 +59,8 @@ import { MatRippleModule } from '@angular/material/core';
         MatDialogModule,
         MatRippleModule,
         MatFormFieldModule,
-        MatButtonModule
+        MatButtonModule,
+        MatCardModule
     ]
 })
 export class AppModule { }
