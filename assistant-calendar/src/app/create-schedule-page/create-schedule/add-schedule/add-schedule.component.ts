@@ -16,7 +16,7 @@ export class AddScheduleComponent {
   local_data:any;
   constructor(
     public dialogRef: MatDialogRef<CreateScheduleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {type:string, dueDate:string},
+    @Inject(MAT_DIALOG_DATA) public data: {type:string, dueDate:string, startDate:string, location:string, description:string},
   ) {}
 
   onNoClick(): void {

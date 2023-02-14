@@ -26,7 +26,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
-
+import {MatExpansionModule} from '@angular/material/expansion';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
     declarations: [
@@ -60,7 +62,11 @@ import { MatCardModule } from '@angular/material/card';
         MatRippleModule,
         MatFormFieldModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        MatExpansionModule,
+        FlexLayoutModule,
+        ScrollingModule
+        
     ]
 })
 export class AppModule { }

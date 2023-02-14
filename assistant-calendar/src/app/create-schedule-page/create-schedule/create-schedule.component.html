@@ -3,25 +3,51 @@
   <p >Here, you can make any necessary <b>edits or updates</b> to the imported information. If you haven't imported your syllabus <b>you can still
   create your schedule from scratch.</b></p>
 </div> 
-  <mat-grid-list cols="1" rowHeight="10:1">
-    <mat-grid-tile *ngFor="let deliverable of deliverables">
-      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
-        <mat-label>Deliverable type: </mat-label>
-        <input matInput #input maxlength="10" placeholder="Ex. Assignment" value="{{deliverable.type}}" >
-        <mat-hint align="end">{{input.value.length}}/10</mat-hint>
-      </mat-form-field>
-    
-      <mat-form-field hintLabel="Max 10 characters" appearance="fill">
-        <mat-label>Due date: </mat-label>
-        <input matInput #input maxlength="10" placeholder="Ex. 2023-02-06" value="{{deliverable.dueDate}}" >
-        <mat-hint align="end">{{input.value.length}}/10</mat-hint>
-      </mat-form-field>
-    </mat-grid-tile>
-  </mat-grid-list>
+
+<cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+<div fxLayout="column"  fxLayoutAlign="space-between" class="listOfDeliverables">
+    <div fxLayout="row" fxLayoutAlign="space-between" *ngFor="let deliverable of deliverables"> 
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Task
+            </mat-panel-title>
+            <mat-panel-description>
+              {{panelOpenState ? 'click on the arrow to close the details' : 'click on the arrow to view more details'}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field hintLabel="" appearance="fill">
+            <mat-label>Deliverable type: </mat-label>
+            <input matInput #input  placeholder="Ex. Assignment" value="{{deliverable.type}}" >
+          </mat-form-field>
+          <mat-form-field hintLabel="" appearance="fill">
+            <mat-label>Start date: </mat-label>
+            <input matInput #input  placeholder="Ex. 2023-02-06" value="{{deliverable.startDate}}" >
+          </mat-form-field>
+          <mat-form-field hintLabel="" appearance="fill">
+            <mat-label>Due date: </mat-label>
+            <input matInput #input  placeholder="Ex. 2023-02-06" value="{{deliverable.dueDate}}" >
+          </mat-form-field>
+          <mat-form-field hintLabel="" appearance="fill">
+            <mat-label>Description: </mat-label>
+            <input matInput #input  placeholder="Ex. SEG4910 deliverable" value="{{deliverable.description}}" >
+          </mat-form-field>
+          <mat-form-field hintLabel="" appearance="fill">
+            <mat-label>Location: </mat-label>
+            <input matInput #input  placeholder="Ex. Ottawa" value="{{deliverable.location}}" >
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>   
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>
   <!-- <app-display-schedules> -->
 <div class="addButton" layout-align="center center">
     <button mat-button (click)="openDialog()" ><mat-icon>add</mat-icon>Add deliverable</button>
 </div>
+
+
 
 <div class="hint" >
   <p>

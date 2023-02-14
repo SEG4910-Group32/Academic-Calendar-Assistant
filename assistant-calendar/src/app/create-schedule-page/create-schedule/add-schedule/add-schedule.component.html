@@ -1,20 +1,33 @@
 <h1 mat-dialog-title>Add new deliverable:</h1>
 <div mat-dialog-content>
-    <mat-grid-list cols="1" rowHeight="5:1">
-        <mat-grid-tile>
+  <div fxLayout="column"  fxLayoutAlign="space-between" class="listOfDeliverables">
+   
           <mat-form-field hintLabel="Max 10 characters" appearance="fill" >
             <mat-label>Deliverable type: </mat-label>
-            <input matInput #input maxlength="10" placeholder="Ex. Assignment"  [(ngModel)]="data.type">
-            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+            <input matInput #input  placeholder="Ex. Assignment"  [(ngModel)]="data.type">
           </mat-form-field>
         
+          <mat-form-field hintLabel="" appearance="fill">
+            <mat-label>Start date: </mat-label>
+            <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.startDate">
+          </mat-form-field>
+
           <mat-form-field hintLabel="Max 10 characters" appearance="fill">
             <mat-label>Due date: </mat-label>
-            <input matInput #input maxlength="10" placeholder="Ex. 2023-02-06"  [(ngModel)]="data.dueDate">
-            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+            <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.dueDate">
           </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
+
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Location: </mat-label>
+            <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.location">
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Description: </mat-label>
+            <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.description">
+          </mat-form-field>
+        
+      </div>
     
 <div mat-dialog-actions  align="end">
   <button mat-button mat-dialog-close (click)="onNoClick()" >Cancel</button>

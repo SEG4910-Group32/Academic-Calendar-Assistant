@@ -1,10 +1,13 @@
 import { Component, ViewChild , Inject} from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
 import { Deliverable } from './deliverable';
 import { mockSchedules } from './mock-schedules';
-
+import {MatAccordion} from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
 
 
 @Component({
@@ -13,8 +16,16 @@ import { mockSchedules } from './mock-schedules';
   styleUrls: ['./create-schedule.component.css']
 })
 export class CreateScheduleComponent {
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+  @ViewChild(MatAccordion)
+  accordion!: MatAccordion;
   type?: string ;
   dueDate?: string;
+
+  panelOpenState = false;
 
   // tmpType: string| undefined;
   // tmpDueDate: string| undefined;
@@ -24,8 +35,8 @@ export class CreateScheduleComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
 
-     height: '250px',
-     width: '500px',
+     height: '350px',
+     width: '800px',
 
       data: {task: this.type, dueDate: this.dueDate},
     });
@@ -34,7 +45,7 @@ export class CreateScheduleComponent {
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({type:result.type , dueDate:result.dueDate});
+      mockSchedules.push({type:result.type , dueDate:result.dueDate, startDate: result.dueDate,location: result.dueDate,description: result.dueDate });
       console.log("result.type",result.type);
       console.log(mockSchedules);
     });

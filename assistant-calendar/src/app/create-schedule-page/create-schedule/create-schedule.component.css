@@ -1,3 +1,4 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css'; 
 .example-container mat-form-field + mat-form-field {
     margin-left: 8px;
   }
@@ -35,9 +36,23 @@
   .addButton{
   background-color: #FCFCFC;
   position: absolute;
-  width:20%;
+  
   border-color: #AEAEAE;
   color: #308B2E;
   margin-left: 42.5%;
   padding-top: 5%;
   }
+
+.listOfDeliverables{
+  padding-bottom: 10%;;
+}
+
+.example-viewport {
+  height: 200px;
+  width: 100%;
+}
+
+.example-item {
+  height: 500px;
+  width:100%;
+}
