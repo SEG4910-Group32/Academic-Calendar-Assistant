@@ -29,7 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-
+import { MatNativeDateModule } from '@angular/material/core'; 
 @NgModule({
     declarations: [
         AppComponent,
@@ -65,7 +65,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
         MatCardModule,
         MatExpansionModule,
         FlexLayoutModule,
-        ScrollingModule
+        ScrollingModule,
+        MatNativeDateModule
         
     ]
 })

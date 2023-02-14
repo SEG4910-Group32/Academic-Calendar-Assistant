@@ -21,14 +21,41 @@
             <mat-label>Deliverable type: </mat-label>
             <input matInput #input  placeholder="Ex. Assignment" value="{{deliverable.type}}" >
           </mat-form-field>
-          <mat-form-field hintLabel="" appearance="fill">
+
+          <mat-form-field appearance="fill" class="example-form-field">
+            <mat-label>Start Date:</mat-label>
+            <input matInput [matDatepicker]="datepicker" value="{{deliverable.startDate}}">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="example-form-field">
+            <mat-label>Due date:</mat-label>
+            <input matInput [matDatepicker]="datepicker" value="{{deliverable.dueDate}}">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+
+          <!-- <mat-form-field hintLabel="" appearance="fill">
             <mat-label>Start date: </mat-label>
             <input matInput #input  placeholder="Ex. 2023-02-06" value="{{deliverable.startDate}}" >
           </mat-form-field>
           <mat-form-field hintLabel="" appearance="fill">
             <mat-label>Due date: </mat-label>
             <input matInput #input  placeholder="Ex. 2023-02-06" value="{{deliverable.dueDate}}" >
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field hintLabel="" appearance="fill">
             <mat-label>Description: </mat-label>
             <input matInput #input  placeholder="Ex. SEG4910 deliverable" value="{{deliverable.description}}" >
