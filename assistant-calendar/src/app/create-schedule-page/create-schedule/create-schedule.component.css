@@ -40,7 +40,7 @@
   border-color: #AEAEAE;
   color: #308B2E;
   margin-left: 42.5%;
-  padding-top: 5%;
+ 
   }
 
 .listOfDeliverables{
@@ -48,7 +48,7 @@
 }
 
 .example-viewport {
-  height: 200px;
+  height: 30%;
   width: 100%;
 }
 
