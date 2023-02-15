@@ -1,0 +1,12 @@
+.form-row.footer {
+    flex-direction: column;
+}
+
+.row-item {
+    display: flex;
+}
+
+.row-item+.row-item {
+    margin-left: 0;
+    margin-top: 0.3em;
+}

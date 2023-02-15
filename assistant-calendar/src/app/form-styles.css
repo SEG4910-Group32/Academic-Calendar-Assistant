@@ -5,8 +5,6 @@
     transform: translate(-50%, -50%);
     width: 25vw;
     padding: 2em;
-    border-radius: 0.8em;
-    border: 2px solid var(--border-gray);
 }
 
 h1 {
@@ -14,71 +12,35 @@ h1 {
     font-weight: 600;
 }
 
-.section {
-    display: flex;
-    flex-direction: column;
-}
-
-.section+.section {
+.form-row+.form-row {
     margin-top: 1em;
 }
 
-.form-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-item+.form-item {
-    margin-top: 2em;
-}
-
-.form-item label {
-    font-size: 0.9em;
-    font-weight: 600;
-}
-
-.form-item input {
-    margin-top: 0.3em;
-}
-
 .submit-btn {
-    font-size: 1.05em;
-    font-weight: 600;
-    padding: 0.5em;
-    border: 1px solid var(--border-green);
+    width: fit-content;
     background-color: var(--background-green);
-    border-radius: 1em;
-    width: 5em;
     align-self: center;
 }
 
-.submit-btn:hover {
-    background-color: var(--background-green-hover);
-}
-
-.form-item input {
-    background-color: var(--background-gray);
-    border: 1px solid var(--border-gray);
-    border-radius: 5px;
-    font-size: 1.1em;
-    padding: 0.4em 0.3em;
-}
-
-.footer-section .form-item {
-    margin-top: 0.5em;
-    flex-direction: row;
-    font-size: 0.9em;
-    font-weight: 600;
-}
-
-.form-item > div {
-    margin-right: 0.3em;
-}
-
-a {
+.sign-up-link,
+.sign-in-link, 
+.forgot-password {
     color: blue;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-a:active {
+.sign-up-link:active,
+.sign-in-link:active,
+.forgot-password:active {
     color: purple;
+}
+
+.sign-up-link {
+    margin-left: 0.5em;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
 }

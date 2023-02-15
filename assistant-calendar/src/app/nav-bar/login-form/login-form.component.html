@@ -1,0 +1,29 @@
+<div class="form" [formGroup]="signInForm">
+    <div class="form-row">
+        <h1>Sign In</h1>
+    </div>
+
+    <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
+        <mat-label>email</mat-label>
+        <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
+        <mat-label>password</mat-label>
+        <input matInput formControlName="password">
+    </mat-form-field>
+
+    <div class="form-row">
+        <button mat-stroked-button class="submit-btn" (click)="submit()">Sign In</button>
+    </div>
+
+    <div class="form-row footer">
+        <div class="row-item">
+            <div class="forgot-password" (click)="openForgotPasswordForm()">Forgot your password?</div>
+        </div>
+        <div class="row-item">
+            <div>New to our website?</div>
+            <div class="sign-up-link" (click)="openSignUpForm()">Sign up</div>
+        </div>
+    </div>
+</div>
