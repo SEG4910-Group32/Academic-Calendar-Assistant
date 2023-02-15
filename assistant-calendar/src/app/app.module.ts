@@ -30,6 +30,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { MatNativeDateModule } from '@angular/material/core'; 
+import {MatChipsModule} from '@angular/material/chips';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
     declarations: [
         AppComponent,
@@ -66,7 +68,9 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatExpansionModule,
         FlexLayoutModule,
         ScrollingModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatChipsModule,
+        DragDropModule
         
     ]
 })

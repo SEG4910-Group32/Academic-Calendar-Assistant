@@ -8,7 +8,7 @@ import {MatAccordion} from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
-
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create-schedule',
@@ -16,6 +16,11 @@ import { MatInput } from '@angular/material/input';
   styleUrls: ['./create-schedule.component.css']
 })
 export class CreateScheduleComponent {
+
+  drop(event: CdkDragDrop<Deliverable[]>) {
+    moveItemInArray(this.deliverables, event.previousIndex, event.currentIndex);
+  }
+
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
