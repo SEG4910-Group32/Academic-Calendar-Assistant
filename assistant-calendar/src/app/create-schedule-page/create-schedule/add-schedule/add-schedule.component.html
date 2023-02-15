@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Add new deliverable:</h1>
+<div class="title"><h3 mat-dialog-title>Add new deliverable:</h3></div>
 <div mat-dialog-content>
-  <div fxLayout="column"  fxLayoutAlign="space-between" class="listOfDeliverables">
+  <mat-grid-list cols="1">
    
           <mat-form-field hintLabel="" appearance="fill" class="example-form-field" >
             <mat-label>Deliverable type: </mat-label>
@@ -33,16 +33,6 @@
             </mat-datepicker>
           </mat-form-field>
 
-          <!-- <mat-form-field hintLabel="" appearance="fill">
-            <mat-label>Start date: </mat-label>
-            <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.startDate">
-          </mat-form-field>
-
-          <mat-form-field hintLabel="" appearance="fill">
-            <mat-label>Due date: </mat-label>
-            <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.dueDate">
-          </mat-form-field> -->
-
           <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
             <mat-label>Location: </mat-label>
             <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.location">
@@ -52,9 +42,9 @@
             <mat-label>Description: </mat-label>
             <input matInput #input  placeholder="Ex. 2023-02-06"  [(ngModel)]="data.description">
           </mat-form-field>        
-      </div>
+        </mat-grid-list>
     
 <div mat-dialog-actions  align="end">
-  <button mat-button mat-dialog-close (click)="onNoClick()" >Cancel</button>
-  <button mat-button [mat-dialog-close]="data" >Add</button>
+  <button mat-button mat-dialog-close (click)="onNoClick()" id="cancelbtn" >Cancel</button>
+  <button mat-button [mat-dialog-close]="data"  id="addbtn">Add</button>
 </div>

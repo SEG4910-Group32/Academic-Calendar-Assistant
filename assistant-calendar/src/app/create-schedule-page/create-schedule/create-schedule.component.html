@@ -7,7 +7,7 @@
    
     <mat-grid-tile>
       <!-- here -->
-      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+      <cdk-virtual-scroll-viewport appendOnly itemSize="100" class="example-viewport">
       <mat-card>
         <mat-card-header>
           <mat-card-title>List of deliverables:</mat-card-title>
@@ -23,7 +23,7 @@
                   {{panelOpenState ? 'click on the arrow to close the details' : 'click on the arrow to view more details'}}
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <mat-form-field hintLabel="" appearance="fill">
+              <mat-form-field hintLabel="" appearance="fill"  class="example-form-field">
                 <mat-label>Deliverable type: </mat-label>
                 <input matInput #input  placeholder="Ex. Assignment" value="{{deliverable.type}}" >
               </mat-form-field>
@@ -41,7 +41,7 @@
                 </mat-datepicker>
               </mat-form-field>
     
-              <mat-form-field appearance="fill" >
+              <mat-form-field appearance="fill"  class="example-form-field" >
                 <mat-label>Due date:</mat-label>
                 <input matInput [matDatepicker]="datepicker" value="{{deliverable.dueDate}}">
                 <mat-hint>MM/DD/YYYY</mat-hint>
@@ -53,7 +53,7 @@
                   </mat-datepicker-actions>
                 </mat-datepicker>
               </mat-form-field>
-              <mat-form-field hintLabel="" appearance="fill">
+              <mat-form-field hintLabel="" appearance="fill"  class="example-form-field">
                 <mat-label>Description: </mat-label>
                 <input matInput #input  placeholder="Ex. SEG4910 deliverable" value="{{deliverable.description}}" >
               </mat-form-field>
@@ -81,7 +81,7 @@
           cdkDropList 
           cdkDropListOrientation="horizontal"
           (cdkDropListDropped)="drop($event)">
-          <mat-chip
+          <mat-chip color="accent" 
             class="example-box"
             cdkDrag
             *ngFor="let deliverable of deliverables">
