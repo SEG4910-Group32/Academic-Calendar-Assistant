@@ -39,20 +39,5 @@ h2{
 }
 .hint{
   align-self: flex-end;
-}
-.hint p {
   font-size: 16px;
-}
-mat-icon{
-  margin: -6px 0;
-  border-color: #AEAEAE;
-  background-color: #FCFCFC;
-  color: #526DA3;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 50%;
-}
-.dialogClass{
-  height: 509px;
-  width: 683px;
 }

@@ -28,9 +28,11 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { MatNativeDateModule } from '@angular/material/core'; 
+import { MatNativeDateModule } from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatStepperModule} from '@angular/material/stepper';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -45,6 +47,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     providers: [],
     bootstrap: [AppComponent],
     imports: [
+        MatStepperModule,
         FormsModule,
         HttpClientModule,
         NgxFileDropModule,
@@ -69,7 +72,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         MatNativeDateModule,
         MatChipsModule,
         DragDropModule
-        
+
     ]
 })
 export class AppModule { }
