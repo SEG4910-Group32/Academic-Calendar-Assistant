@@ -1,14 +1,17 @@
-<h2>Import your schedule:</h2>
-<div class="description">
-  <p>First import your <b>syllabus</b> into our application, simply click on the <b>import</b> button. You can upload your syllabus file
-    in either <b>PDF or Word</b> document format. Once uploaded, our system will automatically organize and populate your class <b>schedule,
-      assignment and exam</b> due dates for easy tracking and management.</p>
+<div class="container">
+  <h2 class="pageTitle">Import your schedule:</h2>
+  <div class="description">
+    <p>First import your <b>syllabus</b> into our application, simply click on the <b>import</b> button. You can upload your syllabus file
+      in either <b>PDF or Word</b> document format. Once uploaded, our system will automatically organize and populate your class <b>schedule,
+        assignment and exam</b> due dates for easy tracking and management.</p>
+  </div>
+  <div class="syllabus">
+    <label>Syllabus:
+      <button mat-raised-button (click)="openImportDialog()">Import</button>
+    </label>
+  </div>
+  <div class="hint">
+    <p>Or create your schedule from scratch, just skip to the next step! click on <mat-icon>arrow_right</mat-icon> </p>
+  </div>
 </div>
-<div class="syllabus">
-  <label>Syllabus:
-    <button mat-raised-button (click)="openImportDialog()">Import</button>
-  </label>
-</div>
-<div class="hint">
-  <p>Or create your schedule from scratch, just skip to the next step! click on <mat-icon>arrow_right</mat-icon> </p>
-</div>
+
