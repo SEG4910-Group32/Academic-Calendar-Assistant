@@ -27,7 +27,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { MatNativeDateModule } from '@angular/material/core'; 
 import {MatChipsModule} from '@angular/material/chips';
@@ -66,7 +65,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         MatButtonModule,
         MatCardModule,
         MatExpansionModule,
-        FlexLayoutModule,
         ScrollingModule,
         MatNativeDateModule,
         MatChipsModule,
