@@ -30,12 +30,12 @@
                     </mat-expansion-panel-header>
                     <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
                       <mat-label>Deliverable type: </mat-label>
-                      <input matInput #input placeholder="Ex. Assignment" value="{{deliverable.type}}">
+                      <input matInput #input placeholder="Ex. Assignment"  [(ngModel)]="deliverable.type">
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="example-form-field">
                       <mat-label>Start Date:</mat-label>
-                      <input matInput [matDatepicker]="datepicker" value="{{deliverable.startDate}}">
+                      <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.startDate">
                       <mat-hint>MM/DD/YYYY</mat-hint>
                       <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
                       <mat-datepicker #datepicker>
@@ -48,7 +48,7 @@
 
                     <mat-form-field appearance="fill" class="example-form-field">
                       <mat-label>Due date:</mat-label>
-                      <input matInput [matDatepicker]="datepicker" value="{{deliverable.dueDate}}">
+                      <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.dueDate">
                       <mat-hint>MM/DD/YYYY</mat-hint>
                       <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
                       <mat-datepicker #datepicker>
@@ -60,11 +60,11 @@
                     </mat-form-field>
                     <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
                       <mat-label>Description: </mat-label>
-                      <input matInput #input placeholder="Ex. SEG4910 deliverable" value="{{deliverable.description}}">
+                      <input matInput #input placeholder="Ex. SEG4910 deliverable" [(ngModel)]="deliverable.description">
                     </mat-form-field>
                     <mat-form-field hintLabel="" appearance="fill">
                       <mat-label>Location: </mat-label>
-                      <input matInput #input placeholder="Ex. Ottawa" value="{{deliverable.location}}">
+                      <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
                     </mat-form-field>
                   </mat-expansion-panel>
                 </mat-accordion>

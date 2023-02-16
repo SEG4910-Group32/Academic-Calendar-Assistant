@@ -1,4 +1,4 @@
-import { Component, ViewChild , Inject} from '@angular/core';
+import { Component, ViewChild , Inject, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
