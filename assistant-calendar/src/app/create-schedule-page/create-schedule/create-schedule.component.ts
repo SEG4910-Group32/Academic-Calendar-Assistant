@@ -17,6 +17,8 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class CreateScheduleComponent {
 
+  showFiller = false;
+
   drop(event: CdkDragDrop<Deliverable[]>) {
     moveItemInArray(this.deliverables, event.previousIndex, event.currentIndex);
   }

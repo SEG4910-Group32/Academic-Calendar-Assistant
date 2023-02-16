@@ -32,7 +32,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatStepperModule} from '@angular/material/stepper';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
     declarations: [
         AppComponent,
@@ -71,7 +72,9 @@ import {MatStepperModule} from '@angular/material/stepper';
         ScrollingModule,
         MatNativeDateModule,
         MatChipsModule,
-        DragDropModule
+        DragDropModule,
+        MatSidenavModule,
+        MatTabsModule
 
     ]
 })
