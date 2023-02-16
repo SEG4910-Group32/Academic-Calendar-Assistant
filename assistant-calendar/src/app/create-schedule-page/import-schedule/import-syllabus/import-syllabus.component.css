@@ -57,7 +57,6 @@ mat-card{
   border: 1px solid #A4A4A4;
   border-radius: 15px;
   margin: 10px 0;
-  width: 642px;
   box-shadow: none;
 }
 
@@ -83,28 +82,37 @@ mat-card-subtitle{
   font-size: 14px;
 }
 mat-dialog-actions{
-  position: absolute;
-  width: 100%;
-  bottom: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   right: 10px;
+  position: absolute;
+  bottom: 0;
 }
-mat-dialog-actions #attachbtn{
+mat-dialog-actions button{
   width: 318px;
   height: 47px;
-  background: #435A86;
-  border: 1px solid #676D7A;
+  border: 1px solid;
   border-radius: 10px;
-  color: white;
   font-weight: 500;
   font-size: 16px;
 }
+mat-dialog-actions #attachbtn{
+  background: #435A86;
+  border-color: #676D7A;
+  color: white;
+
+}
 mat-dialog-actions #cancelbtn{
   background: #FFFFFF;
-  border: 1px solid #A4A4A4;
-  border-radius: 10px;
-  width: 318px;
-  height: 47px;
+  border-color: #A4A4A4;
   color: #434343;
-  font-weight: 700;
-  font-size: 16px;
+}
+.files{
+  height: 185px;
+  overflow-y: auto;
+}
+mat-dialog-content{
+  display: flex;
+  flex-direction: column;
 }
