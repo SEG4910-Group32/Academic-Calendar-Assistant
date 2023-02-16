@@ -51,4 +51,12 @@ export class ImportSyllabusComponent {
 
     return bytes.toFixed(+ precision) + ' ' + this.units[unit];
   }
+
+  removeFile(file: NgxFileDropEntry): void{
+    this.data.forEach((element,index)=>{
+      if(element==file) this.data.splice(index,1);
+    });
+    console.log(this.data.length);
+  }
+
 }

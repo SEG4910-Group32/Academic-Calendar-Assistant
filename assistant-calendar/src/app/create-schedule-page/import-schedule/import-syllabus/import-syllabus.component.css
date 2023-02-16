@@ -116,3 +116,8 @@ mat-dialog-content{
   display: flex;
   flex-direction: column;
 }
+#removeFile{
+  position: absolute;
+  right: 0;
+  margin: 10px;
+}
