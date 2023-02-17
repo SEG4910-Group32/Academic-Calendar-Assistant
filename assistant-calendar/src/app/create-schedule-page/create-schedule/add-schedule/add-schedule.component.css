@@ -1,0 +1,48 @@
+.addNewDelButton{
+    position: absolute;
+    right:    0;
+    bottom:   0;
+}
+.cancelNewDelButton{
+    position: absolute;
+    right:    20;
+    bottom:   0;
+}
+
+.example-form-field {
+    margin-right: 20px;
+  }
+
+#addbtn{
+    width: 318px;
+    height: 47px;
+    background: #435A86;
+    border: 1px solid #676D7A;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+#cancelbtn{
+    background: #FFFFFF;
+    border: 1px solid #A4A4A4;
+    border-radius: 10px;
+    width: 318px;
+    height: 47px;
+    color: #434343;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .title h3{
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0.025em;
+    color: #0E2655;
+    margin: 0;
+  }
+
+  .example-form-field {
+    width: 200px;
+  }
+  
