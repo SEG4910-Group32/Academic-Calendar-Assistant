@@ -42,7 +42,7 @@ export class CreateScheduleComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
 
-     height: '350px',
+     height: '400px',
      width: '800px',
 
       data: {task: this.type, dueDate: this.dueDate},

@@ -9,9 +9,9 @@
     <mat-grid-list cols="1">
 
 
-      <mat-grid-tile>
+     
         <!-- here -->
-        <cdk-virtual-scroll-viewport appendOnly itemSize="100" class="example-viewport">
+        
           <mat-card>
             <mat-card-header>
               <mat-card-title>List of deliverables:</mat-card-title>
@@ -72,15 +72,15 @@
             </mat-card-content>
           </mat-card>
           <!-- here -->
-        </cdk-virtual-scroll-viewport>
-      </mat-grid-tile>
+      
+      
 
 
     </mat-grid-list>
   </mat-tab>
   <mat-tab label="Tasks by month" >
-    <mat-grid-list cols="1">
-      <mat-grid-tile>
+    <mat-grid-list cols=1 gutterSize="15px" rowHeight="2:1">
+      <mat-grid-tile class="my-grid-tile">
         <mat-grid-list cols="1">
 
           <mat-card>

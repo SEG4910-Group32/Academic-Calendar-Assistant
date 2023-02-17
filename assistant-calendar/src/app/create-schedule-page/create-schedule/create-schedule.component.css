@@ -56,3 +56,10 @@
   height: 500px;
   width:100%;
 }
+
+.example-form-field {
+  width: 200px;
+}
+.my-grid-tile {
+  padding-top: 30% !important;
+}
