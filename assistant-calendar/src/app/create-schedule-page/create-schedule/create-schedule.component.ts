@@ -27,6 +27,7 @@ export class CreateScheduleComponent {
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+  
   @ViewChild(MatAccordion)
   accordion!: MatAccordion;
   type?: string ;
@@ -34,18 +35,14 @@ export class CreateScheduleComponent {
 
   panelOpenState = false;
 
-  // tmpType: string| undefined;
-  // tmpDueDate: string| undefined;
   deliverables = mockSchedules;
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
-
      height: '400px',
      width: '800px',
-
-      data: {task: this.type, dueDate: this.dueDate},
+     data: {task: this.type, dueDate: this.dueDate},
     });
 
     dialogRef.afterClosed().subscribe(result => {

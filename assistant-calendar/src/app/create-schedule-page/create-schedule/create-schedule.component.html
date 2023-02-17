@@ -1,163 +1,163 @@
 <div class="container">
-<h2>Create your schedule:</h2>
-<div class="createScheduleDescription">
-  <p>Here, you can make any necessary <b>edits or updates</b> to the imported information. If you haven't imported your syllabus <b>you can still
-      create your schedule from scratch.</b></p>
-</div>
+  <h2>Create your schedule:</h2>
+  <div class="createScheduleDescription">
+    <p>Here, you can make any necessary <b>edits or updates</b> to the imported information. If you haven't imported your syllabus <b>you can still
+        create your schedule from scratch.</b></p>
+  </div>
 
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="List of deliverables">
-    <mat-grid-list cols="1">
-
-
-     
-        <!-- here -->
-        
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>List of deliverables:</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div *ngFor="let deliverable of deliverables">
-                <mat-accordion>
-                  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        {{deliverable.type}}
-                      </mat-panel-title>
-                      <mat-panel-description>
-                        {{panelOpenState ? 'click on the arrow to close the details' : 'click on the arrow to view more details'}}
-                      </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
-                      <mat-label>Deliverable type: </mat-label>
-                      <input matInput #input placeholder="Ex. Assignment"  [(ngModel)]="deliverable.type">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill" class="example-form-field">
-                      <mat-label>Start Date:</mat-label>
-                      <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.startDate">
-                      <mat-hint>MM/DD/YYYY</mat-hint>
-                      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                      <mat-datepicker #datepicker>
-                        <mat-datepicker-actions>
-                          <button mat-button matDatepickerCancel>Cancel</button>
-                          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                        </mat-datepicker-actions>
-                      </mat-datepicker>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill" class="example-form-field">
-                      <mat-label>Due date:</mat-label>
-                      <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.dueDate">
-                      <mat-hint>MM/DD/YYYY</mat-hint>
-                      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                      <mat-datepicker #datepicker>
-                        <mat-datepicker-actions>
-                          <button mat-button matDatepickerCancel>Cancel</button>
-                          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                        </mat-datepicker-actions>
-                      </mat-datepicker>
-                    </mat-form-field>
-                    <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
-                      <mat-label>Description: </mat-label>
-                      <input matInput #input placeholder="Ex. SEG4910 deliverable" [(ngModel)]="deliverable.description">
-                    </mat-form-field>
-                    <mat-form-field hintLabel="" appearance="fill">
-                      <mat-label>Location: </mat-label>
-                      <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
-                    </mat-form-field>
-                  </mat-expansion-panel>
-                </mat-accordion>
-              </div>
-            </mat-card-content>
-          </mat-card>
-          <!-- here -->
-      
-      
-
-
-    </mat-grid-list>
-  </mat-tab>
-  <mat-tab label="Tasks by month" >
-    <mat-grid-list cols=1 gutterSize="15px" rowHeight="2:1">
-      <mat-grid-tile class="my-grid-tile">
-        <mat-grid-list cols="1">
-
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>January</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip color="accent" class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
-                  {{deliverable.type}}
-                </mat-chip>
-              </mat-chip-set>
-            </mat-card-content>
-          </mat-card>
-
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>March</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
-                  {{deliverable.type}}
-                </mat-chip>
-              </mat-chip-set>
-            </mat-card-content>
-          </mat-card>
-
-        </mat-grid-list>
-        <!--  -->
-        <mat-grid-list cols="1">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>February</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
-                  {{deliverable.type}}
-                </mat-chip>
-              </mat-chip-set>
-            </mat-card-content>
-          </mat-card>
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>April</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
-                  {{deliverable.type}}
-                </mat-chip>
-              </mat-chip-set>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-list>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-tab>
-</mat-tab-group>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="List of deliverables">
+      <mat-grid-list cols="1">
 
 
 
 
 
-<div class="addButton" >
-  <button mat-button (click)="openDialog()">
-    <mat-icon>add</mat-icon>Add deliverable
-  </button>
-</div>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>List of deliverables:</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngFor="let deliverable of deliverables">
+              <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{deliverable.type}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{panelOpenState ? 'click on the arrow to close the details' : 'click on the arrow to view more details'}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
+                    <mat-label>Deliverable type: </mat-label>
+                    <input matInput #input placeholder="Ex. Assignment" [(ngModel)]="deliverable.type">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="example-form-field">
+                    <mat-label>Start Date:</mat-label>
+                    <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.startDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                      <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                      </mat-datepicker-actions>
+                    </mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="example-form-field">
+                    <mat-label>Due date:</mat-label>
+                    <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.dueDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                      <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                      </mat-datepicker-actions>
+                    </mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
+                    <mat-label>Description: </mat-label>
+                    <input matInput #input placeholder="Ex. SEG4910 deliverable" [(ngModel)]="deliverable.description">
+                  </mat-form-field>
+                  <mat-form-field hintLabel="" appearance="fill">
+                    <mat-label>Location: </mat-label>
+                    <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
+                  </mat-form-field>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </mat-card-content>
+        </mat-card>
 
 
 
-<div class="hint">
-  <p>
-    Finally, it’s time to submit your schedule. Click on <mat-icon>arrow_right</mat-icon> to move to the next step!
-  </p>
-</div>
+
+
+      </mat-grid-list>
+    </mat-tab>
+    <mat-tab label="Tasks by month">
+      <mat-grid-list cols=1 gutterSize="15px" rowHeight="2:1">
+        <mat-grid-tile class="my-grid-tile">
+          <mat-grid-list cols="1">
+
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>January</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                  <mat-chip color="accent" class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
+                    {{deliverable.type}}
+                  </mat-chip>
+                </mat-chip-set>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>March</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                  <mat-chip class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
+                    {{deliverable.type}}
+                  </mat-chip>
+                </mat-chip-set>
+              </mat-card-content>
+            </mat-card>
+
+          </mat-grid-list>
+          <!--  -->
+          <mat-grid-list cols="1">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>February</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                  <mat-chip class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
+                    {{deliverable.type}}
+                  </mat-chip>
+                </mat-chip-set>
+              </mat-card-content>
+            </mat-card>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>April</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <mat-chip-set class="example-chip" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                  <mat-chip class="example-box" cdkDrag *ngFor="let deliverable of deliverables">
+                    {{deliverable.type}}
+                  </mat-chip>
+                </mat-chip-set>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-list>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-tab>
+  </mat-tab-group>
+
+
+
+
+
+  <div class="addButton">
+    <button mat-button (click)="openDialog()">
+      <mat-icon>add</mat-icon>Add deliverable
+    </button>
+  </div>
+
+
+
+  <div class="hint">
+    <p>
+      Finally, it’s time to submit your schedule. Click on <mat-icon>arrow_right</mat-icon> to move to the next step!
+    </p>
+  </div>
 </div>
