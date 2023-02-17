@@ -1,0 +1,46 @@
+.form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    padding: 2em;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.form-row+.form-row {
+    margin-top: 1em;
+}
+
+.submit-btn {
+    width: fit-content;
+    background-color: var(--background-green);
+    align-self: center;
+}
+
+.sign-up-link,
+.sign-in-link, 
+.forgot-password {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.sign-up-link:active,
+.sign-in-link:active,
+.forgot-password:active {
+    color: purple;
+}
+
+.sign-up-link {
+    margin-left: 0.5em;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+}
