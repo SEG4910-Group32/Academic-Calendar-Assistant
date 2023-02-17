@@ -14,9 +14,7 @@
     margin: 100px 0 50px;
     font-size: 24px;
   }
-  .createScheduleDescription{
-    margin-top: 50px;
-  }
+
   .hint{
     position: absolute;
     bottom: 0;
@@ -34,13 +32,14 @@
     border-radius: 50%;
   }
   .addButton{
-  background-color: #FCFCFC;
-  position: absolute;
-  
-  border-color: #AEAEAE;
-  color: #308B2E;
-  margin-left: 42.5%;
- 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    display: block;
+    margin: auto;
   }
 
 .listOfDeliverables{
@@ -62,4 +61,13 @@
 }
 .my-grid-tile {
   padding-top: 30% !important;
+}
+.container{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: flex-start; */
+  gap: 5px;
 }
