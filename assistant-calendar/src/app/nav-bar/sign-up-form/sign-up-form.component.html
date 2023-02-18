@@ -1,1 +1,36 @@
-<p>sign-up-form works!</p>
+<div class="form" [formGroup]="signUpForm">
+    <div class="form-row">
+        <h1>Sign Up</h1>
+    </div>
+
+    <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
+        <mat-label>email</mat-label>
+        <input matInput formControlName="email">
+    </mat-form-field>
+
+    <div class="form-row name-group">
+        <mat-form-field class="row-item" [floatLabel]="'always'" appearance="fill">
+            <mat-label>first name</mat-label>
+            <input matInput formControlName="firstName">
+        </mat-form-field>
+        
+        <mat-form-field class="row-item" [floatLabel]="'always'" appearance="fill">
+            <mat-label>last name</mat-label>
+            <input matInput formControlName="lastName">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
+        <mat-label>password</mat-label>
+        <input matInput formControlName="password">
+    </mat-form-field>
+
+    <div class="form-row">
+        <button mat-stroked-button class="submit-btn" (click)="submit()">Sign Up</button>
+    </div>
+
+    <div class="form-row footer">
+        <div>Already have an account?</div>
+        <div class="sign-up-link" (click)="openSignInForm()">Sign in</div>
+    </div>
+</div>
