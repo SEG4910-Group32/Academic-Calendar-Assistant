@@ -69,4 +69,6 @@
     display: flex;
     align-items: flex-start;
   }
-  
+  .example-full-width {
+    width: 100%;
+  }

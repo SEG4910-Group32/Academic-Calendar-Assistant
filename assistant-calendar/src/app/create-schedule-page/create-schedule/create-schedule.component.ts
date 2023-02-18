@@ -47,7 +47,7 @@ export class CreateScheduleComponent {
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({type:result.type , dueDate:result.dueDate, startDate: result.dueDate,location: result.dueDate,description: result.dueDate });
+      mockSchedules.push({type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
     });
