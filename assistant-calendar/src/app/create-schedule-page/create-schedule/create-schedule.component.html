@@ -64,8 +64,9 @@
                     <input matInput #input placeholder="Ex. SEG4910 deliverable" [(ngModel)]="deliverable.description">
                   </mat-form-field>
                   <mat-form-field hintLabel="" appearance="fill">
-                    <mat-label>Location: </mat-label>
+                    <mat-label>Location:</mat-label>
                     <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
+                    <i class="material-icons" matSuffix>location_on</i>
                   </mat-form-field>
                 </mat-expansion-panel>
               </mat-accordion>
@@ -73,14 +74,10 @@
           </mat-card-content>
         </mat-card>
 
-
-
-
-
       </mat-grid-list>
     </mat-tab>
     <mat-tab label="Tasks by month">
-      <mat-grid-list cols=1 gutterSize="15px" rowHeight="2:1">
+      <mat-grid-list cols=1 rowHeight="16rem">
         <mat-grid-tile class="my-grid-tile">
           <mat-grid-list cols="1">
 
@@ -156,8 +153,6 @@
 
 
   <div class="hint">
-    <p>
-      Finally, it’s time to submit your schedule. Click on <mat-icon>arrow_right</mat-icon> to move to the next step!
-    </p>
+    <p>Finally, it’s time to submit your schedule. Click on next to move to the next step!</p>
   </div>
 </div>

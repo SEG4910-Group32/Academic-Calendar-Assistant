@@ -1,13 +1,20 @@
+<div class="example-container">
 <mat-dialog-content>
   <div class="title">
     <h3>Add new deliverable:</h3>
   </div>
-  <div>
+  <div class="example-form-fields">
     <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
       <mat-label>Deliverable type: </mat-label>
       <input matInput #input placeholder="Ex. Assignment" [(ngModel)]="data.type">
     </mat-form-field>
 
+    <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
+      <mat-label>Description: </mat-label>
+      <input matInput #input placeholder="Ex. 2023-02-06" [(ngModel)]="data.description">
+    </mat-form-field>
+  </div>
+  <div class="example-form-fields">
     <mat-form-field appearance="fill" class="example-form-field">
       <mat-label>Start Date:</mat-label>
       <input matInput [matDatepicker]="datepicker" [(ngModel)]="data.startDate">
@@ -33,16 +40,18 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
-
+  </div>
+  <div class="example-form-fields">
+   
+  
+    
     <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
       <mat-label>Location: </mat-label>
-      <input matInput #input placeholder="Ex. 2023-02-06" [(ngModel)]="data.location">
+      <input matInput #input placeholder="Ottawa" [(ngModel)]="data.location">
     </mat-form-field>
 
-    <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
-      <mat-label>Description: </mat-label>
-      <input matInput #input placeholder="Ex. 2023-02-06" [(ngModel)]="data.description">
-    </mat-form-field>
+   
+    <mat-checkbox ><strong>All day event</strong></mat-checkbox>
   </div>
 
   <mat-dialog-actions>
@@ -50,3 +59,4 @@
     <button mat-button [mat-dialog-close]="data" id="addbtn">Add</button>
   </mat-dialog-actions>
 </mat-dialog-content>
+</div>
