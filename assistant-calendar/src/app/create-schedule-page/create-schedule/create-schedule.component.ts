@@ -8,7 +8,7 @@ import {MatAccordion} from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-create-schedule',
@@ -19,9 +19,9 @@ export class CreateScheduleComponent {
 
   showFiller = false;
 
-  drop(event: CdkDragDrop<Deliverable[]>) {
-    moveItemInArray(this.deliverables, event.previousIndex, event.currentIndex);
-  }
+  // drop(event: CdkDragDrop<Deliverable[]>) {
+  //   moveItemInArray(this.deliverables, event.previousIndex, event.currentIndex);
+  // }
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -51,6 +51,27 @@ export class CreateScheduleComponent {
       console.log("result.type",result.type);
       console.log(mockSchedules);
     });
+    
+  }
+
+  January = ['Assignment 1'];
+  February = ['Assignment 2'];
+  March = ['Assignment 3'];
+  April = ['Assignment 4'];
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+    // console.log(this.done);
+    // console.log(this.todo);
     
   }
 }

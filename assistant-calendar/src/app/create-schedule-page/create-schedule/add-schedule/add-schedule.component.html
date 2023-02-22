@@ -32,7 +32,7 @@
 
     <mat-form-field appearance="fill" class="example-form-field">
       <mat-label>Due date:</mat-label>
-      <input matInput [matDatepicker]="adatepicker" [(ngModel)]="data.dueDate">
+      <input matInput [matDatepicker]="adatepicker" [(ngModel)]="data.dueDate" required>
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="adatepicker"></mat-datepicker-toggle>
       <mat-datepicker #adatepicker>

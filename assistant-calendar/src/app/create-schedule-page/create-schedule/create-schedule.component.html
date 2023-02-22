@@ -36,7 +36,7 @@
 
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Start Date:</mat-label>
-                    <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.startDate" >
+                    <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.startDate">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
                     <mat-datepicker #datepicker>
@@ -141,7 +141,69 @@
   </mat-tab-group>
 
 
+  <div class="example-container">
+    <h2>January</h2>
+  
+    <div
+      cdkDropList
+      #jan="cdkDropList"
+      [cdkDropListData]="January"
+      [cdkDropListConnectedTo]="[feb, mar, apr]"
+   
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of January" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+  
+  <div class="example-container">
+    <h2>February</h2>
+  <!-- [cdkDropListConnectedTo]="[mar]"
+      [cdkDropListConnectedTo]="[apr]"
+       [cdkDropListConnectedTo]="[mar]"
+      [cdkDropListConnectedTo]="[apr]" -->
+    <div
+      cdkDropList
+      #feb="cdkDropList"
+      [cdkDropListData]="February"
+      [cdkDropListConnectedTo]="[jan, mar, apr]"
+      
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of February" cdkDrag>{{item}}</div>
+    </div>
+  </div>
 
+  <div class="example-container">
+    <h2>March</h2>
+  
+    <div
+      cdkDropList
+      #mar="cdkDropList"
+      [cdkDropListData]="March"
+      [cdkDropListConnectedTo]="[jan, feb, apr]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of March" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>April</h2>
+  
+    <div
+      cdkDropList
+      #apr="cdkDropList"
+      [cdkDropListData]="April"
+      [cdkDropListConnectedTo]="[jan,  feb, mar]"
+
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of April" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+  
+  
 
 
   <div class="addButton">
