@@ -123,3 +123,8 @@ h2{
   line-height: 77px;
   color: #000000;
 }
+
+mat-grid-list, mat-grid-tile {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
