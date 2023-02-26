@@ -1,6 +1,6 @@
 ## Steps to run:
--navigate to the DBServer folder in commandline
--run "npm start"
+- navigate to the DBServer folder in commandline
+- run "npm start"
 
 will need to figure out deployment later for running the server online (heroku currently in consideration)
 
