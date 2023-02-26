@@ -1,0 +1,35 @@
+<div class="nav-bar-container">
+    <div class="logo">
+        <img src="../../assets/logo imagelogo.png" alt="">
+    </div>
+    <div class="nav-bar-items">
+        <div class="nav-bar-item">
+            Home
+        </div>
+        <div class="nav-bar-item select-menu">
+            <div class="select-btn" (click)="toggleDropdown()">
+                Schedule
+                <i class="bx bx-chevron-down"></i>
+            </div>
+            <ul class="options">
+                <li class="option">
+                    <span class="option-text" (click)="toggleDropdown()">Create Schedule</span>
+                </li>
+                <li class="option">
+                    <span class="option-text" (click)="toggleDropdown()">Subscribe to Schedule</span>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-bar-item">
+            About us
+        </div>
+    </div>
+    <div class="prompts">
+        <div class="sign-in" (click)="openSignInForm()">
+            Sign in
+        </div>
+        <div class="get-started" (click)="openSignUpForm()">
+            Get Started
+        </div>
+    </div>
+</div>

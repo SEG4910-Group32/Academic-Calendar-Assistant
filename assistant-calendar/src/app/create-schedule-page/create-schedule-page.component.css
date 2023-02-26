@@ -1,0 +1,17 @@
+.containerWrap{
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.step{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: 20%;
+}
+
+.step .navigationBtn{
+  align-self: flex-end;
+}

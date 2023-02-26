@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    font-family: 'Inter', sans-serif;
+    --border-gray: #A4A4A4;
+    --background-gray: #F1EFFF;
+    --border-green: #308B2E;
+    --background-green: #66CC64;
+    --background-green-hover: #8be08a;
+    --nav-bar-background: #526DA3;
+    --nav-bar-background-hover: #667eaf;
+    --nav-bar-main-text: #DDDBF1;
+    --nav-bar-main-text-hover: #ecebf5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
