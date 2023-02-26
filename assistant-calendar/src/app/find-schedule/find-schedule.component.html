@@ -1,0 +1,23 @@
+<div class="main">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <h1>Find your Schedule:</h1>
+    <br>
+    <h2>Enter the id provided in the box down below to look for the schedule</h2>
+    <br>
+    <br>
+    <div>
+
+        <form (ngSubmit)="searchID()" class="form-group has-search">
+            <label for="scheduleId" style="margin-top: 0.4rem;">Schedule ID: </label>
+            <mat-form-field name="search" [(ngModel)]="search" type="text" class="form-control"
+                placeholder="Search"></mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Search Something</mat-label>
+                    <input type="text" matInput placeholder="Type something..">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+        </form>
+
+    </div>
+</div>
