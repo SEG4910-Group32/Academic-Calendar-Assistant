@@ -8,8 +8,6 @@ import { MaterialModule } from 'src/material.module';
 import { AppComponent } from './app.component';
 
 import { FindScheduleComponent } from './find-schedule/find-schedule.component';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +40,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   declarations: [
     AppComponent,
 
-    FindScheduleComponent
+    FindScheduleComponent,
     LoginFormComponent,
     SignUpFormComponent,
     NavBarComponent,
@@ -64,7 +62,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
     MatFormFieldModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
