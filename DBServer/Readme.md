@@ -1,4 +1,4 @@
-## Meetings Schedule:
+## Steps to run:
 -navigate to the DBServer folder in commandline
 -run "npm start"
 
