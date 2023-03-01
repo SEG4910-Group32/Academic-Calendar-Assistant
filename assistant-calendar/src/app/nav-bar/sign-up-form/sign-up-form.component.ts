@@ -1,6 +1,9 @@
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+import { User } from '../../shared/user.model';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -23,7 +26,8 @@ export class SignUpFormComponent {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SignUpFormComponent>
+    public dialogRef: MatDialogRef<SignUpFormComponent>,
+    private http: HttpClient
   ) { }
 
   getFormValues(): Object {
@@ -40,35 +44,71 @@ export class SignUpFormComponent {
     let valid = true
 
     if (valid) {
-      this.createUser(this.signUpForm.getRawValue())
+      
+      
+      this.createUser(this.signUpForm.value)
     }
   }
 
   createUser = async (newUser: Object) => {
-    let results = await fetch("http://localhost:3000/user/create", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(newUser)
-    }).then(
+
+    this.http.post("http://localhost:3000/user/create",newUser).subscribe(
       resp => {
         this.showSucessMessage = true;
+        this.serverErrorMessages = "";
+        
         setTimeout(() => this.showSucessMessage = false, 4000);
         this.signUpForm.reset();
       },
       err => {
         if (err.status === 422) {
-          this.serverErrorMessages = err.error.join('<br/>');
+          console.log(err.error);
+          
+          this.serverErrorMessages = err.error.join('\n');
         }
         else {
           this.serverErrorMessages = 'Unknown error occurred';
         }
-      });
-    console.log(results);
+      }
+    )
+
+    // let results = await fetch("http://localhost:3000/user/create", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json"
+    //   },
+    //   body: JSON.stringify(newUser)
+    // }).then(
+    //   resp => {
+    //     if (resp.status === 422) {
+    //       console.log(resp.error);
+          
+    //       this.serverErrorMessages = resp.error.join('<br/>');
+    //     }
+    //     else {
+    //       this.serverErrorMessages = 'Unknown error occurred';
+    //     }
+
+    //     console.log(resp);
+    //     this.showSucessMessage = true;
+        
+    //     setTimeout(() => this.showSucessMessage = false, 4000);
+    //     this.signUpForm.reset();
+    //   },
+    //   err => {
+    //     if (err.status === 422) {
+    //       console.log(err.error);
+          
+    //       this.serverErrorMessages = err.error.join('<br/>');
+    //     }
+    //     else {
+    //       this.serverErrorMessages = 'Unknown error occurred';
+    //     }
+    //   });
+    // console.log(results);
 
 
-    return results
+    
 
   }
 
