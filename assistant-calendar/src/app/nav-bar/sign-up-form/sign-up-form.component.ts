@@ -6,7 +6,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
   styleUrls: ['./sign-up-form.component.css',
-              '../../form-styles.css']
+    '../../form-styles.css']
 })
 
 export class SignUpFormComponent {
@@ -16,12 +16,15 @@ export class SignUpFormComponent {
     lastName: [''],
     password: ['']
   });
+  errors: any;
+  serverErrorMessages: any;
+  showSucessMessage!: boolean;
 
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<SignUpFormComponent>
-  ) {}
+  ) { }
 
   getFormValues(): Object {
     return {
@@ -33,7 +36,40 @@ export class SignUpFormComponent {
   }
 
   submit() {
-    console.log(this.getFormValues());
+    console.log(this.signUpForm.getRawValue());
+    let valid = true
+
+    if (valid) {
+      this.createUser(this.signUpForm.getRawValue())
+    }
+  }
+
+  createUser = async (newUser: Object) => {
+    let results = await fetch("http://localhost:3000/user/create", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(newUser)
+    }).then(
+      resp => {
+        this.showSucessMessage = true;
+        setTimeout(() => this.showSucessMessage = false, 4000);
+        this.signUpForm.reset();
+      },
+      err => {
+        if (err.status === 422) {
+          this.serverErrorMessages = err.error.join('<br/>');
+        }
+        else {
+          this.serverErrorMessages = 'Unknown error occurred';
+        }
+      });
+    console.log(results);
+
+
+    return results
+
   }
 
   openSignInForm(): void {
