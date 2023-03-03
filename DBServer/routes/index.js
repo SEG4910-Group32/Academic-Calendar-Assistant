@@ -2,6 +2,7 @@ const { json } = require('express');
 var express = require('express');
 var router = express.Router();
 // import db from "../db/conn.js"
+require("../db/user.model")
 
 const mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://calendarAssistant:Password1@calendarassistant.n45huxo.mongodb.net/caDB?retryWrites=true&w=majority");
@@ -113,7 +114,7 @@ router.delete("/schedule/:id", async (req, res) => {
 
 
 
-
+const User = mongoose.model("User");
 
 // ---------------------------------
 /* GET Users. */
@@ -130,9 +131,27 @@ router.get('/user/', async function (req, res, next) {
 // ---------------------------------
 router.post('/user/create', async function (req, res, next) {
 
-  let results = await db.collection("Users").insertOne(req.body);
+  //let results = await db.collection("Users").insertOne(req.body);
+  console.log("test");
+  let user = new User();
+  user.email = req.body.email;
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.password = req.body.password;
+  user.save((err, doc) => {
+    if (!err)
+        res.send(doc);
+    else {
+        if (err.code == 11000)
+            res.status(422).send(['Duplicate email adrress found.']);
+        else
+            return next(err);
+    }
 
-  res.send(results).status(204);
+});
+
+
+ // res.send(results).status(204);
 });
 
 // ---------------------------------
