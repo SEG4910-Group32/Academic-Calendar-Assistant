@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -9,15 +9,18 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
               '../../../form-styles.css']
 })
 export class ForgotPasswordFormComponent {
-  email = new FormControl('');
+  forgotPasswordForm = this.fb.group({
+    email: ['']
+  });
 
   constructor(
+    public fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<ForgotPasswordFormComponent>
   ) {}
 
   submit(): void {
-    console.log(this.email);
+    console.log(this.forgotPasswordForm.controls.email.value);
     this.dialogRef.close('openVerificationForm');
   }
 }

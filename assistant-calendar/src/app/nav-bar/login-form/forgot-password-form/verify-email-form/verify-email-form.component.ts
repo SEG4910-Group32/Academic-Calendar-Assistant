@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -9,15 +9,18 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
               '../../../../form-styles.css']
 })
 export class VerifyEmailFormComponent {
-  verificationCode = new FormControl('');
+  verifyCodeForm = this.fb.group({
+    code: ['']
+  });
 
   constructor(
+    public fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<VerifyEmailFormComponent>
   ) {}
 
   submit(): void {
-    console.log(this.verificationCode);
+    console.log(this.verifyCodeForm.controls.code.value);
     this.dialogRef.close('openNewPassForm');
   }
 }

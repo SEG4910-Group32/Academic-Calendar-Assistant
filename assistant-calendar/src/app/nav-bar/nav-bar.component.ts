@@ -17,6 +17,26 @@ export class NavBarComponent {
     public dialog: MatDialog
   ) {}
 
+  switchState(state: string): void {
+    switch(state) {
+      case 'openSignIn':
+        this.openSignInForm();
+        break;
+      case 'openSignUp':
+        this.openSignUpForm();
+        break;
+      case 'openForgotPass':
+        this.openForgotPasswordForm();
+        break;
+      case 'openVerificationForm':
+        this.openVerificationForm();
+        break;
+      case 'openNewPassForm':
+        this.openNewPasswordForm();
+        break;
+    }
+  }
+
   openSignInForm(): void {
     const dialogRef = this.dialog.open(LoginFormComponent, {
       height: '450px',
@@ -24,13 +44,7 @@ export class NavBarComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 'openSignUp') {
-        this.openSignUpForm();
-      }
-
-      if (result == 'openForgotPass') {
-        this.openForgotPasswordForm();
-      }
+      this.switchState(result);
     });
   }
 
@@ -41,9 +55,7 @@ export class NavBarComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 'openSignIn') {
-        this.openSignInForm();
-      }
+      this.switchState(result);
     });
   }
 
@@ -54,9 +66,7 @@ export class NavBarComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result == 'openVerificationForm') {
-        this.openVerificationForm();
-      }
+      this.switchState(result);
     });
   }
 
@@ -67,10 +77,7 @@ export class NavBarComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result == 'openNewPassForm') {
-        this.openNewPasswordForm();
-      }
+      this.switchState(result);
     });
   }
 

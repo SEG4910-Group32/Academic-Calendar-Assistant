@@ -7,6 +7,17 @@
         <mat-label>email</mat-label>
         <input matInput formControlName="email">
     </mat-form-field>
+    
+    <div *ngIf="signUpForm.controls.email.errors && (signUpForm.controls.email.touched || signUpForm.controls.email.dirty)" class="error-message">
+        <div *ngIf="signUpForm.controls.email.errors?.['required']">
+            <i class='bx bxs-error-circle'></i>
+            email is required
+        </div>
+        <div *ngIf="signUpForm.controls.email.errors?.['email']">
+            <i class='bx bxs-error-circle'></i>
+            email must be in email format
+        </div>
+    </div>
 
     <div class="form-row name-group">
         <mat-form-field class="row-item" [floatLabel]="'always'" appearance="fill">
@@ -20,10 +31,53 @@
         </mat-form-field>
     </div>
 
+    <div class="error-message">
+        <div *ngIf="signUpForm.controls.firstName.errors && (signUpForm.controls.firstName.touched || signUpForm.controls.firstName.dirty)">
+            <div *ngIf="signUpForm.controls.firstName.errors?.['required']">
+                <i class='bx bxs-error-circle'></i>
+                first name is required
+            </div>
+            <div *ngIf="signUpForm.controls.firstName.errors?.['pattern']">
+                <i class='bx bxs-error-circle'></i>
+                first name can only contain letters
+            </div>
+        </div>
+    
+        <div *ngIf="signUpForm.controls.lastName.errors && (signUpForm.controls.lastName.touched || signUpForm.controls.lastName.dirty)">
+            <div *ngIf="signUpForm.controls.lastName.errors?.['required']">
+                <i class='bx bxs-error-circle'></i>
+                last name is required
+            </div>
+            <div *ngIf="signUpForm.controls.lastName.errors?.['pattern']">
+                <i class='bx bxs-error-circle'></i>
+                last name can only contain letters
+            </div>
+        </div>
+    </div>
+
     <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
         <mat-label>password</mat-label>
         <input matInput formControlName="password">
     </mat-form-field>
+
+    <div *ngIf="signUpForm.controls.password.errors && (signUpForm.controls.password.touched || signUpForm.controls.password.dirty)" class="error-message">
+        <div *ngIf="signUpForm.controls.password.errors?.['required']">
+            <i class='bx bxs-error-circle'></i>
+            password is required
+        </div>
+        <div *ngIf="signUpForm.controls.password.errors?.['minlength']">
+            <i class='bx bxs-error-circle'></i>
+            password must be at least 8 characters long
+        </div>
+        <div *ngIf="signUpForm.controls.password.errors?.['maxlength']">
+            <i class='bx bxs-error-circle'></i>
+            password must be at most 16 characters long
+        </div>
+        <div *ngIf="signUpForm.controls.password.errors?.['contains']">
+            <i class='bx bxs-error-circle'></i>
+            password must contain at least 1 character and 1 symbol
+        </div>
+    </div>
 
     <div class="form-row">
         <button mat-stroked-button class="submit-btn" (click)="submit()">Sign Up</button>

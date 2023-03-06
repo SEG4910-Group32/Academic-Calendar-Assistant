@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -11,8 +11,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export class LoginFormComponent {
   signInForm = this.fb.group({
-    email: [''],
-    password: ['']
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
   });
 
   constructor(
@@ -31,6 +31,7 @@ export class LoginFormComponent {
 
   submit(): void {
     console.log(this.getFormValues());
+    console.log(this.signInForm.controls.email);
   }
 
   openSignUpForm(): void {
