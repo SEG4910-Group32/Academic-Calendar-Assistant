@@ -23,11 +23,11 @@ export class EmailService {
     let code = this.generateConfirmationCode();
 
     Email.send({
-        SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
-        To : email,
-        From : "seg4910team32test@gmail.com",
-        Subject : "Confirmation Code",
-        Body : code
+      SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
+      To : email,
+      From : "seg4910team32test@gmail.com",
+      Subject : "Confirmation Code",
+      Body : code
     });
 
     return of(code);
@@ -35,13 +35,29 @@ export class EmailService {
 
   sendAccountCreatedEmail(email: string): Observable<string> {
     Email.send({
-        SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
-        To : email,
-        From : "seg4910team32test@gmail.com",
-        Subject : "Confirmation Code",
-        Body : "Accound Successfully Created"
+      SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
+      To : email,
+      From : "seg4910team32test@gmail.com",
+      Subject : "Confirmation Code",
+      Body : "Account Successfully Created"
     });
 
     return of("account created");
   }
+
+  sendPasswordChangedEmail(email: string): Observable<string> {
+    Email.send({
+      SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
+      To : email,
+      From : "seg4910team32test@gmail.com",
+      Subject : "Confirmation Code",
+      Body : "Password Successfully Changed"
+    });
+
+    return of("password changed");
+  }
+
+  // possibly email schedule in the future
+
+  // possibly email notification when event created
 }
