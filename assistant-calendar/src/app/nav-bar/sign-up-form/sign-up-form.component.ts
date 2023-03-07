@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { mustContainValidator } from 'src/app/must-contain-validator';
+import { EmailService } from 'src/app/email.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -23,7 +24,8 @@ export class SignUpFormComponent {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<SignUpFormComponent>
+    public dialogRef: MatDialogRef<SignUpFormComponent>,
+    public email: EmailService
   ) {}
 
   getFormValues(): Object {
@@ -38,6 +40,9 @@ export class SignUpFormComponent {
   submit() {
     console.log(this.getFormValues());
     console.log(this.signUpForm.controls);
+    // this.email.sendAccountCreatedEmail("").subscribe(res => {
+    //   console.log(res);
+    // });
   }
 
   openSignInForm(): void {

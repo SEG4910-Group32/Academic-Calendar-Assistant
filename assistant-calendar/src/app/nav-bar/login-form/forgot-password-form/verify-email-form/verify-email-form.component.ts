@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EmailService } from 'src/app/email.service';
+// declare let Email: any;
 
 @Component({
   selector: 'app-verify-email-form',
@@ -12,27 +14,20 @@ export class VerifyEmailFormComponent {
   verifyCodeForm = this.fb.group({
     code: ['']
   });
+  code = "";
 
   constructor(
     public fb: FormBuilder,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<VerifyEmailFormComponent>
+    public dialogRef: MatDialogRef<VerifyEmailFormComponent>,
+    public email: EmailService
   ) {}
 
-  ngOnInit() {
-    console.log(this.generateConfirmationCode());
-  }
-
-  generateConfirmationCode(): string {
-    let res = "";
-
-    for (let i = 0; i < 6; i++) {
-      let c = Math.floor(Math.random() * 89) + 33;
-      res += String.fromCharCode(c);
-    }
-
-    return res;
-  }
+  // ngOnInit() {
+  //   this.email.sendConfirmationEmail("").subscribe(res => {
+  //     this.code = res;
+  //   });
+  // }
 
   getFormValues(): Object {
     return {
