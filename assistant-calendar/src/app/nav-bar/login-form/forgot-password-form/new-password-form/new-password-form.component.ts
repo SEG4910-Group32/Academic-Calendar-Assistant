@@ -20,6 +20,9 @@ export class NewPasswordFormComponent {
     public dialogRef: MatDialogRef<NewPasswordFormComponent>
   ) {}
   
+  validatePasswords(): boolean {
+    return this.newPasswordForm.controls.password.value === this.newPasswordForm.controls.confirm.value;
+  }
 
   getFormValues(): Object {
     return {
@@ -28,12 +31,8 @@ export class NewPasswordFormComponent {
     }
   }
 
-  validateMatchingPasswords(): boolean {
-    return this.newPasswordForm.controls.password.value === this.newPasswordForm.controls.confirm.value;
-  }
-
   submit(): void {
     console.log(this.getFormValues());
-    console.log(this.validateMatchingPasswords());
+    console.log(this.validatePasswords());
   }
 }

@@ -28,10 +28,10 @@ export class NavBarComponent {
       case 'openForgotPass':
         this.openForgotPasswordForm();
         break;
-      case 'openVerificationForm':
+      case 'openVerification':
         this.openVerificationForm();
         break;
-      case 'openNewPassForm':
+      case 'openNewPass':
         this.openNewPasswordForm();
         break;
     }

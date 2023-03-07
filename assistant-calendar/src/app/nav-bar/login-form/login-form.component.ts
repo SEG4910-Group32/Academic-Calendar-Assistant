@@ -21,7 +21,6 @@ export class LoginFormComponent {
     public dialogRef: MatDialogRef<LoginFormComponent>
   ) {}
   
-
   getFormValues(): Object {
     return {
       email: this.signInForm.controls.email.value,
@@ -31,7 +30,6 @@ export class LoginFormComponent {
 
   submit(): void {
     console.log(this.getFormValues());
-    console.log(this.signInForm.controls.email);
   }
 
   openSignUpForm(): void {

@@ -43,5 +43,4 @@ export class SignUpFormComponent {
   openSignInForm(): void {
     this.dialogRef.close('openSignIn');
   }
-
 }

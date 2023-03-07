@@ -19,8 +19,18 @@ export class ForgotPasswordFormComponent {
     public dialogRef: MatDialogRef<ForgotPasswordFormComponent>
   ) {}
 
+  getFormValues(): Object {
+    return {
+      email: this.forgotPasswordForm.controls.email.value
+    }
+  }
+
   submit(): void {
-    console.log(this.forgotPasswordForm.controls.email.value);
-    this.dialogRef.close('openVerificationForm');
+    console.log(this.getFormValues());
+    this.openVerificationForm();
+  }
+
+  openVerificationForm(): void {
+    this.dialogRef.close('openVerification');
   }
 }
