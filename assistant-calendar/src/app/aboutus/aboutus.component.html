@@ -1,0 +1,40 @@
+<link href="https://fonts.cdnfonts.com/css/grand-hotel" rel="stylesheet">
+<style>
+@import url('https://fonts.cdnfonts.com/css/grand-hotel');
+</style>
+
+<div class="about-us-container">
+  <div class= "banner">
+    <div id="about-us-label">
+      <h1>About Us</h1>
+    </div>
+    <div id="social-media-container"> 
+      <div class="social-media" *ngFor = "let socialmedia of socialmedias">
+        <mat-card>
+          <img mat-card-image [src]="'assets/images/' + socialmedia.id + '.png'">
+        </mat-card>
+      </div>
+    </div>
+  </div> 
+  <div class = "description">
+    <p>
+    We are a team of passionate developers who have come together to create the ultimate calendar web app using Angular. <br>
+    Our goal is to provide a seamless and intuitive platform that streamlines scheduling, enhances productivity, and makes life easier for individuals and organizations alike.<br>
+    Whether you are an individual looking to keep track of your personal schedule or a business looking for an efficient way to manage team calendars, our web app has you covered.<br> 
+   
+    <br>
+    At our core, we believe that technology should make life easier, not more complicated. <br>
+    That's why we've created a calendar web app that is both simple to use and incredibly powerful.<br> 
+    We're committed to providing you with the best possible experience and welcome your feedback as we continue to develop and improve our app.<br>
+    <br>
+    Best Regards,<br>
+    Our commited and passionate team :<br>
+    </p>
+  </div>
+  <div class="team-grid">
+    <mat-card class="team-member" *ngFor="let member of members">
+      <img mat-card-image [src]="'assets/images/' + member.id + '.png'">
+      <mat-card-title>{{ member.name }}</mat-card-title>
+    </mat-card>
+  </div>
+</div>
