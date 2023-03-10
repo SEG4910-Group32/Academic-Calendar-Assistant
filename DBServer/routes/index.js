@@ -127,7 +127,7 @@ router.get('/user/', async function (req, res, next) {
 });
 
 // ---------------------------------
-/* Create Schedule. */
+/* Create User. */
 // ---------------------------------
 router.post('/user/create', async function (req, res, next) {
 
@@ -155,7 +155,7 @@ router.post('/user/create', async function (req, res, next) {
 });
 
 // ---------------------------------
-/* Update Schedule. */
+/* Update User. */
 // ---------------------------------
 router.patch("/user/:id", async (req, res) => {
   const query = { _id: mongoose.Types.ObjectId(req.params.id) };
@@ -169,7 +169,7 @@ router.patch("/user/:id", async (req, res) => {
 });
 
 // ---------------------------------
-/* Delete Schedule. */
+/* Delete User. */
 // ---------------------------------
 router.delete("/user/:id", async (req, res) => {
   const query = { _id: mongoose.Types.ObjectId(req.params.id) };
