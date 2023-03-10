@@ -50,7 +50,7 @@ export class NavBarComponent {
 
   openSignUpForm(): void {
     const dialogRef = this.dialog.open(SignUpFormComponent, {
-      height: '500px',
+      height: '600px',
       width: '500px'
     });
 

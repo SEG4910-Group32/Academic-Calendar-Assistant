@@ -6,6 +6,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/material.module';
 
 import { AppComponent } from './app.component';
+
+import { FindScheduleComponent } from './find-schedule/find-schedule.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button';
+
 import { LoginFormComponent } from './nav-bar/login-form/login-form.component';
 import { SignUpFormComponent } from './nav-bar/sign-up-form/sign-up-form.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -29,9 +35,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+
 @NgModule({
   declarations: [
     AppComponent,
+
+    FindScheduleComponent,
     LoginFormComponent,
     SignUpFormComponent,
     NavBarComponent,
@@ -45,10 +54,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SubmitScheduleComponent,
     AddScheduleComponent,
     ImportSyllabusComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -59,6 +73,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BrowserAnimationsModule,
     ScrollingModule,
     DragDropModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
