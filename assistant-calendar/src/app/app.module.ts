@@ -27,6 +27,7 @@ import { ImportScheduleComponent } from './create-schedule-page/import-schedule/
 import { SubmitScheduleComponent } from './create-schedule-page/submit-schedule/submit-schedule.component';
 import { AddScheduleComponent } from './create-schedule-page/create-schedule/add-schedule/add-schedule.component';
 import { ImportSyllabusComponent } from './create-schedule-page/import-schedule/import-syllabus/import-syllabus.component';
+import { GenerateScheduleIdComponent } from './create-schedule-page/submit-schedule/generate-schedule-id/generate-schedule-id.component';
 
 import { HttpClientModule } from "@angular/common/http";
 import { NgxFileDropModule } from "ngx-file-drop";
@@ -34,6 +35,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -53,7 +56,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ImportScheduleComponent,
     SubmitScheduleComponent,
     AddScheduleComponent,
-    ImportSyllabusComponent
+    ImportSyllabusComponent,
+    GenerateScheduleIdComponent
+
 
   ],
   imports: [
