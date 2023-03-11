@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { mustContainValidator } from 'src/app/must-contain-validator';
+import { EmailService } from 'src/app/email.service';
 
 import { User } from '../../shared/user.model';
 
@@ -13,11 +15,13 @@ import { User } from '../../shared/user.model';
 })
 
 export class SignUpFormComponent {
+
   signUpForm = this.fb.group({
-    email: [''],
-    firstName: [''],
-    lastName: [''],
-    password: ['']
+    email: ['', [Validators.required, Validators.email]],
+    firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+    lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+    password: ['', [Validators.required, Validators.minLength(8), 
+                    Validators.maxLength(16), mustContainValidator()]]
   });
   errors: any;
   serverErrorMessages: any;
@@ -40,7 +44,12 @@ export class SignUpFormComponent {
   }
 
   submit() {
-    console.log(this.signUpForm.getRawValue());
+    console.log(this.getFormValues());
+    console.log(this.signUpForm.controls);
+    // this.email.sendAccountCreatedEmail("").subscribe(res => {
+    //   console.log(res);
+    // });
+    
     let valid = true
 
     if (valid) {
@@ -106,10 +115,6 @@ export class SignUpFormComponent {
     //     }
     //   });
     // console.log(results);
-
-
-    
-
   }
 
   openSignInForm(): void {
