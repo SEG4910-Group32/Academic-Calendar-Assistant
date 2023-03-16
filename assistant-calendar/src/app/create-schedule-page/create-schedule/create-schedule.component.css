@@ -127,7 +127,15 @@ h2{
 mat-grid-list, mat-grid-tile {
   padding-bottom: 0 !important;
   padding-top: 0 !important;
+ 
 }
 mat-form-field{
   width:20%;
+}
+
+#M_1{
+  display: inline-block;
+  float: left;
+  width:25%;
+  
 }

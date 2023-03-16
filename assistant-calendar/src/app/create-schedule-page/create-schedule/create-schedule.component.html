@@ -65,7 +65,7 @@
                   </mat-form-field>
                   <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
                     <mat-label>Location:</mat-label>
-                    <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location" >
+                    <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
                     <!-- <i class="material-icons" matSuffix>location_on</i> -->
                   </mat-form-field>
                 </mat-expansion-panel>
@@ -77,63 +77,39 @@
       </mat-grid-list>
     </mat-tab>
     <mat-tab label="Tasks by month">
-      <mat-grid-list cols=1 rowHeight="16rem">
-        <mat-grid-tile class="my-grid-tile">
-          
 
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>January</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <div cdkDropList #jan="cdkDropList" [cdkDropListData]="January" [cdkDropListConnectedTo]="[feb, mar, apr]" class="example-list" (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let item of January" cdkDrag>{{item}}</div>
-                </div>
-              </mat-card-content>
-            </mat-card>
+      <div id="M_1">
+        <h3>January</h3>
+        <div *ngFor="let item of January">
+          <mat-chip>{{item}}</mat-chip>
+        </div>
+      </div>
 
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>March</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <div cdkDropList #mar="cdkDropList" [cdkDropListData]="March" [cdkDropListConnectedTo]="[jan, feb, apr]" class="example-list" (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let item of March" cdkDrag>{{item}}</div>
-                </div>
-              </mat-card-content>
-            </mat-card>
+      <div id="M_1">
+        <h3>March</h3>
+        <div *ngFor="let item of March">
+          <mat-chip>{{item}}</mat-chip>
+        </div>
+      </div>
+      <div id="M_1">
+        <h3>February</h3>
+        <div *ngFor="let item of February">
+          <mat-chip>{{item}}</mat-chip>
+        </div>
+      </div>
+      <div id="M_1">
+        <h3>April</h3>
+        <div *ngFor="let item of April">
+          <mat-chip>{{item}}</mat-chip>
+        </div>
+      </div>
 
-         
-          <!--  -->
-         
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>February</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <div cdkDropList #feb="cdkDropList" [cdkDropListData]="February" [cdkDropListConnectedTo]="[jan, mar, apr]" class="example-list" (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let item of February" cdkDrag>{{item}}</div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title>April</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <div cdkDropList #apr="cdkDropList" [cdkDropListData]="April" [cdkDropListConnectedTo]="[jan,  feb, mar]" class="example-list" (cdkDropListDropped)="drop($event)">
-                  <div class="example-box" *ngFor="let item of April" cdkDrag>{{item}}</div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          
-        </mat-grid-tile>
-      </mat-grid-list>
+
     </mat-tab>
   </mat-tab-group>
 
 
-  
+
 
   <div class="addButton">
     <button mat-button (click)="openDialog()">
