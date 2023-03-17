@@ -52,7 +52,7 @@ export class CreateScheduleComponent {
     
   }
 
-  January = ['Assignment 1','Assignment 1','Assignment 1','Assignment 1'];
+  January = ['Assignment 1','Assignment 1','Assignment 1','Assignment 1','Assignment 1'];
   February = ['Assignment 2','Assignment 1','Assignment 1','Assignment 1'];
   March = ['Assignment 3'];
   April = ['Assignment 4'];
