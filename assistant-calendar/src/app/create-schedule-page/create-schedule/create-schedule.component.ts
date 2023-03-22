@@ -10,6 +10,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
+import { SendScheduleService } from '../send-schedule.service';
+
+
 @Component({
   selector: 'app-create-schedule',
   templateUrl: './create-schedule.component.html',
@@ -34,7 +37,10 @@ export class CreateScheduleComponent {
   panelOpenState = false;
 
   deliverables = mockSchedules;
-  constructor(public dialog: MatDialog) {}
+  
+  constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService) {
+    sendSchduleSvc.sc = mockSchedules
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
@@ -48,6 +54,7 @@ export class CreateScheduleComponent {
       mockSchedules.push({type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
+      this.sendSchduleSvc.sc = mockSchedules;
     });
     
   }

@@ -1,0 +1,12 @@
+.form-row.name-group {
+    flex-direction: row;
+    width: 100%;
+}
+
+.row-item+.row-item {
+    margin-left: 1em;
+}
+
+.form-row.footer {
+    flex-direction: row;
+}

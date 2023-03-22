@@ -8,10 +8,28 @@
         <input matInput formControlName="email">
     </mat-form-field>
 
+    <div *ngIf="signInForm.controls.email.errors && (signInForm.controls.email.touched || signInForm.controls.email.dirty)" class="error-message">
+        <div *ngIf="signInForm.controls.email.errors?.['required']">
+            <i class='bx bxs-error-circle'></i>
+            email is required
+        </div>
+        <div *ngIf="signInForm.controls.email.errors?.['email']">
+            <i class='bx bxs-error-circle'></i>
+            email must be in email format
+        </div>
+    </div>
+
     <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
         <mat-label>password</mat-label>
         <input matInput formControlName="password">
     </mat-form-field>
+
+    <div *ngIf="signInForm.controls.password.errors && (signInForm.controls.password.touched || signInForm.controls.password.dirty)" class="error-message">
+        <div *ngIf="signInForm.controls.password.errors?.['required']">
+            <i class='bx bxs-error-circle'></i>
+            password is required
+        </div>
+    </div>
 
     <div class="form-row">
         <button mat-stroked-button class="submit-btn" (click)="submit()">Sign In</button>

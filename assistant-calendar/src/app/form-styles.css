@@ -44,3 +44,20 @@ h1 {
     display: flex;
     flex-direction: column;
 }
+
+.error-message {
+    font-size: 0.8em;
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: red;
+    margin-bottom: 1em;
+    transform: translateY(-1.5em);
+}
+
+.error-message div {
+    margin-left: 0.3em;
+}

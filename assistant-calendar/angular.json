@@ -28,7 +28,9 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/smtp.js"
+            ]
           },
           "configurations": {
             "production": {
