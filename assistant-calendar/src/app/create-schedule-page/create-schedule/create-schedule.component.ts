@@ -8,8 +8,10 @@ import {MatAccordion} from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+
 import { SendScheduleService } from '../send-schedule.service';
+
 
 @Component({
   selector: 'app-create-schedule',
@@ -20,9 +22,7 @@ export class CreateScheduleComponent {
 
   showFiller = false;
 
-  drop(event: CdkDragDrop<Deliverable[]>) {
-    moveItemInArray(this.deliverables, event.previousIndex, event.currentIndex);
-  }
+
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -44,8 +44,6 @@ export class CreateScheduleComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
-     height: '400px',
-     width: '800px',
      data: {task: this.type, dueDate: this.dueDate},
     });
 
@@ -60,6 +58,13 @@ export class CreateScheduleComponent {
     });
     
   }
+
+  January = ['Assignment 1','Assignment 1','Assignment 1','Assignment 1','Assignment 1'];
+  February = ['Assignment 2','Assignment 1','Assignment 1','Assignment 1'];
+  March = ['Assignment 3'];
+  April = ['Assignment 4'];
+
+
 }
 
 
