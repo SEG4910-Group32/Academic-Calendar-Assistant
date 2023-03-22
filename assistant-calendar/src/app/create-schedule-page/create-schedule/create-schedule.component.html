@@ -36,10 +36,10 @@
 
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Start Date:</mat-label>
-                    <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.startDate">
+                    <input matInput [matDatepicker]="datepicker1" [(ngModel)]="deliverable.startDate">
                     <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker>
+                    <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker1>
                       <mat-datepicker-actions>
                         <button mat-button matDatepickerCancel>Cancel</button>
                         <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
@@ -49,10 +49,10 @@
 
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Due date:</mat-label>
-                    <input matInput [matDatepicker]="datepicker" [(ngModel)]="deliverable.dueDate">
+                    <input matInput [matDatepicker]="datepicker2" [(ngModel)]="deliverable.dueDate">
                     <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker>
+                    <mat-datepicker-toggle matIconSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker2>
                       <mat-datepicker-actions>
                         <button mat-button matDatepickerCancel>Cancel</button>
                         <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
