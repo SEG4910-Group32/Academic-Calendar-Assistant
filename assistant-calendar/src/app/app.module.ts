@@ -36,13 +36,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
 
-
+const appRoute: Routes = [
+  {path: '', component: HomepageComponent},
+  {path: 'FindSchedule', component: FindScheduleComponent},
+  {path: 'CreateSchedulePage', component: CreateSchedulePageComponent},
+  {path: 'AboutUs', component: AboutusComponent},
+  {path: 'Subscribeschedule', component:SubscribescheduleComponent}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    SubscribescheduleComponent,
+    AboutusComponent,
     FindScheduleComponent,
     LoginFormComponent,
     SignUpFormComponent,
@@ -64,7 +74,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    RouterModule.forRoot(appRoute),
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
