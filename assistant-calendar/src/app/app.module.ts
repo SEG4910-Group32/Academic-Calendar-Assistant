@@ -34,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ImportScheduleComponent,
     SubmitScheduleComponent,
     AddScheduleComponent,
-    ImportSyllabusComponent
+    ImportSyllabusComponent,
+    UpdateProfilePageComponent
 
   ],
   imports: [

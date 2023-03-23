@@ -6,6 +6,9 @@ declare let Email: any;
   providedIn: 'root'
 })
 export class EmailService {
+
+  private fromEmail = "seg4910team32test@gmail.com";
+
   constructor() { }
 
   private generateConfirmationCode(): string {
@@ -19,42 +22,48 @@ export class EmailService {
     return res;
   }
 
-  sendConfirmationEmail(email: string): Observable<string> {
-    let code = this.generateConfirmationCode();
-
-    Email.send({
-      SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
-      To : email,
-      From : "seg4910team32test@gmail.com",
-      Subject : "Confirmation Code",
-      Body : code
-    });
-
-    return of(code);
+  private generatePasswordChangedEmail(): string {
+    return "";
   }
 
-  sendAccountCreatedEmail(email: string): Observable<string> {
-    Email.send({
-      SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
-      To : email,
-      From : "seg4910team32test@gmail.com",
-      Subject : "Confirmation Code",
-      Body : "Account Successfully Created"
-    });
-
-    return of("account created");
+  private generateAccountCreatedEmail(): string {
+    return "";
   }
 
-  sendPasswordChangedEmail(email: string): Observable<string> {
+  private generateEmailBody(emailType: string): any {
+    switch(emailType) {
+      case "changePassConfCode":
+        return {
+          subject: "Confirmation Code",
+          body: this.generateConfirmationCode()
+        }
+      case "passConf":
+        return {
+          subject: "Password Successfully Changed",
+          body: this.generatePasswordChangedEmail()
+        }
+      case "createdConf":
+        return {
+          subject: "Account Successfully Created",
+          body: this.generateAccountCreatedEmail()
+        }
+    }
+
+    return {};
+  }
+
+  sendEmail(email: string, emailType: string): Observable<string> {
+    var emailContent = this.generateEmailBody(emailType);
+
     Email.send({
-      SecureToken : "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
-      To : email,
-      From : "seg4910team32test@gmail.com",
-      Subject : "Confirmation Code",
-      Body : "Password Successfully Changed"
+      SecureToken: "f7d81102-e7d3-4cef-996d-fbf500bda3f3",
+      To: email,
+      From: this.fromEmail,
+      Subject: emailContent.subject,
+      Body: emailContent.body
     });
 
-    return of("password changed");
+    return of("");
   }
 
   // possibly email schedule in the future

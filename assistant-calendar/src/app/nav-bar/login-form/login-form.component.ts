@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -15,12 +17,21 @@ export class LoginFormComponent {
     password: ['', Validators.required]
   });
 
+  login = async (user: Object) => {
+    this.http.post("http://localhost:3000/user/login", user).subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.log("error");
+    });
+  };
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<LoginFormComponent>
+    public dialogRef: MatDialogRef<LoginFormComponent>,
+    public http: HttpClient
   ) {}
-  
+
   getFormValues(): Object {
     return {
       email: this.signInForm.controls.email.value,
@@ -29,7 +40,7 @@ export class LoginFormComponent {
   }
 
   submit(): void {
-    console.log(this.getFormValues());
+    this.login(this.getFormValues());
   }
 
   openSignUpForm(): void {
