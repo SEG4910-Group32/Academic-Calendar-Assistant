@@ -147,9 +147,8 @@ router.post('/user/create', async function (req, res, next) {
 });
 
 // ---------------------------------------
-/* Get User By Email and Check Password */
+// Get User By Email and Check Password
 // ---------------------------------------
-// password is Password123
 router.post('/user/login', async (req, res) => {
   console.log("hello");
   let collection = await db.collection("users");
