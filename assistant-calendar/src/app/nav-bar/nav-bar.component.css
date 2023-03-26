@@ -40,6 +40,7 @@
 .nav-bar-item,
 .options {
     width: 7em;
+    z-index: 2;
 }
 
 .nav-bar-item:hover,
@@ -97,4 +98,9 @@
     padding: 0.3em;
     border: 2px solid var(--nav-bar-main-text);
     border-radius: 0.4em;
+}
+
+a{
+    all:unset;
+    text-decoration: none;
 }
