@@ -25,6 +25,10 @@ export class LoginFormComponent {
     });
   };
 
+  ngOnInit() {
+    localStorage.clear();
+  }
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,

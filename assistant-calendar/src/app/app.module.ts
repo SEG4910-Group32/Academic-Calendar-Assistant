@@ -38,7 +38,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 
-import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
