@@ -19,7 +19,7 @@ export class LoginFormComponent {
 
   login = async (user: Object) => {
     this.http.post("http://localhost:3000/user/login", user).subscribe(res => {
-      console.log(res);
+      localStorage.setItem("currUser", JSON.stringify(res));
     }, err => {
       console.log("error");
     });

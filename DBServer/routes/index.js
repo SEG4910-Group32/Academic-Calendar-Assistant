@@ -150,7 +150,6 @@ router.post('/user/create', async function (req, res, next) {
 // Get User By Email and Check Password
 // ---------------------------------------
 router.post('/user/login', async (req, res) => {
-  console.log("hello");
   let collection = await db.collection("users");
   
   await collection.findOne({ email: req.body.email }, (err, user) => {
@@ -159,9 +158,16 @@ router.post('/user/login', async (req, res) => {
     bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
       if (err) throw err;
 
-      res.send(isMatch).status(200);
+      let userInfo = {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
+
+      res.send(userInfo).status(200);
     });
   });
+  
 });
 
 // ----------------------------------------
