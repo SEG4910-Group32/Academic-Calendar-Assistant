@@ -1,0 +1,105 @@
+/* You can add global styles to this file, and also import other style files */
+
+.banner {
+    background-image: url('src/assets/images/12.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    z-index: -1;
+    height:0 ;
+    padding-top: 32.27%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #about-us-label {
+    position: absolute;
+    background-color: rgba(255, 255,255, 0.75);
+    padding: 10px;
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+  
+  }
+  
+  #about-us-label h1 {
+    position: relative;
+    font-size: 150px;
+    font-family: 'Grand Hotel', sans-serif;
+    color: #3978D6;
+    padding-top: 35%;
+  } 
+  
+  #social-media-container {
+    position:absolute ;
+    width:8% ;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #social-media-container mat-card {
+    position: relative;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: transparent;
+    width: 50px;
+    height: 50px; 
+    margin: 5px;
+  }
+  
+  
+  #social-media-container mat-card img {
+    filter: drop-shadow(5px 5px 5px black);
+    -webkit-filter: drop-shadow(5px 5px 5px black) ;
+  }
+  
+  
+  .description {
+    padding: 50px ;
+    font-size : 18px ;
+    text-align: center;
+  }
+  
+  
+  .team-grid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .team-member {
+    text-align: center;
+    margin: 20px;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  
+  .team-member mat-card-title {
+    text-align: center;
+  }
+  
+  
+  .team-member img {
+    width: 70px;
+    height: 70px;
+    border-radius: 60% !important;
+    box-shadow: none !important;
+    align-self: center;
+  
+  }
+  
+  

@@ -27,6 +27,7 @@ import { ImportScheduleComponent } from './create-schedule-page/import-schedule/
 import { SubmitScheduleComponent } from './create-schedule-page/submit-schedule/submit-schedule.component';
 import { AddScheduleComponent } from './create-schedule-page/create-schedule/add-schedule/add-schedule.component';
 import { ImportSyllabusComponent } from './create-schedule-page/import-schedule/import-syllabus/import-syllabus.component';
+import { GenerateScheduleIdComponent } from './create-schedule-page/submit-schedule/generate-schedule-id/generate-schedule-id.component';
 
 import { HttpClientModule } from "@angular/common/http";
 import { NgxFileDropModule } from "ngx-file-drop";
@@ -34,13 +35,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { RouterModule, Routes } from '@angular/router';
+import { AboutusComponent } from './aboutus/aboutus.component';
+import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
+
+
+const appRoute: Routes = [
+  {path: '', component: HomepageComponent},
+  {path: 'FindSchedule', component: FindScheduleComponent},
+  {path: 'CreateSchedulePage', component: CreateSchedulePageComponent},
+  {path: 'AboutUs', component: AboutusComponent},
+  {path: 'Subscribeschedule', component:SubscribescheduleComponent}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    SubscribescheduleComponent,
+    AboutusComponent,
     FindScheduleComponent,
     LoginFormComponent,
     SignUpFormComponent,
@@ -55,13 +71,13 @@ import { UpdateProfilePageComponent } from './update-profile-page/update-profile
     SubmitScheduleComponent,
     AddScheduleComponent,
     ImportSyllabusComponent,
-    UpdateProfilePageComponent
-
+    UpdateProfilePageComponent,
+    GenerateScheduleIdComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    RouterModule.forRoot(appRoute),
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,

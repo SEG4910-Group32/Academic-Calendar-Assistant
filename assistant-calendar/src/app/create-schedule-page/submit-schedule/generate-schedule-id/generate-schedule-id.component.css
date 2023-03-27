@@ -1,0 +1,37 @@
+.title h3{
+    font-weight: 700;
+    font-size: 29px;
+    letter-spacing: 0.025em;
+    color: #0E2655;
+    margin: 43px;
+  }
+  .title p{
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.025em;
+    color: #465A83;
+    margin: 43px;
+  }
+  input {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.4em;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    color: black;
+    background-color: #f0f0f0;
+  }
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.4em;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    background-color: #f4f4f4;
+  }
+  .generateId {
+    display: flex;
+    justify-content: center;
+  }
