@@ -7,6 +7,7 @@ require("../db/user.model")
 const mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://calendarAssistant:Password1@calendarassistant.n45huxo.mongodb.net/caDB?retryWrites=true&w=majority");
 const db = mongoose.connection
+const bcrypt = require('bcrypt');
 
 // ---------------------------------
 /* GET Events. */
@@ -53,13 +54,6 @@ router.delete("/event/:id", async (req, res) => {
 
   res.send(result).status(200);
 });
-
-
-
-
-
-
-
 
 
 // ---------------------------------
@@ -112,16 +106,14 @@ router.delete("/schedule/:id", async (req, res) => {
 
 
 
-
-
 const User = mongoose.model("User");
 
 // ---------------------------------
 /* GET Users. */
 // ---------------------------------
-router.get('/user/', async function (req, res, next) {
+router.get('/user', async function (req, res, next) {
 
-  let results = await db.collection("Users").find({}).toArray();
+  let results = await db.collection("users").find({}).toArray();
 
   res.send(results).status(200);
 });
@@ -143,41 +135,85 @@ router.post('/user/create', async function (req, res, next) {
         res.send(doc);
     else {
         if (err.code == 11000)
-            res.status(422).send(['Duplicate email adrress found.']);
+            res.status(422).send(['Duplicate email address found.']);
         else
             return next(err);
     }
 
-});
+  });
 
 
  // res.send(results).status(204);
 });
 
-// ---------------------------------
-/* Update User. */
-// ---------------------------------
-router.patch("/user/:id", async (req, res) => {
-  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
-  delete req.body._id;
-  let collection = await db.collection("Users");
-  console.log(query)
-  console.log(req.body)
-  let result = await collection.updateOne(query, { $set: req.body }, { upsert: true })
+// ---------------------------------------
+// Get User By Email and Check Password
+// ---------------------------------------
+router.post('/user/login', async (req, res) => {
+  let collection = await db.collection("users");
+  
+  await collection.findOne({ email: req.body.email }, (err, user) => {
+    if (err) throw err;
 
-  res.send(result).status(200);
+    bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+      if (err) throw err;
+
+      let userInfo = {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      };
+
+      res.send(userInfo).status(200);
+    });
+  });
+  
 });
 
-// ---------------------------------
-/* Delete User. */
-// ---------------------------------
-router.delete("/user/:id", async (req, res) => {
-  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
-  console.log(query);
-  const collection = db.collection("Users");
-  let result = await collection.deleteOne(query);
+// ----------------------------------------
+// Update User                           
+//-----------------------------------------
+router.patch("/user/update", async (req, res) => {
+  let collection = await db.collection("users");
 
-  res.send(result).status(200);
+  await collection.findOne({ email: req.body.email }).then(doc => {
+    if (doc) {
+      let user = {
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        password: doc.password  
+      };
+
+      collection.replaceOne({ _id: doc._id }, user).then(status => {
+        res.send(status);
+      });
+    }
+    else {
+      res.send("user not found");
+    }
+  });
+
+});
+
+// ----------------------------------------
+// Delete User                          
+//-----------------------------------------
+// req body not supported for some reason
+router.delete("/user/delete/:email", async (req, res) => {
+  let collection = await db.collection("users");
+
+  await collection.findOne({ email: req.params.email }).then(doc => {
+    if (doc) {
+      collection.deleteOne({ _id: doc._id }).then(status => {
+        res.send(status);
+      });
+    }
+    else {
+      res.send("user not found");
+    }
+  });
+
 });
 
 module.exports = router;

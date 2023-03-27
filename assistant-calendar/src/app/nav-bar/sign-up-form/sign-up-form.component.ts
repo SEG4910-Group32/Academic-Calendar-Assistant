@@ -31,7 +31,8 @@ export class SignUpFormComponent {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<SignUpFormComponent>,
-    private http: HttpClient
+    private http: HttpClient,
+    private email: EmailService
   ) { }
 
   getFormValues(): Object {
@@ -46,16 +47,12 @@ export class SignUpFormComponent {
   submit() {
     console.log(this.getFormValues());
     console.log(this.signUpForm.controls);
-    // this.email.sendAccountCreatedEmail("").subscribe(res => {
-    //   console.log(res);
-    // });
-    
-    let valid = true
+    console.log(this.signUpForm.value);
+
+    let valid = true;
 
     if (valid) {
-      
-      
-      this.createUser(this.signUpForm.value)
+      this.createUser(this.signUpForm.value);
     }
   }
 

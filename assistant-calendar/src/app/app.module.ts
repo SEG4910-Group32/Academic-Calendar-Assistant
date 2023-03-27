@@ -35,10 +35,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
+
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
+
 
 const appRoute: Routes = [
   {path: '', component: HomepageComponent},
@@ -67,9 +71,8 @@ const appRoute: Routes = [
     SubmitScheduleComponent,
     AddScheduleComponent,
     ImportSyllabusComponent,
+    UpdateProfilePageComponent,
     GenerateScheduleIdComponent
-
-
   ],
   imports: [
     BrowserModule,
