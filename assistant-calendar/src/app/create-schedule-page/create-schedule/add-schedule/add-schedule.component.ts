@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateScheduleComponent } from '../create-schedule.component';
 import { mockSchedules } from '../mock-schedules';
-
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 @Component({
   selector: 'app-add-schedule',
   templateUrl: './add-schedule.component.html',
@@ -16,11 +16,13 @@ export class AddScheduleComponent {
   local_data:any;
   constructor(
     public dialogRef: MatDialogRef<CreateScheduleComponent>,
+    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: {type:string, dueDate:string, startDate:string, location:string, description:string},
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
  
 }

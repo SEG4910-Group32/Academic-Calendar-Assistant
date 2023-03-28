@@ -9,7 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { SendScheduleService } from '../send-schedule.service';
 
 
@@ -38,9 +40,41 @@ export class CreateScheduleComponent {
 
   deliverables = mockSchedules;
   
-  constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService) {
+  //
+  private endpoint = 'http://localhost:3000/event/';
+
+  constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService,private http: HttpClient) {
     sendSchduleSvc.sc = mockSchedules
   }
+
+  getEvents(): Observable<any> {
+    return this.http.get<any>(this.endpoint);
+  }
+
+
+  //adding new task to db
+  createEvent = async (newEvent: Object) => {
+
+    this.http.post("http://localhost:3000/event/create",newEvent).subscribe(
+      resp => {
+        // this.showSucessMessage = true;
+        // this.serverErrorMessages = "";
+        
+        // setTimeout(() => this.showSucessMessage = false, 4000);
+        // this.signUpForm.reset();
+      },
+      err => {
+        if (err.status === 422) {
+          console.log(err.error);
+          
+          // this.serverErrorMessages = err.error.join('\n');
+        }
+        else {
+          // this.serverErrorMessages = 'Unknown error occurred';
+        }
+      }
+    )}
+  
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
@@ -55,9 +89,12 @@ export class CreateScheduleComponent {
       console.log("result.type",result.type);
       console.log(mockSchedules);
       this.sendSchduleSvc.sc = mockSchedules;
+      this.createEvent({type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description })
     });
     
   }
+
+
 
   January = ['Assignment 1','Assignment 1','Assignment 1','Assignment 1','Assignment 1'];
   February = ['Assignment 2','Assignment 1','Assignment 1','Assignment 1'];
