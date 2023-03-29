@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    color: var(--nav-bar-background);
+}
+
+h1 {
+    font-size: 10em;
+    font-weight: 400;
+}
+
+.text-group {
+    margin-top: 8em;
+}
+
+.sub-title {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.sub-text {
+    margin-top: 0.5em;
+}
+
+button {
+    margin-top: 5em;
+    color: var(--nav-bar-background);
+    background-color: white;
+    border: 2px solid var(--nav-bar-main-text);
+    padding: 0.9em 1.3em;
+    border-radius: 0.3em;
+    font-size: 1.1em;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--nav-bar-main-text-hover);
+}
