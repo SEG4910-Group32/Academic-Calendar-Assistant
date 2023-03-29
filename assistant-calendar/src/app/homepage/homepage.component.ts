@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { DataService } from 'src/services/data.service';
 
 @Component({
   selector: 'app-homepage',
@@ -7,10 +10,31 @@ import { Component } from '@angular/core';
 })
 export class HomepageComponent {
 
-  clickDemoButton():void {
+  redirectFrom: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private data: DataService
+  ) {}
+
+  /**
+   * Checks route for params, and updates redirected status 
+   * if yes 
+   */
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.redirectFrom = params['redirect'];
+    });
+
+    if (this.redirectFrom === "true") {
+      this.data.updateRedirected("true");
+    }
+  }
+
+  clickDemoButton(): void {
     // implement click demo trigger function here.
   }
-  clickGetStarted():void {
+  clickGetStarted(): void {
     // implement get started trigger function here.
   }
 }
