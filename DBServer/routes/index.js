@@ -147,7 +147,7 @@ router.post('/user/create', async function (req, res, next) {
 });
 
 // ---------------------------------------
-// Get User By Email and Check Password
+// get user by email and check password
 // ---------------------------------------
 router.post('/user/login', async (req, res) => {
   let collection = await db.collection("users");
@@ -161,43 +161,46 @@ router.post('/user/login', async (req, res) => {
       let userInfo = {
         email: user.email,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
       };
 
-      res.send(userInfo).status(200);
+      console.log(isMatch);
+
+      if (isMatch) {
+        res.send(userInfo).status(200);
+      }
     });
   });
   
 });
 
 // ----------------------------------------
-// Update User                           
+// update user                           
 //-----------------------------------------
 router.patch("/user/update", async (req, res) => {
   let collection = await db.collection("users");
 
-  await collection.findOne({ email: req.body.email }).then(doc => {
-    if (doc) {
-      let user = {
-        email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: doc.password  
-      };
+  await collection.updateOne({ email: req.body.email }, { $set: { firstName: req.body.firstName, lastName: req.body.lastName } })
+                              .then(status => { res.send(status); });
+});
 
-      collection.replaceOne({ _id: doc._id }, user).then(status => {
-        res.send(status);
-      });
-    }
-    else {
-      res.send("user not found");
-    }
+// ----------------------------------------
+// update user password                       
+//-----------------------------------------
+router.patch("/user/update/pass", async (req, res) => {
+  let collection = await db.collection("users");
+
+  await bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(req.body.password, salt, (err, hash) => {
+      collection.updateOne({ email: req.body.email }, { $set: { password: hash, saltSecret: salt } })
+                              .then(status => { res.send(status); });
+    });
   });
 
 });
 
 // ----------------------------------------
-// Delete User                          
+// delete user                          
 //-----------------------------------------
 // req body not supported for some reason
 router.delete("/user/delete/:email", async (req, res) => {
@@ -214,6 +217,22 @@ router.delete("/user/delete/:email", async (req, res) => {
     }
   });
 
+});
+
+// ----------------------------------------
+// Check if email passed in params corresponds to a User in the Database                          
+//-----------------------------------------
+router.get("/user/check/email/:email", async (req, res) => {
+  let collection = await db.collection("users");
+
+  await collection.findOne({ email: req.params.email }).then(doc => {
+    if (doc) {
+      res.send(true);
+    }
+    else {
+      res.send(false);
+    }
+  });
 });
 
 module.exports = router;

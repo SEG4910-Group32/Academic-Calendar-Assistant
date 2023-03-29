@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-update-profile-page',
   templateUrl: './update-profile-page.component.html',
@@ -18,6 +20,7 @@ export class UpdateProfilePageComponent {
   });
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     public http: HttpClient
   ) { }
@@ -38,11 +41,31 @@ export class UpdateProfilePageComponent {
     });
   };
 
+  /**
+   * Populates form with current user information in local storage
+   */
+  ngOnInit() {
+    let user = localStorage.getItem('currUser');
+
+    if (user) {
+      let userObject = JSON.parse(user);
+      this.updateProfileForm.controls.email.setValue(userObject.email);
+      this.updateProfileForm.controls.firstName.setValue(userObject.firstName);
+      this.updateProfileForm.controls.lastName.setValue(userObject.lastName);
+    }
+  }
+
+  /**
+   * Updates profile of logged in user and then displays update status message
+   */
   submit() {
-    // console.log(this.updateProfileForm.value);
     this.update(this.updateProfileForm.value);
   }
 
+  /**
+   * Delte profile of user logged in
+   * note: needs to be updated later
+   */
   deleteFun() {
     let email = this.updateProfileForm.controls.email.value;
     

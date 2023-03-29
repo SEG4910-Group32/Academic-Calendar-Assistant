@@ -6,6 +6,8 @@ import { ForgotPasswordFormComponent } from './login-form/forgot-password-form/f
 import { VerifyEmailFormComponent } from './login-form/forgot-password-form/verify-email-form/verify-email-form.component';
 import { NewPasswordFormComponent } from './login-form/forgot-password-form/new-password-form/new-password-form.component';
 
+import { DataService } from 'src/services/data.service';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -14,8 +16,17 @@ import { NewPasswordFormComponent } from './login-form/forgot-password-form/new-
 export class NavBarComponent {
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private data: DataService
   ) {}
+
+  ngOnInit() {
+    this.data.currRedirectedVal.subscribe(val => {
+      if (val === "true") {
+        this.openSignInForm();
+      }
+    });
+  }
 
   switchState(state: string): void {
     switch(state) {
