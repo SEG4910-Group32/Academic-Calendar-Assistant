@@ -1,0 +1,29 @@
+<div class="containerWrap">
+  <mat-horizontal-stepper>
+    <mat-step label="Import your schedule" class="step">
+      <div class="step">
+        <app-import-schedule></app-import-schedule>
+        <div class="navigationBtn">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Create your schedule" class="step">
+      <div class="step">
+        <app-create-schedule></app-create-schedule>
+        <div class="navigationBtn">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Submit your schedule">
+      <div class="step">
+        <app-submit-schedule></app-submit-schedule>
+        <div class="navigationBtn">
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

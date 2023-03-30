@@ -1,0 +1,27 @@
+/* Styles for wrapping the search box */
+
+.main {
+    text-align: left; 
+    padding: 3%; 
+    width: 50%;
+    position: relative;
+    left: 25%;
+}
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+    width: 50%;
+    margin-left: 3rem;;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}

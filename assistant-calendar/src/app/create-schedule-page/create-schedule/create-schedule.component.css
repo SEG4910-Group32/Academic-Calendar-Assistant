@@ -1,0 +1,152 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css'; 
+.example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+  *{
+    letter-spacing: normal;
+    line-height: normal;
+  }
+  h2{
+    font-size: 64px;
+    margin: 30px 0 20px;
+  }
+
+
+  .hint{
+    align-self: flex-end;
+    font-size: 16px;
+  }
+  
+
+  .addButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    display: block;
+    margin: auto;
+  }
+
+.listOfDeliverables{
+  padding-bottom: 10%;;
+}
+
+.example-viewport {
+  height: 100%;
+  width: 100%;
+}
+
+.example-item {
+  height: 500px;
+  width:100%;
+}
+
+.my-grid-tile {
+  padding-top: 30% !important;
+}
+.container{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: flex-start; */
+  gap: 5px;
+}
+.createScheduleDescription{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.example-container {
+  width: 400px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: block;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+h2{
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 77px;
+  color: #000000;
+}
+
+mat-grid-list, mat-grid-tile {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+ 
+}
+mat-form-field{
+  width:20%;
+}
+
+#M_1{
+  display: inline-block;
+  float: left;
+  width:25%;
+  
+  
+}
+
+.mat-chip{
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+
+.custom-tab-group {
+  height: 250px;
+}

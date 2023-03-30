@@ -1,0 +1,64 @@
+<div class="example-container">
+<mat-dialog-content>
+  <div class="title">
+    <h3>Add new deliverable:</h3>
+    <br>
+  </div>
+  <div class="example-form-fields">
+    <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
+      <mat-label>Deliverable type: </mat-label>
+      <input matInput #input placeholder="Ex. Assignment" [(ngModel)]="data.type" required>
+    </mat-form-field>
+
+    <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
+      <mat-label>Location: </mat-label>
+      <input matInput #input placeholder="Ottawa" [(ngModel)]="data.location">
+    </mat-form-field>
+    
+  </div>
+  <div class="example-form-fields">
+    <mat-form-field appearance="fill" class="example-form-field">
+      <mat-label>Start Date:</mat-label>
+      <input matInput [matDatepicker]="datepicker1" [(ngModel)]="data.startDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker1>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="example-form-field">
+      <mat-label>Due date:</mat-label>
+
+      <input matInput [matDatepicker]="adatepicker" [(ngModel)]="data.dueDate" required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="adatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #adatepicker>
+
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="example-form-fields">
+   
+  
+    <mat-form-field hintLabel="" appearance="fill" class="example-full-width">
+      <mat-label>Description: </mat-label>
+      <input matInput #input placeholder="Event" [(ngModel)]="data.description">
+    </mat-form-field>
+   
+
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="onNoClick()" id="cancelbtn"  >Cancel</button>
+    <button mat-button [mat-dialog-close]="data" id="addbtn" [disabled]="!data.type || !data.dueDate">Add</button>
+  </mat-dialog-actions>
+</mat-dialog-content>
+</div>

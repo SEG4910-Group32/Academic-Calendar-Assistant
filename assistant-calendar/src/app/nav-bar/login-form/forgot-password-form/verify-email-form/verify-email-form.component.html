@@ -1,0 +1,14 @@
+<div class="form" [formGroup]="verifyCodeForm">
+    <div class="form-row">
+        <h1>Enter Verification Code</h1>
+    </div>
+
+    <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
+        <mat-label>verification code</mat-label>
+        <input matInput formControlName="code">
+    </mat-form-field>
+
+    <div class="form-row">
+        <button mat-stroked-button class="submit-btn" (click)="submit()">Enter Code</button>
+    </div>
+</div>

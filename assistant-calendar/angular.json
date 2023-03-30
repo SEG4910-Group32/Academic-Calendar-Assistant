@@ -28,7 +28,9 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/smtp.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -98,6 +100,6 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "6a918a6a-0846-4adc-ac2b-2617747e4a9d"
   }
 }

@@ -1,0 +1,39 @@
+<div class="form-container" [formGroup]="updateProfileForm">
+
+    <div class="header">
+        <h1>Profile Information</h1>
+    </div>
+
+    <div class="input-items">
+        <div class="input-group">
+            <label>First Name</label>
+            <input type="text" formControlName="firstName">
+        </div>
+
+        <div class="input-group">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastName">
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="text" formControlName="email">
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="text" formControlName="password">
+        </div>
+
+        <div class="input-group del-btn-group">
+            <button class="del-btn" (click)="deleteFun()">delete profile</button>
+        </div>
+
+        <div class="input-group">
+            <div class="btn-group">
+                <button class="save-changes" (click)="submit()">save changes</button>
+                <button class="cancel-changes">cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
