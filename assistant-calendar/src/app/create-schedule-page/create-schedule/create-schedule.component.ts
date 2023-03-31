@@ -1,4 +1,4 @@
-import { Component, ViewChild , Inject, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild , Inject, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AddScheduleComponent } from './add-schedule/add-schedule.component';
@@ -13,18 +13,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SendScheduleService } from '../send-schedule.service';
-
+import { GetAllEventsService } from './get-all-events.service';
 
 @Component({
   selector: 'app-create-schedule',
   templateUrl: './create-schedule.component.html',
   styleUrls: ['./create-schedule.component.css']
 })
-export class CreateScheduleComponent {
+export class CreateScheduleComponent implements OnInit{
 
   showFiller = false;
 
-
+  //to save the data from db
+  public listOfDeliverables: Deliverable[] = [];
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -43,7 +44,7 @@ export class CreateScheduleComponent {
   //
   private endpoint = 'http://localhost:3000/event/';
 
-  constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService,private http: HttpClient) {
+  constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService,private http: HttpClient, private _getAllEventsService:GetAllEventsService) {
     sendSchduleSvc.sc = mockSchedules
   }
 
@@ -94,8 +95,23 @@ export class CreateScheduleComponent {
     
   }
 
+//updating 
+update = async (event: Object) => {
+  this.http.patch("http://localhost:3000/event/update", event).subscribe(res => {
+    console.log(res);
+  }, err => {
+    console.log("error");
+  });
+};
 
+updateData(){ this.update(
+  {type:this.type , dueDate:this.dueDate }
+  );}
 
+ ngOnInit(){
+  this._getAllEventsService.getUsers().
+  subscribe(data => this.listOfDeliverables = data);
+ }
   January = ['Assignment 1','Assignment 1','Assignment 1','Assignment 1','Assignment 1'];
   February = ['Assignment 2','Assignment 1','Assignment 1','Assignment 1'];
   March = ['Assignment 3'];
