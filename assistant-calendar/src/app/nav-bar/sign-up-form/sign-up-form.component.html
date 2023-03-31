@@ -57,7 +57,7 @@
 
     <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
         <mat-label>password</mat-label>
-        <input matInput formControlName="password">
+        <input matInput type="password" formControlName="password">
     </mat-form-field>
 
     <div *ngIf="signUpForm.controls.password.errors && (signUpForm.controls.password.touched || signUpForm.controls.password.dirty)" class="error-message">

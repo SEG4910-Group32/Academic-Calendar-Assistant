@@ -32,6 +32,11 @@
     cursor: pointer;
 }
 
+.prompts,
+.logged-in {
+    width: 15vw;
+}
+
 .nav-bar-item {
     display: flex;
     justify-content: center;
@@ -45,11 +50,13 @@
 
 .nav-bar-item:hover,
 .sign-in:hover,
-.get-started:hover {
+.get-started:hover,
+.log-out:hover {
     color: var(--nav-bar-main-text-hover);
 }
 
-.get-started:hover {
+.get-started:hover,
+.logout:hover {
     background-color: var(--nav-bar-background-hover);
 }
 
@@ -93,14 +100,42 @@
     display: block;
 }
 
-.get-started {
+.get-started, .logout {
     margin-left: 1.5em;
     padding: 0.3em;
     border: 2px solid var(--nav-bar-main-text);
     border-radius: 0.4em;
 }
 
-a{
-    all:unset;
+a {
+    all: unset;
     text-decoration: none;
+}
+
+.logged-in {
+    display: flex;
+    align-items: center;
+}
+
+.logged-in-user {
+    position: relative;
+    transform: translateY(0.2em);
+}
+
+.user::before {
+    position: absolute;
+    content: 'welcome back!';
+    font-weight: 400;
+    font-size: 0.7em;
+    left: -0.9em;
+    top: -1.7em;
+
+}
+
+.user {
+    width: 7em;
+}
+
+.invisible {
+    display: none;
 }
