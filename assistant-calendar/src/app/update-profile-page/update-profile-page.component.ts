@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-profile-page',
@@ -22,12 +23,16 @@ export class UpdateProfilePageComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    public http: HttpClient
+    public http: HttpClient,
+    private _snackBar: MatSnackBar
   ) { }
 
   update = async (user: Object) => {
     this.http.patch("http://localhost:3000/user/update", user).subscribe(res => {
       console.log(res);
+      this._snackBar.open("Changes Saved!", "", {
+        duration: 1500
+      });
     }, err => {
       console.log("error");
     });
@@ -36,6 +41,9 @@ export class UpdateProfilePageComponent {
   delete = async (email: string) => {
     this.http.delete("http://localhost:3000/user/delete/" + email).subscribe(res => {
       console.log(res);
+      this._snackBar.open("User Deleted!", "", {
+        duration: 1500
+      });
     }, err => {
       console.log("error");
     });
@@ -72,5 +80,12 @@ export class UpdateProfilePageComponent {
     if (email) {
       this.delete(email);
     }
+  }
+
+  /**
+   * Redirects user back to homepage
+   */
+  backToHome() {
+    this.router.navigate(['/home']);
   }
 }

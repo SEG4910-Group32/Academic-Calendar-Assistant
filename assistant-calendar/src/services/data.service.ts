@@ -9,8 +9,10 @@ export class DataService {
 
   private redirected = new BehaviorSubject<string>("false");
   private localEmail = new BehaviorSubject<string>("");
+  private loggedIn = new BehaviorSubject<boolean>(false);
   currRedirectedVal = this.redirected.asObservable();
   currLocalEmail = this.localEmail.asObservable();
+  loggedInStatus = this.loggedIn.asObservable();
 
   constructor() { }
 
@@ -30,4 +32,13 @@ export class DataService {
   updateLocalEmail(val: string) {
     this.localEmail.next(val);
   }
+
+  /**
+   * Updates the logged in status to display user info in the nav-bar
+   * @param val boolean denoting the new status
+   */
+  updateLoggedInStatus(val: boolean) {
+    this.loggedIn.next(val);
+  }
+
 }

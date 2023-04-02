@@ -7,6 +7,7 @@ import { VerifyEmailFormComponent } from './login-form/forgot-password-form/veri
 import { NewPasswordFormComponent } from './login-form/forgot-password-form/new-password-form/new-password-form.component';
 
 import { DataService } from 'src/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,8 +18,11 @@ export class NavBarComponent {
 
   constructor(
     public dialog: MatDialog,
-    private data: DataService
+    private data: DataService,
+    private router: Router
   ) {}
+
+  username: string = "";
 
   ngOnInit() {
     this.data.currRedirectedVal.subscribe(val => {
@@ -26,6 +30,40 @@ export class NavBarComponent {
         this.openSignInForm();
       }
     });
+
+    let userInfo = localStorage.getItem('currUser');
+    let prompts = document.querySelector('.prompts');
+    let loggedIn = document.querySelector('.logged-in');
+
+    // if the user logs in, display the username in nav-bar
+    this.data.loggedInStatus.subscribe(val => {
+
+      if (val) {
+        userInfo = localStorage.getItem('currUser');
+    
+        if (userInfo) {
+          let obj = JSON.parse(userInfo);
+          this.username = obj.firstName + " " + obj.lastName;
+        }
+    
+        prompts?.classList.add('invisible');
+        loggedIn?.classList.remove('invisible');
+      }
+      else {
+        prompts?.classList.remove('invisible');
+        loggedIn?.classList.add('invisible');
+      }
+    });
+
+    // if the user was already logged in, display the username in nav-bar
+    if (userInfo) {
+      let obj = JSON.parse(userInfo);
+      this.username = obj.firstName + " " + obj.lastName;
+      
+      prompts?.classList.add('invisible');
+      loggedIn?.classList.remove('invisible');
+    }
+    
   }
 
   switchState(state: string): void {
@@ -103,5 +141,14 @@ export class NavBarComponent {
     const dropdown = document.querySelector('.options');
 
     dropdown?.classList.toggle('active');
+  }
+
+  /**
+   * Logs user out of website and re-routes the user to the homepag
+   */
+  logout(): void {
+    localStorage.removeItem('currUser');
+    this.data.updateLoggedInStatus(false);
+    this.router.navigate(['/home']);
   }
 }
