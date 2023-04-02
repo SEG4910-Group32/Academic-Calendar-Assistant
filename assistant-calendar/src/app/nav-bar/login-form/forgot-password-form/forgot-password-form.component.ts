@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { DataService } from 'src/services/data.service';
 })
 export class ForgotPasswordFormComponent {
   forgotPasswordForm = this.fb.group({
-    email: ['']
+    email: ['', [Validators.required, Validators.email]]
   });
 
   /**
