@@ -3,6 +3,10 @@ import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-sch
 import { MatDialog } from '@angular/material/dialog';
 import { SendScheduleService } from '../send-schedule.service';
 import { Deliverable } from '../create-schedule/deliverable';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 @Component({
   selector: 'app-submit-schedule',
   templateUrl: './submit-schedule.component.html',
@@ -10,11 +14,49 @@ import { Deliverable } from '../create-schedule/deliverable';
 })
 export class SubmitScheduleComponent {
 
-  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService) { }
+  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient) { }
   openImportDialog() {
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
   }
   
+  async generateUniqueId(): Promise<string> {
+    let uniqueId = '';
+  
+    const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
+      return this.http
+        .get<boolean>(`/schedule/check/id/${id}`)
+        .pipe(map((result) => !!result))
+        .toPromise()
+        .catch(() => false);
+    };
+  
+    let isUniqueId = false;
+    while (!isUniqueId) {
+      uniqueId = Math.random().toString(36).substr(2, 9);
+      isUniqueId = !((await checkUniqueId(uniqueId)) ?? false);
+    }
+  
+    return uniqueId;
+  }
+  
+
+  async createSchedule() {
+    const schedule = this.sendScheduleSvc.sc;
+
+    // Generate a unique ID for the schedule
+    const id = await this.generateUniqueId();
+    const createdTime = new Date().toISOString();
+
+    // Send the schedule data to the server
+    this.http.post('/schedule/create', { id, createdTime, schedule }).subscribe(
+      (response) => {
+        console.log('Schedule created successfully');
+      },
+      (error) => {
+        console.log('Error creating schedule:', error);
+      }
+    );
+  }
 
   downloadIcs() {
     const schedule = this.sendScheduleSvc.sc
