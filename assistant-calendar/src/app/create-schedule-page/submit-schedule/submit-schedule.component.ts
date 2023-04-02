@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-schedule-id.component";
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SendScheduleService } from '../send-schedule.service';
 import { Deliverable } from '../create-schedule/deliverable';
 import { HttpClient } from '@angular/common/http';
@@ -15,8 +15,13 @@ import { map } from 'rxjs/operators';
 export class SubmitScheduleComponent {
 
   constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient) { }
-  openImportDialog() {
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
+  openImportDialog(scheduleId: string) {
+    this.dialog.open(GenerateScheduleIdComponent, {
+      height: '350px',
+      width: '483px',
+      panelClass: 'dialogClass',
+      data: { id: scheduleId },
+    });
   }
   
   async generateUniqueId(): Promise<string> {
@@ -39,24 +44,33 @@ export class SubmitScheduleComponent {
     return uniqueId;
   }
   
+  isCreated = false;
 
   async createSchedule() {
-    const schedule = this.sendScheduleSvc.sc;
-
-    // Generate a unique ID for the schedule
-    const id = await this.generateUniqueId();
-    const createdTime = new Date().toISOString();
-
-    // Send the schedule data to the server
-    this.http.post('/schedule/create', { id, createdTime, schedule }).subscribe(
-      (response) => {
-        console.log('Schedule created successfully');
-      },
-      (error) => {
-        console.log('Error creating schedule:', error);
-      }
-    );
+    if (!this.isCreated) {
+      const schedule = this.sendScheduleSvc.sc;
+  
+      // Generate a unique ID for the schedule
+      const id = await this.generateUniqueId();
+      const createdTime = new Date().toISOString();
+  
+      // Open the dialog with the generated schedule ID
+      this.openImportDialog(id);
+  
+      // Send the schedule data to the server
+      this.http.post('/schedule/create', { id, createdTime, schedule }).subscribe(
+        (response) => {
+          console.log('Schedule created successfully');
+        },
+        (error) => {
+          console.log('Error creating schedule:', error);
+        }
+      );
+  
+      this.isCreated = true;
+    }
   }
+  
 
   downloadIcs() {
     const schedule = this.sendScheduleSvc.sc
