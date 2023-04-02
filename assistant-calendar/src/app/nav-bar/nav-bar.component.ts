@@ -31,19 +31,21 @@ export class NavBarComponent {
       }
     });
 
-    // if the user is logged in, display the username in nav-bar
+    let userInfo = localStorage.getItem('currUser');
+    let prompts = document.querySelector('.prompts');
+    let loggedIn = document.querySelector('.logged-in');
+
+    // if the user logs in, display the username in nav-bar
     this.data.loggedInStatus.subscribe(val => {
-      let prompts = document.querySelector('.prompts');
-      let loggedIn = document.querySelector('.logged-in');
 
       if (val) {
-        let userInfo = localStorage.getItem('currUser');
-
+        userInfo = localStorage.getItem('currUser');
+    
         if (userInfo) {
           let obj = JSON.parse(userInfo);
           this.username = obj.firstName + " " + obj.lastName;
         }
-
+    
         prompts?.classList.add('invisible');
         loggedIn?.classList.remove('invisible');
       }
@@ -53,6 +55,15 @@ export class NavBarComponent {
       }
     });
 
+    // if the user was already logged in, display the username in nav-bar
+    if (userInfo) {
+      let obj = JSON.parse(userInfo);
+      this.username = obj.firstName + " " + obj.lastName;
+      
+      prompts?.classList.add('invisible');
+      loggedIn?.classList.remove('invisible');
+    }
+    
   }
 
   switchState(state: string): void {
