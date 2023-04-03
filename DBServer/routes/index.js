@@ -29,6 +29,7 @@ router.post('/event/create', async function (req, res, next) {
   res.send(results).status(204);
 });
 
+
 // ---------------------------------
 /* Update Event. */
 // ---------------------------------

@@ -58,20 +58,12 @@ export class CreateScheduleComponent implements OnInit{
 
     this.http.post("http://localhost:3000/event/create",newEvent).subscribe(
       resp => {
-        // this.showSucessMessage = true;
-        // this.serverErrorMessages = "";
-        
-        // setTimeout(() => this.showSucessMessage = false, 4000);
-        // this.signUpForm.reset();
       },
       err => {
         if (err.status === 422) {
           console.log(err.error);
-          
-          // this.serverErrorMessages = err.error.join('\n');
         }
         else {
-          // this.serverErrorMessages = 'Unknown error occurred';
         }
       }
     )}
@@ -86,7 +78,7 @@ export class CreateScheduleComponent implements OnInit{
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
+      mockSchedules.push({_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
       this.sendSchduleSvc.sc = mockSchedules;
@@ -97,16 +89,23 @@ export class CreateScheduleComponent implements OnInit{
 
 //updating 
 update = async (event: Object) => {
-  this.http.patch("http://localhost:3000/event/update", event).subscribe(res => {
+  
+  // console.log(event.type)
+  // var path = ("http://localhost:3000/event/:6429b8b65dfd48669ee8e13f");
+  console.log(event)
+  var eve = event as Deliverable;
+  console.log("http://localhost:3000/event/:"+eve._id);
+  const path = ("http://localhost:3000/event/:"+eve._id); 
+  this.http.patch("http://localhost:3000/event/"+Object(eve._id), event).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");
+    console.log(err.response.data)
   });
 };
-
-updateData(){ this.update(
-  {type:this.type , dueDate:this.dueDate }
-  );}
+// updateEvent(event: Object){
+//   this.update(event)
+// }
 
  ngOnInit(){
   this._getAllEventsService.getUsers().

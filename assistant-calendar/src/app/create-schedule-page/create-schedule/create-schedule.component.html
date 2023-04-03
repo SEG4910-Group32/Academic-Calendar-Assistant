@@ -16,9 +16,7 @@
         <mat-card>
           <mat-card-header>
             <mat-card-title>List of deliverables:</mat-card-title>
-            <button mat-button (click)="updateData()">
-              <mat-icon>update</mat-icon>Update
-            </button>
+           
           </mat-card-header>
           <mat-card-content>
             <div *ngFor="let deliverable of listOfDeliverables">
@@ -73,10 +71,15 @@
                     <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
                     <!-- <i class="material-icons" matSuffix>location_on</i> -->
                   </mat-form-field>
+                  <button mat-button (click)="update(deliverable)">
+                    <mat-icon>update</mat-icon>Update
+                  </button>
                 </mat-expansion-panel>
               </mat-accordion>
+          
             </div>
           </mat-card-content>
+         
         </mat-card>
 
       </mat-grid-list>
