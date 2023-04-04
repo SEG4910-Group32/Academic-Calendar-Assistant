@@ -11,7 +11,7 @@ import { MatInput } from '@angular/material/input';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { SendScheduleService } from '../send-schedule.service';
 import { GetAllEventsService } from './get-all-events.service';
 
@@ -62,31 +62,11 @@ export class CreateScheduleComponent implements OnInit{
     sendSchduleSvc.sc = this.listOfDeliverables
   }
 
-  getEvents(): Observable<any> {
-    return this.http.get<any>(this.endpoint);
-  }
 
+    //adding new task to db
+    createEvent = async (newEvent: Object) => {
 
-  // //adding new task to db
-  // createEvent = async (newEvent: Object) => {
-
-  //   this.http.post("http://localhost:3000/event/create",newEvent).subscribe(
-  //     resp => {
-  //     },
-  //     err => {
-  //       if (err.status === 422) {
-  //         console.log(err.error);
-  //       }
-  //       else {
-  //       }
-  //     }
-  //   )}
-  
-    //testing the new collection
-      //adding new task to db
-      createEvent = async (newEvent: Object) => {
-
-    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).subscribe(
+    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(
       resp => {
       },
       err => {
@@ -121,7 +101,7 @@ export class CreateScheduleComponent implements OnInit{
 update = async (event: Object) => {
   console.log(event)
   var eve = event as Deliverable;
-  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).subscribe(res => {
+  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");
@@ -133,7 +113,7 @@ update = async (event: Object) => {
 delete = async (event: Object) => {
   console.log(event)
   var eve = event as Deliverable;
-  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).subscribe(res => {
+  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");
@@ -142,11 +122,14 @@ delete = async (event: Object) => {
 };
 
  ngOnInit(){
-  this._getAllEventsService.getUsers().
-  subscribe(data => this.listOfDeliverables = data);
+  this.getAll();
+  this._getAllEventsService.refreshRequired.subscribe(Response => this.getAll());
   this.organizeTasksIntoMonths();
  }
 
+ getAll(){
+  this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
+ }
 
  
 //organizes tasks by their due date to show in the  Tasks by month tab

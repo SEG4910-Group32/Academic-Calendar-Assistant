@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Deliverable } from './deliverable';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,9 +13,16 @@ private endpoint = 'http://localhost:3000/currentSchedule/';
 
   constructor(private http: HttpClient) { }
 
+  private refresh = new Subject<void>();
+
+  get refreshRequired(){
+    return this.refresh;
+  }
   //we cast the observable into a Deliverable array
   getUsers():Observable<Deliverable[]>{
     return this.http.get<Deliverable[]>(this.endpoint);
   }
+
+  
 
 }
