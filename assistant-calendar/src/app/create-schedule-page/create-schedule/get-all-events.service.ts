@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class GetAllEventsService {
 
   //gets the events from the db to be used in the frontend
-private endpoint = 'http://localhost:3000/event/';
+private endpoint = 'http://localhost:3000/currentSchedule/';
 
   constructor(private http: HttpClient) { }
 

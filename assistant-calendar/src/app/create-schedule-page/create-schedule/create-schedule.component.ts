@@ -67,10 +67,26 @@ export class CreateScheduleComponent implements OnInit{
   }
 
 
-  //adding new task to db
-  createEvent = async (newEvent: Object) => {
+  // //adding new task to db
+  // createEvent = async (newEvent: Object) => {
 
-    this.http.post("http://localhost:3000/event/create",newEvent).subscribe(
+  //   this.http.post("http://localhost:3000/event/create",newEvent).subscribe(
+  //     resp => {
+  //     },
+  //     err => {
+  //       if (err.status === 422) {
+  //         console.log(err.error);
+  //       }
+  //       else {
+  //       }
+  //     }
+  //   )}
+  
+    //testing the new collection
+      //adding new task to db
+      createEvent = async (newEvent: Object) => {
+
+    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).subscribe(
       resp => {
       },
       err => {
@@ -81,7 +97,6 @@ export class CreateScheduleComponent implements OnInit{
         }
       }
     )}
-  
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
@@ -106,7 +121,7 @@ export class CreateScheduleComponent implements OnInit{
 update = async (event: Object) => {
   console.log(event)
   var eve = event as Deliverable;
-  this.http.patch("http://localhost:3000/event/"+eve._id, event).subscribe(res => {
+  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");
@@ -118,7 +133,7 @@ update = async (event: Object) => {
 delete = async (event: Object) => {
   console.log(event)
   var eve = event as Deliverable;
-  this.http.delete("http://localhost:3000/event/"+eve._id, event).subscribe(res => {
+  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");

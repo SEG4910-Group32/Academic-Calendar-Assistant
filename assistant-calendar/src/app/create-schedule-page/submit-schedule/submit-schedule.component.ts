@@ -3,6 +3,8 @@ import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-sch
 import { MatDialog } from '@angular/material/dialog';
 import { SendScheduleService } from '../send-schedule.service';
 import { Deliverable } from '../create-schedule/deliverable';
+import { HttpClient } from '@angular/common/http';
+import { GetAllEventsService } from '../create-schedule/get-all-events.service';
 @Component({
   selector: 'app-submit-schedule',
   templateUrl: './submit-schedule.component.html',
@@ -10,9 +12,32 @@ import { Deliverable } from '../create-schedule/deliverable';
 })
 export class SubmitScheduleComponent {
 
-  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService) { }
+ 
+  //to save the data from db
+  public listOfDeliverables: Deliverable[] = [];
+
+  
+  createSchedule = async (newSchedule: Object) => {
+
+    this.http.post("http://localhost:3000/schedule/create",newSchedule).subscribe(
+      resp => {
+      },
+      err => {
+        if (err.status === 422) {
+          console.log(err.error);
+        }
+        else {
+        }
+      }
+    )} 
+    
+
+  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) { }
   openImportDialog() {
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
+   
+    this.createSchedule({Event:this.listOfDeliverables});
+   
   }
   
 
@@ -61,5 +86,10 @@ export class SubmitScheduleComponent {
     window.open(url);
 
   }
+  ngOnInit(){
+    this._getAllEventsService.getUsers().
+    subscribe(data => this.listOfDeliverables = data);
+   }
+  
 
 }

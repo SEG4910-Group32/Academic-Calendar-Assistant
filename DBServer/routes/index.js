@@ -56,6 +56,51 @@ router.delete("/event/:id", async (req, res) => {
   res.send(result).status(200);
 });
 
+// ---------------------------------
+/* GET tempSchedule. */
+// ---------------------------------
+router.get('/currentSchedule/', async function (req, res, next) {
+
+  let results = await db.collection("tempSchedule").find({}).toArray();
+
+  res.send(results).status(200);
+});
+
+// ---------------------------------
+/* Create tempSchedule. */
+// ---------------------------------
+router.post('/currentSchedule/create', async function (req, res, next) {
+
+  let results = await db.collection("tempSchedule").insertOne(req.body);
+
+  res.send(results).status(204);
+});
+
+// ---------------------------------
+/* Update tempSchedule. */
+// ---------------------------------
+router.patch("/currentSchedule/:id", async (req, res) => {
+  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+  delete req.body._id;
+  let collection = await db.collection("tempSchedule");
+  console.log(query)
+  console.log(req.body)
+  let result = await collection.updateOne(query, { $set: req.body }, { upsert: true })
+
+  res.send(result).status(200);
+});
+
+// ---------------------------------
+/* Delete tempSchedule. */
+// ---------------------------------
+router.delete("/currentSchedule/:id", async (req, res) => {
+  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+  console.log(query);
+  const collection = db.collection("tempSchedule");
+  let result = await collection.deleteOne(query);
+
+  res.send(result).status(200);
+});
 
 // ---------------------------------
 /* GET Schedule. */
