@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GetAllEventsService {
 
+  //gets the events from the db to be used in the frontend
 private endpoint = 'http://localhost:3000/event/';
 
   constructor(private http: HttpClient) { }
@@ -16,8 +17,5 @@ private endpoint = 'http://localhost:3000/event/';
   getUsers():Observable<Deliverable[]>{
     return this.http.get<Deliverable[]>(this.endpoint);
   }
-  // getUsers(): Observable<any[]> {
-  //   return new Observable(observer => {
-  //   });
-  // }
+
 }
