@@ -5,9 +5,12 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { ForgotPasswordFormComponent } from './login-form/forgot-password-form/forgot-password-form.component';
 import { VerifyEmailFormComponent } from './login-form/forgot-password-form/verify-email-form/verify-email-form.component';
 import { NewPasswordFormComponent } from './login-form/forgot-password-form/new-password-form/new-password-form.component';
+import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 
 import { DataService } from 'src/services/data.service';
 import { Router } from '@angular/router';
+
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,7 +22,8 @@ export class NavBarComponent {
   constructor(
     public dialog: MatDialog,
     private data: DataService,
-    private router: Router
+    private router: Router,
+    private bnIdle: BnNgIdleService
   ) {}
 
   username: string = "";
@@ -48,6 +52,8 @@ export class NavBarComponent {
     
         prompts?.classList.add('invisible');
         loggedIn?.classList.remove('invisible');
+        
+        this.startIdleTimeoutTimer(60);
       }
       else {
         prompts?.classList.remove('invisible');
@@ -62,8 +68,10 @@ export class NavBarComponent {
       
       prompts?.classList.add('invisible');
       loggedIn?.classList.remove('invisible');
+
+      this.startIdleTimeoutTimer(60);
     }
-    
+
   }
 
   switchState(state: string): void {
@@ -84,6 +92,19 @@ export class NavBarComponent {
         this.openNewPasswordForm();
         break;
     }
+  }
+
+  /**
+   * Function that starts idle session timeout timer
+   * @param time number amount of time in seconds before logging out user
+   */
+  startIdleTimeoutTimer(time: number): void {
+    this.bnIdle.startWatching(time).subscribe((isTimedOut: boolean) => {
+      if (isTimedOut) {
+        this.logout();
+        this.bnIdle.stopTimer();
+      }
+    });
   }
 
   openSignInForm(): void {
@@ -144,11 +165,23 @@ export class NavBarComponent {
   }
 
   /**
-   * Logs user out of website and re-routes the user to the homepag
+   * Opens logout dialog and if the user confirms they want to logout,
+   * re-routes the user to the homepage
    */
   logout(): void {
-    localStorage.removeItem('currUser');
-    this.data.updateLoggedInStatus(false);
-    this.router.navigate(['/home']);
+    const dialogRef = this.dialog.open(LogoutDialogComponent, {
+      height: '150px',
+      width: '300px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res == 'logout') {
+        localStorage.removeItem('currUser');
+        this.data.updateLoggedInStatus(false);
+        this.bnIdle.stopTimer();
+        this.router.navigate(['/home']);
+      }
+    });
+
   }
 }
