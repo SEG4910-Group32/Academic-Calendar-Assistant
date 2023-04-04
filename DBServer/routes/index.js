@@ -103,6 +103,19 @@ router.delete("/currentSchedule/:id", async (req, res) => {
 });
 
 // ---------------------------------
+/* Delete ALL tempSchedule. */
+// ---------------------------------
+router.delete("/resetSchedule/", async (req, res) => {
+  //const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+ // console.log(query);
+  const collection = db.collection("tempSchedule");
+  let result = await collection.deleteMany();
+
+  res.send(result).status(200);
+});
+
+
+// ---------------------------------
 /* GET Schedule. */
 // ---------------------------------
 router.get('/schedule/', async function (req, res, next) {

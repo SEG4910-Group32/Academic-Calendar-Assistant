@@ -18,7 +18,7 @@ export class SubmitScheduleComponent {
 
   
   createSchedule = async (newSchedule: Object) => {
-
+    if(this.listOfDeliverables.length != 0){
     this.http.post("http://localhost:3000/schedule/create",newSchedule).subscribe(
       resp => {
       },
@@ -29,14 +29,29 @@ export class SubmitScheduleComponent {
         else {
         }
       }
-    )} 
-    
+    )}} 
+
+    resetSchedule(){
+      this.listOfDeliverables=[];
+      this.http.delete("http://localhost:3000/resetSchedule/").subscribe( 
+        resp => {
+      },
+      err => {
+        if (err.status === 422) {
+          console.log(err.error);
+        }
+        else {
+        }
+      }
+    )}
+
 
   constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) { }
   openImportDialog() {
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
    
     this.createSchedule({Event:this.listOfDeliverables});
+    this.resetSchedule();
    
   }
   
