@@ -58,7 +58,7 @@ export class SubmitScheduleComponent {
       this.openImportDialog(id);
   
       // Send the schedule data to the server
-      this.http.post('/schedule/create', { id, createdTime, schedule }).subscribe(
+      this.http.post('http://localhost:3000/schedule/create', { id, createdTime, schedule }).subscribe(
         (response) => {
           console.log('Schedule created successfully');
         },
