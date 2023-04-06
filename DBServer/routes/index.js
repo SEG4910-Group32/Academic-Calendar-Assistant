@@ -55,15 +55,45 @@ router.delete("/event/:id", async (req, res) => {
   res.send(result).status(200);
 });
 
+// ---------------------------------
+// get all schedules
+// ---------------------------------
+router.get('/schedule', async (req, res) => {
+  let schedules = await db.collection("Schedules").find({}).toArray();
+
+  res.send(schedules).status(200);
+});
 
 // ---------------------------------
-/* GET Schedule. */
+// get schedule by id
 // ---------------------------------
-router.get('/schedule/', async function (req, res, next) {
+router.get('/schedule/:id', async (req, res) => {
+  let collection = await db.collection("Schedules");
 
-  let results = await db.collection("Schedules").find({}).toArray();
+  await collection.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, doc) => {
+    if (err) throw err;
 
-  res.send(results).status(200);
+    res.send(doc).status(200);
+  });
+});
+
+// ---------------------------------
+// check if schedule with id exists
+// ---------------------------------
+router.get('/schedule/check/:id', async (req, res) => {
+  let collection = await db.collection("Schedules");
+
+  await collection.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, doc) => {
+    if (err) throw err;
+
+    if (doc) {
+      res.send(true);
+    }
+    else {
+      res.send(false);
+    }
+    
+  });
 });
 
 // ---------------------------------
@@ -111,11 +141,10 @@ const User = mongoose.model("User");
 // ---------------------------------
 /* GET Users. */
 // ---------------------------------
-router.get('/user', async function (req, res, next) {
+router.get('/user', async (req, res) => {
+  let users = await db.collection("users").find({}).toArray();
 
-  let results = await db.collection("users").find({}).toArray();
-
-  res.send(results).status(200);
+  res.send(users).status(200);
 });
 
 // ---------------------------------
