@@ -13,7 +13,6 @@ h1 {
 
 .events-container {
     width: 45vw;
-    height: 400px;
     border: 1px dotted #A4A4A4;
     background-color: #F1EFFF;
     border-radius: 0.4em;
@@ -92,4 +91,34 @@ button {
 
 .download-btn:hover {
     background-color: var(--del-btn-color-hover);
+}
+
+.column-headers {
+    display: flex;
+    justify-content: space-around;
+    margin: 0.75em 1em;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.column-headers * {
+    cursor: pointer;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    border: 1px dotted #A4A4A4;
+    background-color: #dbd6f7;
+    border-radius: 0.35em;
+    margin: 0.75em 1em;
+    padding: 0.2em 0;
+    font-size: 1.1em;
+}
+
+.column-headers *,
+.row * {
+    display: flex;
+    justify-content: center;
+    width: calc(100% / 3);
 }
