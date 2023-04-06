@@ -21,13 +21,14 @@ export class SubscribeToScheduleComponent {
     private route: ActivatedRoute
   ) {}
 
-  // getSchedule = async (id: string) => {
-  //   this.http.get("http://localhost:3000/schedule/" + id).subscribe(res => {
-  //     console.log(res);
-  //   }, err => {
-  //     console.log("error");
-  //   });
-  // };
+  getSchedule = async (id: string) => {
+    this.http.get("http://localhost:3000/schedule/" + id).subscribe(res => {
+      console.log(res);
+      this.events = Object(res).Event;
+    }, err => {
+      console.log("error");
+    });
+  };
 
   /**
    * Checks route for schedule id
@@ -38,8 +39,8 @@ export class SubscribeToScheduleComponent {
     });
 
     console.log(this.scheduleId);
-    
-    // this.getSchedule(this.scheduleId);
+
+    this.getSchedule(this.scheduleId);
   }
   
 }

@@ -1,7 +1,17 @@
 <div class="container">
     <h1>Subscribe to your Schedule</h1>
-    <div class="events-container">
-        {{ events }}
+    <div class="events-container" *ngIf="events">
+        <div *ngFor="let event of events">
+            <div class="event-id">
+                {{ event._id }}
+            </div>
+            <div class="event-type">
+                {{ event.type }}
+            </div>
+            <div class="event-due">
+                {{ event.dueDate }}
+            </div>
+        </div>
     </div>
     <div class="footer">
         <div class="integrated-calendar-section">
