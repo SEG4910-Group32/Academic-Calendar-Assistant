@@ -44,6 +44,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LogoutDialogComponent } from './nav-bar/logout-dialog/logout-dialog.component';
 
 import { BnNgIdleService } from 'bn-ng-idle';
+import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-to-schedule.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
     UpdateProfilePageComponent,
     GenerateScheduleIdComponent,
     PageNotFoundComponent,
-    LogoutDialogComponent
+    LogoutDialogComponent,
+    SubscribeToScheduleComponent
   ],
   imports: [
     BrowserModule,

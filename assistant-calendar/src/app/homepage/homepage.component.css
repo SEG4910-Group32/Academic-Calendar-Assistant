@@ -1,54 +1,83 @@
-.coverImageContainer{
+.container {
   display: flex;
-}
-#coverImage{
-  max-height: 400px;
-  margin: 20px 0 30px 30px;
-}
-#coverDescription{
-  max-width: 570px;
-  margin: 50px 100px;
-  position: center;
+  flex-direction: column;
   align-items: center;
-  align-self: center;
+  width: 100vw;
 }
-#coverDescription h1{
-  font-size: 40px;
-  letter-spacing: 2px;
-  line-height: 1.2;
-  font-weight: bold;
+
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  margin-top: 4em;
 }
-#coverDescription p{
-  font-size: 20px;
-  line-height: 1.2;
-}
-.promo1{
-  font-family: inter;
-  background-color: #191C24;
-  color: #DDDBF1;
-  text-align: center;
-  padding: 20px;
-}
-.promo1 h1{
-  letter-spacing: 4px;
-  font-size: 48px;
+
+h1 {
+  font-size: 2.7em;
   font-weight: 600;
+  line-height: 1.2;
 }
-.promo1 p{
-  font-size: 20px;
-  font-weight: 400;
+
+.sub-title {
+  font-size: 1.3em;
+  width: 80%;
+  margin-top: 1em;
 }
-#demoButton{
-  color: #F44336;
-  margin-right: 25px;
-  font-size: 17px;
+
+.call-to-action {
+  margin-top: 1.3em;
+  display: flex;
+  align-items: center;
+  color: #FF5C01;
 }
-#demoButton:hover {
+
+button {
+  display: flex;
+  align-items: center;
+  border: none;
+  font-size: 1.1em;
+  background-color: #FFF;
+  font-weight: 600;
+  color: inherit;
   cursor: pointer;
 }
-#demoButton button{
-  margin-left: 5px;
-  width: fit-content;
-  height: fit-content;
-  top: 6px;
+
+i {
+  margin-left: 0.5em;
+  font-size: 1.5em;
+  color: inherit;
+  transform: translateY(-0.05em);
+  cursor: pointer;
+}
+
+.cover-img {
+  width: 37.5vw;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #191C24;
+  color: #DDDBF1;
+  padding: 2em;
+  margin-top: 3em;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
+}
+
+.banner-text h1 {
+  font-weight: 500;
+}
+
+.banner-text .sub-title {
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.2em;
 }
