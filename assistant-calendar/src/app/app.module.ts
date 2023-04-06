@@ -41,6 +41,9 @@ import { UpdateProfilePageComponent } from './update-profile-page/update-profile
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LogoutDialogComponent } from './nav-bar/logout-dialog/logout-dialog.component';
+
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ImportSyllabusComponent,
     UpdateProfilePageComponent,
     GenerateScheduleIdComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LogoutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +87,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DragDropModule,
 
   ],
-  providers: [],
+  providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

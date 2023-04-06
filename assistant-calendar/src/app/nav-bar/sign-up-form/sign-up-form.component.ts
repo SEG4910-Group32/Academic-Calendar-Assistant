@@ -55,7 +55,7 @@ export class SignUpFormComponent {
   }
 
   createUser = async (newUser: Object) => {
-    this.http.post("http://localhost:3000/user/create",newUser).subscribe(res => {
+    this.http.post("http://localhost:3000/user/create", newUser).subscribe(res => {
       this._snackBar.open("User Created!", "", {
         duration: 1500
       });
