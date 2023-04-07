@@ -8,6 +8,24 @@
             Schedule Id:
         </div>
         <input matInput formControlName="id">
-        <button (click)="search()">search</button>
+        <button (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">search</button>
+    </div>
+
+    <div *ngIf="scheduleIdForm.controls.id.errors && (scheduleIdForm.controls.id.touched || scheduleIdForm.controls.id.dirty)" class="error-message">
+        <div *ngIf="scheduleIdForm.controls.id.errors?.['required']">
+            <i class='bx bxs-error-circle'></i>
+            id is required
+        </div>
+        <div *ngIf="scheduleIdForm.controls.id.errors?.['pattern'] || scheduleIdForm.controls.id.errors?.['minlength'] || scheduleIdForm.controls.id.errors?.['maxlength']">
+            <i class='bx bxs-error-circle'></i>
+            id must be 24 character hexadecimal
+        </div>
+    </div>
+
+    <div *ngIf="!scheduleIdForm.controls.id.errors" class="error-message">
+        <div *ngIf="!doesScheduleExist">
+            <i class='bx bxs-error-circle'></i>
+            schedule with this id does not exist
+        </div>
     </div>
 </div>

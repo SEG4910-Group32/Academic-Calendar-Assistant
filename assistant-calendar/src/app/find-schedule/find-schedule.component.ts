@@ -16,13 +16,19 @@ export class FindScheduleComponent {
               Validators.pattern('[0-9a-fA-F]*')]]
   });
 
+  doesScheduleExist: boolean = true;
+
   scheduleExists = async (id: string) => {
     return this.http.get("http://localhost:3000/schedule/check/" + id).subscribe(exists => {
       if (exists) {
+        this.doesScheduleExist = true;
+
         this.router.navigate(['/subscribe-schedule'], { queryParams: { id: id } });
       }
       else {
         console.log("doc does not exist");
+
+        this.doesScheduleExist = false;
       }
       
     }, err => {
@@ -36,7 +42,7 @@ export class FindScheduleComponent {
     private http: HttpClient
   ) {}
 
-  search() {
+  search(): void {
     let id = this.scheduleIdForm.controls.id.value;
     let invalid = this.scheduleIdForm.controls.id.errors;
 
