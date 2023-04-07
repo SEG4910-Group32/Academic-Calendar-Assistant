@@ -47,3 +47,19 @@ button {
     margin-left: 2em;
     background-color: var(--save-changes-color);
 }
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: red;
+    margin-top: 0.5em;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+button:hover {
+    background-color: var(--save-changes-color-hover);
+}
