@@ -16,8 +16,13 @@ export class FindScheduleComponent {
               Validators.pattern('[0-9a-fA-F]*')]]
   });
 
-  doesScheduleExist: boolean = true;
+  doesScheduleExist: boolean = true; // boolean keeping track of if a schedule with the id provided exists
 
+  /**
+   * Function which checks if a schedule with the provided id exists and navigates to subscribe to schedule
+   * if it does
+   * @param id 24 length hexadecimal id corresponding to a schedule
+   */
   scheduleExists = async (id: string) => {
     return this.http.get("http://localhost:3000/schedule/check/" + id).subscribe(exists => {
       if (exists) {
@@ -42,6 +47,9 @@ export class FindScheduleComponent {
     private http: HttpClient
   ) {}
 
+  /**
+   * Function which checks if schedule exists if the form has no errors
+   */
   search(): void {
     let id = this.scheduleIdForm.controls.id.value;
     let invalid = this.scheduleIdForm.controls.id.errors;
