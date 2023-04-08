@@ -22,6 +22,13 @@ import { GetAllEventsService } from './get-all-events.service';
 })
 export class CreateScheduleComponent implements OnInit{
 
+  createNewDeliverableForm = new FormGroup({
+    adeliverable: new FormControl(),
+    adescription: new FormControl(),
+    alocation: new FormControl()
+  });
+
+
   showFiller = false;
 
   //to save the data from db
@@ -40,7 +47,6 @@ export class CreateScheduleComponent implements OnInit{
   panelOpenState = false;
 
   deliverables = mockSchedules;
-  
   //to organize tasks by month 
   public January: string[] = [];
   public February: string[] = [];
@@ -99,7 +105,8 @@ export class CreateScheduleComponent implements OnInit{
 
 //updating 
 update = async (event: Object) => {
-  console.log(event)
+  console.log(event);
+  this.emptyMonthlyTasks();
   var eve = event as Deliverable;
   this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(res => {
     console.log(res);
@@ -111,6 +118,7 @@ update = async (event: Object) => {
 
 //deleting 
 delete = async (event: Object) => {
+  this.emptyMonthlyTasks();
   console.log(event)
   var eve = event as Deliverable;
   this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(res => {
@@ -130,57 +138,84 @@ delete = async (event: Object) => {
  getAll(){
   this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
  }
-
+ ngAfterViewInit(){
+  this.organizeTasksIntoMonths();//Put here your function or what you need
+} 
  
 //organizes tasks by their due date to show in the  Tasks by month tab
 organizeTasksIntoMonths(){
+  //list of key values 
+  const myMap = new Map<string, any>();
+  this.getAll();
   const sth = this.listOfDeliverables;
    for (let i = 0; i < this.listOfDeliverables.length; i++) {
     const deliverable = this.listOfDeliverables[i];
   console.log(deliverable.dueDate + ' - ' );
   const date = new Date(deliverable.dueDate);
 const month = date.getMonth() + 1; // add 1 since getMonth() returns 0-based index
-if(month == 1){
+if(month == 1 && (this.January.indexOf(deliverable.type) == -1)){
   this.January.push(deliverable.type)
 }
-if(month == 2){
+if(month == 2 && (this.February.indexOf(deliverable.type) == -1)){
   this.February.push(deliverable.type)
 }
-if(month == 3){
+if(month == 3 && (this.March.indexOf(deliverable.type) == -1)){
   this.March.push(deliverable.type)
 }
-if(month == 4){
+if(month == 4 && (this.April.indexOf(deliverable.type) == -1)){
   this.April.push(deliverable.type)
 }
-if(month == 5){
+if(month == 5 && (this.August.indexOf(deliverable.type) == -1)){
   this.May.push(deliverable.type)
 }
-if(month == 6){
+if(month == 6 && (this.June.indexOf(deliverable.type) == -1)){
   this.June.push(deliverable.type)
 }
-if(month == 7){
+if(month == 7 && (this.July.indexOf(deliverable.type) == -1)){
   this.July.push(deliverable.type)
 }
-if(month == 8){
+if(month == 8 && (this.August.indexOf(deliverable.type) == -1)){
   this.August.push(deliverable.type)
 }
-if(month == 9){
+if(month == 9 && (this.September.indexOf(deliverable.type) == -1)){
   this.September.push(deliverable.type)
 }
-if(month == 10){
+if(month == 10 && (this.October.indexOf(deliverable.type) == -1)){
   this.October.push(deliverable.type)
 }
-if(month == 11){
+if(month == 11 && (this.November.indexOf(deliverable.type) == -1)){
   this.November.push(deliverable.type)
 }
 else{
-  this.December.push(deliverable.type)
+  if(this.December.indexOf(deliverable.type) == -1){
+    this.December.push(deliverable.type)
+  }
+  
 }
 console.log("month is "+month);
 }
 }
 
-
+emptyMonthlyTasks(){
+  const monthsLists = [
+    this.January,
+    this.February,
+    this.March,
+    this.April,
+    this.May,
+    this.June,
+    this.July,
+    this.August,
+    this.September,
+    this.October,
+    this.November,
+    this.December
+  ];
+  
+  for (let i = 0; i < monthsLists.length; i++) {
+    monthsLists[i] = [];
+  }
+}
 
 }
 
