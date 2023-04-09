@@ -70,11 +70,11 @@ router.get('/schedule/', async function (req, res, next) {
 /* Create Schedule. */
 // ---------------------------------
 router.post('/schedule/create', async function (req, res, next) {
-
   let results = await db.collection("Schedules").insertOne(req.body);
 
   res.send(results).status(204);
 });
+
 
 // ---------------------------------
 /* Update Schedule. */

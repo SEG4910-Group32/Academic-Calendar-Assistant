@@ -13,8 +13,11 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./submit-schedule.component.css']
 })
 export class SubmitScheduleComponent {
-
-  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient) { }
+  scheduleName: string;
+  generatedId: string | null = null;
+  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient) {
+    this.scheduleName = '';
+  }
   openImportDialog(scheduleId: string) {
     this.dialog.open(GenerateScheduleIdComponent, {
       height: '350px',
@@ -25,7 +28,12 @@ export class SubmitScheduleComponent {
   }
   
   async generateUniqueId(): Promise<string> {
-    let uniqueId = '';
+    const chars = '0123456789abcdef';
+    let id = '';
+    for (let i = 0; i < 24; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      id += chars[randomIndex];
+    }
   
     const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
       return this.http
@@ -37,28 +45,36 @@ export class SubmitScheduleComponent {
   
     let isUniqueId = false;
     while (!isUniqueId) {
-      uniqueId = Math.random().toString(36).substr(2, 9);
-      isUniqueId = !((await checkUniqueId(uniqueId)) ?? false);
+      isUniqueId = !((await checkUniqueId(id)) ?? false);
+      if (!isUniqueId) {
+        for (let i = 0; i < 4; i++) {
+          const randomIndex = Math.floor(Math.random() * id.length);
+          const newChar = chars[Math.floor(Math.random() * chars.length)];
+          id = id.substring(0, randomIndex) + newChar + id.substring(randomIndex + 1);
+        }
+      }
     }
   
-    return uniqueId;
+    return id;
   }
+  
   
   isCreated = false;
 
   async createSchedule() {
-    if (!this.isCreated) {
+    if (!this.generatedId) {
       const schedule = this.sendScheduleSvc.sc;
-  
+
       // Generate a unique ID for the schedule
       const id = await this.generateUniqueId();
+      this.generatedId = id; // Save the generated id
       const createdTime = new Date().toISOString();
-  
+
       // Open the dialog with the generated schedule ID
       this.openImportDialog(id);
-  
+
       // Send the schedule data to the server
-      this.http.post('http://localhost:3000/schedule/create', { id, createdTime, schedule }).subscribe(
+      this.http.post('http://localhost:3000/schedule/create', { id, createdTime, schedule, scheduleName: this.scheduleName }).subscribe(
         (response) => {
           console.log('Schedule created successfully');
         },
@@ -66,8 +82,9 @@ export class SubmitScheduleComponent {
           console.log('Error creating schedule:', error);
         }
       );
-  
-      this.isCreated = true;
+    } else {
+      // If the id is already generated, open the dialog with the same id
+      this.openImportDialog(this.generatedId);
     }
   }
   

@@ -8,7 +8,7 @@
 
     <mat-form-field class="example-full-width">
       <mat-label>Schedule Name :</mat-label>
-      <textarea matInput placeholder="Ex. SEG 4910"></textarea>
+      <textarea matInput placeholder="Ex. SEG 4910" [(ngModel)]="scheduleName"></textarea>
     </mat-form-field>
   </div>
   <div class="row">
@@ -25,7 +25,7 @@
      <div class="options">
         <ul>
           <div class="btn createBtn">
-            <button mat-raised-button color="primary"(click)="createSchedule()">Create</button>
+            <button mat-raised-button color="primary" [disabled]="!scheduleName" (click)="createSchedule()">Create</button>
           </div>
           <li><span>Or download ics format:</span></li>
           <div class="btn downloadBtn">
