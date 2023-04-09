@@ -5,20 +5,16 @@
         create your schedule from scratch.</b></p>
   </div>
 
-  <mat-tab-group class="custom-tab-group" mat-stretch-tabs="false" mat-align-tabs="start" >
+  <mat-tab-group class="custom-tab-group" mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="organizeTasksIntoMonths()" >
     <mat-tab label="List of deliverables">
       <mat-grid-list cols="1">
-
-
-
-
-
         <mat-card>
           <mat-card-header>
             <mat-card-title>List of deliverables:</mat-card-title>
            
           </mat-card-header>
           <mat-card-content>
+            <form [formGroup]="createNewDeliverableForm"></form>
             <div *ngFor="let deliverable of listOfDeliverables">
               <mat-accordion>
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -32,7 +28,7 @@
                   </mat-expansion-panel-header>
                   <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
                     <mat-label>Deliverable type: </mat-label>
-                    <input matInput #input placeholder="Ex. Assignment" [(ngModel)]="deliverable.type" required>      
+                    <input matInput #input maxlength="20"  placeholder="Ex. Assignment" required  [(ngModel)]="deliverable.type" >     
                   </mat-form-field> 
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Start Date:</mat-label>
@@ -63,12 +59,12 @@
                   </mat-form-field>
                   <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
                     <mat-label>Description: </mat-label>
-                    <input matInput #input placeholder="Ex. SEG4910 deliverable" [(ngModel)]="deliverable.description">
+                    <input matInput #input maxlength="70" placeholder="Ex. SEG4910 deliverable" [(ngModel)]="deliverable.description">
                   </mat-form-field>
                   <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
                     <mat-label>Location:</mat-label>
-                    <input matInput #input placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
-                    <!-- <i class="material-icons" matSuffix>location_on</i> -->
+                    <input matInput #input maxlength="20" placeholder="Ex. Ottawa" [(ngModel)]="deliverable.location">
+                   <!-- <i class="material-icons" matSuffix>location_on</i> -->
                   </mat-form-field>
                   <button mat-button (click)="update(deliverable)">
                     <mat-icon>update</mat-icon>Update
@@ -76,6 +72,9 @@
                   <button mat-button (click)="delete(deliverable)">
                     <mat-icon>delete</mat-icon>Detele
                   </button>
+                  <div >
+                   <mat-hint>Click on update to save your changes</mat-hint>
+                </div>
                 </mat-expansion-panel>
               </mat-accordion>
           
@@ -87,9 +86,9 @@
       </mat-grid-list>
     </mat-tab>
     <div class="tab-container">
-    <mat-tab label="Tasks by month" class="scrollablediv">
+    <mat-tab label="Tasks by month" class="scrollablediv" button>
 
-      <div id="M_1">
+      <div id="M_1"> 
 
         <div ><h3><b>January</b></h3></div>
         <div *ngFor="let item of January" >
