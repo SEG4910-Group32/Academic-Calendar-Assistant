@@ -30,7 +30,7 @@ export class SubmitScheduleComponent {
   async generateUniqueId(): Promise<string> {
     const chars = '0123456789abcdef';
     let id = '';
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 6; i++) {
       const randomIndex = Math.floor(Math.random() * chars.length);
       id += chars[randomIndex];
     }
