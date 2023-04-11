@@ -9,12 +9,18 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./generate-schedule-id.component.css']
 })
 export class GenerateScheduleIdComponent {
-  value = "Hello world";
   code: string;
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { id: string },
-    private clipboard: Clipboard
-  ) {
-    this.code = data.id;
+  constructor(private clipboard: Clipboard) {
+    const id = 'xxxxxxxxyxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 24 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(24);
+    });
+    this.code = id;
   }
+  // constructor(
+  //   @Inject(MAT_DIALOG_DATA) public data: { id: string },
+  //   private clipboard: Clipboard
+  // ) {
+  //   this.code = data.id;
+  // }
 }

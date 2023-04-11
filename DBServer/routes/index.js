@@ -29,6 +29,7 @@ router.post('/event/create', async function (req, res, next) {
   res.send(results).status(204);
 });
 
+
 // ---------------------------------
 /* Update Event. */
 // ---------------------------------
@@ -56,6 +57,85 @@ router.delete("/event/:id", async (req, res) => {
 });
 
 // ---------------------------------
+// get all schedules
+// ---------------------------------
+router.get('/schedule', async (req, res) => {
+  let schedules = await db.collection("Schedules").find({}).toArray();
+
+  res.send(schedules).status(200);
+});
+
+// ---------------------------------
+// get schedule by id
+// ---------------------------------
+router.get('/schedule/:id', async (req, res) => {
+  let collection = await db.collection("Schedules");
+
+  await collection.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, doc) => {
+    if (err) throw err;
+
+    res.send(doc).status(200);
+  });
+});
+
+// ---------------------------------
+/* GET tempSchedule. */
+// ---------------------------------
+router.get('/currentSchedule/', async function (req, res, next) {
+
+  let results = await db.collection("tempSchedule").find({}).toArray();
+
+  res.send(results).status(200);
+});
+
+// ---------------------------------
+/* Create tempSchedule. */
+// ---------------------------------
+router.post('/currentSchedule/create', async function (req, res, next) {
+
+  let results = await db.collection("tempSchedule").insertOne(req.body);
+
+  res.send(results).status(204);
+});
+
+// ---------------------------------
+/* Update tempSchedule. */
+// ---------------------------------
+router.patch("/currentSchedule/:id", async (req, res) => {
+  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+  delete req.body._id;
+  let collection = await db.collection("tempSchedule");
+  console.log(query)
+  console.log(req.body)
+  let result = await collection.updateOne(query, { $set: req.body }, { upsert: true })
+
+  res.send(result).status(200);
+});
+
+// ---------------------------------
+/* Delete tempSchedule. */
+// ---------------------------------
+router.delete("/currentSchedule/:id", async (req, res) => {
+  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+  console.log(query);
+  const collection = db.collection("tempSchedule");
+  let result = await collection.deleteOne(query);
+
+  res.send(result).status(200);
+});
+
+// ---------------------------------
+/* Delete ALL tempSchedule. */
+// ---------------------------------
+router.delete("/resetSchedule/", async (req, res) => {
+  //const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+ // console.log(query);
+  const collection = db.collection("tempSchedule");
+  let result = await collection.deleteMany();
+
+  res.send(result).status(200);
+});
+
 // get all schedules
 // ---------------------------------
 router.get('/schedule', async (req, res) => {
