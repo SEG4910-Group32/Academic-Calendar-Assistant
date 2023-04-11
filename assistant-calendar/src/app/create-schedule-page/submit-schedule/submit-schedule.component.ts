@@ -29,7 +29,8 @@ export class SubmitScheduleComponent {
         else {
         }
       }
-    )}} 
+    )}
+  } 
 
     resetSchedule(){
       this.listOfDeliverables=[];
@@ -49,10 +50,12 @@ export class SubmitScheduleComponent {
   constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) { }
   openImportDialog() {
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
-   
-    this.createSchedule({Event:this.listOfDeliverables});
-    this.resetSchedule();
-   
+    this._getAllEventsService.getUsers().subscribe(data => {
+      this.listOfDeliverables = data;
+      this.createSchedule({Event:this.listOfDeliverables});
+      this.resetSchedule();
+    });
+
   }
   
 
