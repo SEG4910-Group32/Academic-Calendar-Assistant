@@ -21,11 +21,15 @@ export class SubmitScheduleComponent {
   constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) {
     this.scheduleName = '';
    }
-  openImportDialog(scheduleId: string) {
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' })
+
+   //the id should be generated in the generateScheduleId component
+ openImportDialog() {
+    // let id = await this.generateUniqueId();
+    // console.log("id is ",id);
+    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass'})
       this._getAllEventsService.getUsers().subscribe(data => {
         this.listOfDeliverables = data;
-        this.createSchedule({Event:this.listOfDeliverables, id:  this.generateUniqueId(), createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
+        this.createSchedule({Event:this.listOfDeliverables, createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
         this.tempList = this.listOfDeliverables;
         this.resetSchedule();
       });
@@ -49,16 +53,16 @@ export class SubmitScheduleComponent {
     };
   
     let isUniqueId = false;
-    while (!isUniqueId) {
-      isUniqueId = !((await checkUniqueId(id)) ?? false);
-      if (!isUniqueId) {
-        for (let i = 0; i < 4; i++) {
-          const randomIndex = Math.floor(Math.random() * id.length);
-          const newChar = chars[Math.floor(Math.random() * chars.length)];
-          id = id.substring(0, randomIndex) + newChar + id.substring(randomIndex + 1);
-        }
-      }
-    }
+    // while (!isUniqueId) {
+    //   isUniqueId = !((await checkUniqueId(id)) ?? false);
+    //   if (!isUniqueId) {
+    //     for (let i = 0; i < 4; i++) {
+    //       const randomIndex = Math.floor(Math.random() * id.length);
+    //       const newChar = chars[Math.floor(Math.random() * chars.length)];
+    //       id = id.substring(0, randomIndex) + newChar + id.substring(randomIndex + 1);
+    //     }
+    //   }
+    // }
   
     return id;
   }
@@ -68,12 +72,13 @@ export class SubmitScheduleComponent {
    
    createSchedule = async (newSchedule: Object) => {
     // Generate a unique ID for the schedule
-    const id = await this.generateUniqueId();
-    this.generatedId = id; // Save the generated id
+    // const id = await this.generateUniqueId();
+    // this.generatedId = id; // Save the generated id
     const createdTime = new Date().toISOString();
      if(this.listOfDeliverables.length != 0){
      this.http.post("http://localhost:3000/schedule/create",newSchedule).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(
        resp => {
+
        },
        err => {
          if (err.status === 422) {
