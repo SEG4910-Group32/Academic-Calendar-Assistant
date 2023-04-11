@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from 'src/services/data.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,7 +27,8 @@ export class LoginFormComponent {
     this.http.post("http://localhost:3000/user/login", user).subscribe(res => {
     // create local storage item containing user information  
     localStorage.setItem("currUser", JSON.stringify(res));
-
+    this.data.updateLoggedInStatus(true);
+    
       // if login was redirected to, navigate to intended page after login
       if (this.redirect == "true") {
         this.router.navigate([this.redirectPath]);
@@ -42,12 +44,11 @@ export class LoginFormComponent {
    * Clear local storage and check for route params
    */
   ngOnInit() {
-    localStorage.clear();
-
     this.route.queryParams.subscribe(params => {
       this.redirect = params['redirect'];
       this.redirectPath = params['path'];
     });
+
   }
 
   constructor(
@@ -56,7 +57,8 @@ export class LoginFormComponent {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<LoginFormComponent>,
-    public http: HttpClient
+    public http: HttpClient,
+    private data: DataService
   ) {}
 
   /**

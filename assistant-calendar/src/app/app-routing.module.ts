@@ -6,6 +6,7 @@ import { FindScheduleComponent } from './find-schedule/find-schedule.component';
 import { CreateSchedulePageComponent } from './create-schedule-page/create-schedule-page.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
+import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-to-schedule.component';
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'find-schedule', component: FindScheduleComponent },
   { path: 'create-schedule', component: CreateSchedulePageComponent },
   { path: 'about-us', component: AboutusComponent },
-  { path: 'subscribe-schedule', component: SubscribescheduleComponent },
+  { path: 'subscribe', component: SubscribescheduleComponent},
+  { path: 'subscribe-schedule', component: SubscribeToScheduleComponent },
   { path: 'profile', component: UpdateProfilePageComponent, canActivate: [AuthenticationGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

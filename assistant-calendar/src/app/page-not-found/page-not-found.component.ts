@@ -13,6 +13,9 @@ export class PageNotFoundComponent {
     private router: Router
   ) {}
 
+  /**
+   * Reroutes to homepage when clicked
+   */
   backToHome(): void {
     this.router.navigate(['/home']);
   }

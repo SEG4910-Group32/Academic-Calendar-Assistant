@@ -57,7 +57,7 @@
 
     <mat-form-field class="form-row" [floatLabel]="'always'" appearance="fill">
         <mat-label>password</mat-label>
-        <input matInput formControlName="password">
+        <input matInput type="password" formControlName="password">
     </mat-form-field>
 
     <div *ngIf="signUpForm.controls.password.errors && (signUpForm.controls.password.touched || signUpForm.controls.password.dirty)" class="error-message">
@@ -82,14 +82,6 @@
     <div class="form-row">
         <button mat-stroked-button class="submit-btn" (click)="submit()">Sign Up</button>
     </div>
-
-    <!-- Success message -->
-    <div style="color: green;" class="success" *ngIf="showSucessMessage">
-        Saved successfully
-    </div>
-
-    <!-- Error message -->
-    <div style="color: red; white-space: pre;" class="alert" *ngIf="serverErrorMessages">{{serverErrorMessages}}</div>
 
     <div class="form-row footer">
 
