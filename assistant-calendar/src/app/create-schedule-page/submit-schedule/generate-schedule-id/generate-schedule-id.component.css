@@ -1,3 +1,6 @@
+.mat-dialog-container .mat-dialog-content {
+  border-radius: 30px;
+}
 .title h3{
     font-weight: 700;
     font-size: 29px;
@@ -21,7 +24,9 @@
     border-radius: 7px;
     color: black;
     background-color: #f0f0f0;
+    width: 60%; 
   }
+  
   button {
     font-family: inherit;
     font-size: inherit;

@@ -100,11 +100,11 @@ router.get('/schedule/check/:id', async (req, res) => {
 /* Create Schedule. */
 // ---------------------------------
 router.post('/schedule/create', async function (req, res, next) {
-
   let results = await db.collection("Schedules").insertOne(req.body);
 
   res.send(results).status(204);
 });
+
 
 // ---------------------------------
 /* Update Schedule. */
@@ -131,7 +131,24 @@ router.delete("/schedule/:id", async (req, res) => {
 
   res.send(result).status(200);
 });
+// ---------------------------------
+/* Check if ID exists in the database*/
+// ---------------------------------
 
+router.get('/schedule/check/id/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log('Checking for ID:', id); // Log the ID being checked
+    
+    const result = await db.collection('Schedules').findOne({ id });
+    console.log('Result:', result); // Log the result of the query
+
+    res.send(!!result);
+  } catch (error) {
+    console.error('Error:', error); // Log the error if any
+    res.status(500).send('An error occurred while checking the ID.');
+  }
+});
 
 
 
