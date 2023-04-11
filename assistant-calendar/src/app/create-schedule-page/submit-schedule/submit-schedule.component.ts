@@ -5,6 +5,7 @@ import { SendScheduleService } from '../send-schedule.service';
 import { Deliverable } from '../create-schedule/deliverable';
 import { HttpClient } from '@angular/common/http';
 import { GetAllEventsService } from '../create-schedule/get-all-events.service';
+import { tap } from 'rxjs';
 @Component({
   selector: 'app-submit-schedule',
   templateUrl: './submit-schedule.component.html',
@@ -15,11 +16,11 @@ export class SubmitScheduleComponent {
  
   //to save the data from db
   public listOfDeliverables: Deliverable[] = [];
-
+  private tempList: Deliverable[] = [];
   
   createSchedule = async (newSchedule: Object) => {
     if(this.listOfDeliverables.length != 0){
-    this.http.post("http://localhost:3000/schedule/create",newSchedule).subscribe(
+    this.http.post("http://localhost:3000/schedule/create",newSchedule).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(
       resp => {
       },
       err => {
@@ -45,7 +46,9 @@ export class SubmitScheduleComponent {
         }
       }
     )}
-
+    getAll(){
+      this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
+     }
 
   constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) { }
   openImportDialog() {
@@ -53,15 +56,17 @@ export class SubmitScheduleComponent {
     this._getAllEventsService.getUsers().subscribe(data => {
       this.listOfDeliverables = data;
       this.createSchedule({Event:this.listOfDeliverables});
+      this.tempList = this.listOfDeliverables;
       this.resetSchedule();
     });
 
   }
   
-
+//need to make sure that some of the fields are not required 
+//checks needed before creating the schedule otherwise ics will be corrupted{changes required}
   downloadIcs() {
-    const schedule = this.sendScheduleSvc.sc
-    console.log(schedule)
+    const schedule = this.tempList;
+    console.log("schedule",schedule);
 
     let id = 'id123';
     let createdTime = new Date().toISOString();

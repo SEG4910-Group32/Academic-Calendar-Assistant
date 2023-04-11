@@ -72,7 +72,11 @@ export class CreateScheduleComponent implements OnInit{
     //adding new task to db
     createEvent = async (newEvent: Object) => {
 
-    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(
+    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(
+      tap(()=>{ 
+        this._getAllEventsService.refreshRequired.next(); 
+        this.getAll();
+      })).subscribe(
       resp => {
       },
       err => {
@@ -96,9 +100,8 @@ export class CreateScheduleComponent implements OnInit{
       mockSchedules.push({scheduleId:result.scheduleId,_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
-      this.sendSchduleSvc.sc = this.listOfDeliverables;
-      this.createEvent({scheduleId:"",type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description })
-      this.organizeTasksIntoMonths()
+      this.createEvent({scheduleId:"",type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
+      this.organizeTasksIntoMonths();
     });
     
   }
@@ -108,7 +111,10 @@ update = async (event: Object) => {
   console.log(event);
   this.emptyMonthlyTasks();
   var eve = event as Deliverable;
-  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(res => {
+  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
+    this._getAllEventsService.refreshRequired.next();
+    this.getAll();
+  })).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");
@@ -121,7 +127,10 @@ delete = async (event: Object) => {
   this.emptyMonthlyTasks();
   console.log(event)
   var eve = event as Deliverable;
-  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(res => {
+  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
+    this._getAllEventsService.refreshRequired.next();
+    this.getAll();
+  })).subscribe(res => {
     console.log(res);
   }, err => {
     console.log("error");
@@ -136,17 +145,25 @@ delete = async (event: Object) => {
  }
 
  getAll(){
-  this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
+  this._getAllEventsService.getUsers().subscribe(data => {
+    this.listOfDeliverables = data;
+    this.sendSchduleSvc.sc = this.listOfDeliverables;
+    console.log("this.sendSchduleSvc.sc ",this.sendSchduleSvc.sc);
+    console.log("List of deliverables after getAll ",this.listOfDeliverables);
+  });
+  
  }
  ngAfterViewInit(){
-  this.organizeTasksIntoMonths();//Put here your function or what you need
+  this.organizeTasksIntoMonths(); //we're calling the organizeTasksIntoMonths everytime we click on list of deliverables {change required}
+  //may have to delete
 } 
  
 //organizes tasks by their due date to show in the  Tasks by month tab
 organizeTasksIntoMonths(){
   //list of key values 
   const myMap = new Map<string, any>();
-  this.getAll();
+  console.log("calling organize tasks");
+  //this.getAll();
   const sth = this.listOfDeliverables;
    for (let i = 0; i < this.listOfDeliverables.length; i++) {
     const deliverable = this.listOfDeliverables[i];
