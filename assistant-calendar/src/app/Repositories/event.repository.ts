@@ -8,7 +8,7 @@ import { EventRepositoryInterface } from './Interfaces/event.repository.interfac
 
 @Injectable()
 export class EventRepository implements EventRepositoryInterface {
-  // check with whoever is working on backend for apiURL
+  
   private apiUrl = 'http://localhost:3000/events';
 
   constructor(private http: HttpClient) {}
