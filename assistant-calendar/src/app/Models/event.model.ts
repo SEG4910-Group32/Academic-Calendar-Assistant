@@ -1,6 +1,6 @@
 export class Event {
     
-    eventId: string;
+  scheduleId: string;
     type!: String;
     dueDate!: String;
     startDate!: String;
@@ -8,7 +8,7 @@ export class Event {
     description!: String;
 
     constructor(eventData: any) {
-      this.eventId = eventData.eventId;
+      this.scheduleId = eventData.scheduleId;
       this.type = eventData.type;
       this.dueDate = eventData.dueDate;
       this.startDate = eventData.startDate;

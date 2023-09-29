@@ -18,7 +18,7 @@ export class SubmitScheduleComponent {
 
   scheduleName: string;
   generatedId: string | null = null;
-  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) {
+  constructor(public dialog: MatDialog, private http: HttpClient,private _getAllEventsService:GetAllEventsService) {
     this.scheduleName = '';
    }
 

@@ -14,6 +14,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { SendScheduleService } from '../send-schedule.service';
 import { GetAllEventsService } from './get-all-events.service';
+import { CurrentEventsService } from 'src/services/current-events.service';
+import { Event } from 'src/app/Models/event.model';
+import { EventFacade } from 'src/app/Facades/event.facade';
 
 @Component({
   selector: 'app-create-schedule',
@@ -32,7 +35,7 @@ export class CreateScheduleComponent implements OnInit{
   showFiller = false;
 
   //to save the data from db
-  public listOfDeliverables: Deliverable[] = [];
+  public listOfDeliverables: Event[] = [];
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -64,29 +67,35 @@ export class CreateScheduleComponent implements OnInit{
 
   private endpoint = 'http://localhost:3000/event/';
 
-  constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService,private http: HttpClient, private _getAllEventsService:GetAllEventsService) {
-    sendSchduleSvc.sc = this.listOfDeliverables
+  constructor(public dialog: MatDialog, private http: HttpClient, private _getAllEventsService:GetAllEventsService, private currentEventsSvc: CurrentEventsService) {
+    // sendSchduleSvc.sc = this.listOfDeliverables
+    currentEventsSvc.eventList = this.listOfDeliverables;
   }
 
 
     //adding new task to db
-    createEvent = async (newEvent: Object) => {
+    createEvent = async (newEvent: Event) => {
 
-    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(
-      tap(()=>{ 
-        this._getAllEventsService.refreshRequired.next(); 
-        this.getAll();
-      })).subscribe(
-      resp => {
-      },
-      err => {
-        if (err.status === 422) {
-          console.log(err.error);
-        }
-        else {
-        }
-      }
-    )}
+      this.currentEventsSvc.eventList.push(newEvent);
+
+    // this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(
+    //   tap(()=>{ 
+    //     this._getAllEventsService.refreshRequired.next(); 
+    //     this.getAll();
+    //   })).subscribe(
+    //   resp => {
+    //   },
+    //   err => {
+    //     if (err.status === 422) {
+    //       console.log(err.error);
+    //     }
+    //     else {
+    //     }
+    //   }
+    // )
+  
+  
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
@@ -107,35 +116,43 @@ export class CreateScheduleComponent implements OnInit{
   }
 
 //updating 
-update = async (event: Object) => {
+update = async (event: Event, i: number) => {
   console.log(event);
   this.emptyMonthlyTasks();
   var eve = event as Deliverable;
-  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
-    this._getAllEventsService.refreshRequired.next();
-    this.getAll();
-  })).subscribe(res => {
-    console.log(res);
-  }, err => {
-    console.log("error");
-    console.log(err.response.data)
-  });
+  this.currentEventsSvc.eventList[i]=event;
+  this.listOfDeliverables = this.currentEventsSvc.eventList;
+  console.log(this.currentEventsSvc.eventList)
+
+  // this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
+  //   this._getAllEventsService.refreshRequired.next();
+  //   this.getAll();
+  // })).subscribe(res => {
+  //   console.log(res);
+  // }, err => {
+  //   console.log("error");
+  //   console.log(err.response.data)
+  // });
 };
 
 //deleting 
-delete = async (event: Object) => {
+delete = async (event: Object, index: number) => {
   this.emptyMonthlyTasks();
   console.log(event)
-  var eve = event as Deliverable;
-  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
-    this._getAllEventsService.refreshRequired.next();
-    this.getAll();
-  })).subscribe(res => {
-    console.log(res);
-  }, err => {
-    console.log("error");
-    console.log(err.response.data)
-  });
+
+  this.currentEventsSvc.eventList = this.currentEventsSvc.eventList.filter((v,i)=> i !== index);
+  this.listOfDeliverables = this.currentEventsSvc.eventList;
+
+  // var eve = event as Deliverable;
+  // this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
+  //   this._getAllEventsService.refreshRequired.next();
+  //   this.getAll();
+  // })).subscribe(res => {
+  //   console.log(res);
+  // }, err => {
+  //   console.log("error");
+  //   console.log(err.response.data)
+  // });
 };
 
  ngOnInit(){
@@ -145,12 +162,15 @@ delete = async (event: Object) => {
  }
 
  getAll(){
-  this._getAllEventsService.getUsers().subscribe(data => {
-    this.listOfDeliverables = data;
-    this.sendSchduleSvc.sc = this.listOfDeliverables;
-    console.log("this.sendSchduleSvc.sc ",this.sendSchduleSvc.sc);
-    console.log("List of deliverables after getAll ",this.listOfDeliverables);
-  });
+
+  this.listOfDeliverables = this.currentEventsSvc.eventList;
+  // this._getAllEventsService.getUsers().subscribe(data => {
+  //   this.listOfDeliverables = data;
+  //   this.sendSchduleSvc.sc = this.listOfDeliverables;
+  //   console.log("this.sendSchduleSvc.sc ",this.sendSchduleSvc.sc);
+  //   console.log("List of deliverables after getAll ",this.listOfDeliverables);
+  // }
+  // );
   
  }
  ngAfterViewInit(){
@@ -166,7 +186,7 @@ organizeTasksIntoMonths(){
   //this.getAll();
   const sth = this.listOfDeliverables;
    for (let i = 0; i < this.listOfDeliverables.length; i++) {
-    const deliverable = this.listOfDeliverables[i];
+    const deliverable = this.listOfDeliverables[i] as Deliverable;
   console.log(deliverable.dueDate + ' - ' );
   const date = new Date(deliverable.dueDate);
 const month = date.getMonth() + 1; // add 1 since getMonth() returns 0-based index
