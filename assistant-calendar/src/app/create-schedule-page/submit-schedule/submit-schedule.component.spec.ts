@@ -6,8 +6,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { SendScheduleService } from '../send-schedule.service';
 import { of } from 'rxjs';
 
-
-
 describe('SubmitScheduleComponent', () => {
   let component: SubmitScheduleComponent;
   let fixture: ComponentFixture<SubmitScheduleComponent>;
@@ -17,10 +15,9 @@ describe('SubmitScheduleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatDialogModule],
-      declarations: [ SubmitScheduleComponent ],
+      declarations: [SubmitScheduleComponent],
       providers: [SendScheduleService],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SubmitScheduleComponent);
     component = fixture.componentInstance;
@@ -37,28 +34,23 @@ describe('SubmitScheduleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create a schedule', async () => {
+  it('should create a schedule', () => {
     // Assign mock schedule data directly to the sc property
-    sendScheduleSvc.sc = [
-      // mock schedule data
-    ];
-  
-    component.createSchedule();
-    const req = httpTestingController.expectOne('/schedule/create');
+    const mockSchedule = {
+      Event: [], // Populate with any relevant mock data
+      createdTime: new Date().toISOString(),
+      scheduleName: 'Test Schedule'
+    };
+    component.createSchedule(mockSchedule);
+    const req = httpTestingController.expectOne('http://localhost:3000/schedule/create');
     expect(req.request.method).toBe('POST');
     req.flush({});
-  
-    // Add any other expectations, such as whether the schedule data is as expected
   });
-  
 
   it('should generate a unique ID', async () => {
     spyOn(component['http'], 'get').and.returnValue(of(false));
-
     const id = await component.generateUniqueId();
     expect(id).toBeTruthy();
-    expect(id.length).toBeGreaterThanOrEqual(9);
-
-    // Add any other expectations, such as whether the ID is unique
+    expect(id.length).toBe(6);
   });
 });
