@@ -24,7 +24,9 @@ export class LoginFormComponent {
   redirectPath: string = "";
 
   login = async (user: Object) => {
-    this.http.post("http://localhost:3000/user/login", user).subscribe(res => {
+    console.log(user)
+    this.http.post("http://localhost:3000/api/users/login", user).subscribe(res => {
+      console.log(res)
     // create local storage item containing user information  
     localStorage.setItem("currUser", JSON.stringify(res));
     this.data.updateLoggedInStatus(true);
