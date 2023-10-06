@@ -6,10 +6,12 @@ import { Observable } from 'rxjs';
 import { Event } from '../Models/event.model';
 import { EventRepositoryInterface } from './Interfaces/event.repository.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class EventRepository implements EventRepositoryInterface {
   
-  private apiUrl = 'http://localhost:3000/events';
+  private apiUrl = 'https://academic-calendar-backend.onrender.com/api/events';
 
   constructor(private http: HttpClient) {}
    

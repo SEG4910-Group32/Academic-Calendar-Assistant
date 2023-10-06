@@ -8,6 +8,10 @@ import { GetAllEventsService } from '../create-schedule/get-all-events.service';
 import { tap } from 'rxjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { EventFacade } from 'src/app/Facades/event.facade';
+import { CurrentEventsService } from 'src/services/current-events.service';
+import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
+import { Schedule } from 'src/app/Models/schedule.model';
 
 @Component({
   selector: 'app-submit-schedule',
@@ -18,24 +22,33 @@ export class SubmitScheduleComponent {
 
   scheduleName: string;
   generatedId: string | null = null;
-  constructor(public dialog: MatDialog, private http: HttpClient,private _getAllEventsService:GetAllEventsService) {
+  scheduleInDB!: Schedule;
+  private endpoint = "https://academic-calendar-backend.onrender.com";
+  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade) {
     this.scheduleName = '';
-   }
+  }
 
-   //the id should be generated in the generateScheduleId component
- openImportDialog() {
+  //the id should be generated in the generateScheduleId component
+  openImportDialog() {
     // let id = await this.generateUniqueId();
     // console.log("id is ",id);
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass'})
-      this._getAllEventsService.getUsers().subscribe(data => {
-        this.listOfDeliverables = data;
-        this.createSchedule({Event:this.listOfDeliverables, createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
-        this.tempList = this.listOfDeliverables;
-        this.resetSchedule();
-      });
-    };
-    
-  
+    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
+    this.scheduleInDB = this.createSchedule(new Schedule({title:this.scheduleName}));
+    console.log("New Schedule is: " + this.scheduleInDB.name);
+
+    // this.currentEventsSvc.eventList.forEach(currentEvent => {
+    //   currentEvent.scheduleId = DBSchedule.scheduleID;
+    // });
+
+    // this._getAllEventsService.getUsers().subscribe(data => {
+    //   this.listOfDeliverables = data;
+    //   this.createSchedule({Event:this.listOfDeliverables, createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
+    //   this.tempList = this.listOfDeliverables;
+    //   this.resetSchedule();
+    // });
+  };
+
+
   async generateUniqueId(): Promise<string> {
     const chars = '0123456789abcdef';
     let id = '';
@@ -43,7 +56,7 @@ export class SubmitScheduleComponent {
       const randomIndex = Math.floor(Math.random() * chars.length);
       id += chars[randomIndex];
     }
-  
+
     const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
       return this.http
         .get<boolean>(`/schedule/check/id/${id}`)
@@ -51,7 +64,7 @@ export class SubmitScheduleComponent {
         .toPromise()
         .catch(() => false);
     };
-  
+
     let isUniqueId = false;
     // while (!isUniqueId) {
     //   isUniqueId = !((await checkUniqueId(id)) ?? false);
@@ -63,55 +76,66 @@ export class SubmitScheduleComponent {
     //     }
     //   }
     // }
-  
+
     return id;
   }
-   //to save the data from db
-   public listOfDeliverables: Deliverable[] = [];
-   private tempList: Deliverable[] = [];
-   
-   createSchedule = async (newSchedule: Object) => {
+  //to save the data from db
+  public listOfDeliverables: Deliverable[] = [];
+  private tempList: Deliverable[] = [];
+
+  createSchedule (newSchedule: Schedule){
     // Generate a unique ID for the schedule
     // const id = await this.generateUniqueId();
     // this.generatedId = id; // Save the generated id
     const createdTime = new Date().toISOString();
-     if(this.listOfDeliverables.length != 0){
-     this.http.post("http://localhost:3000/schedule/create",newSchedule).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(
-       resp => {
+    
+    if (this.currentEventsSvc.eventList.length != 0) {
+      console.log("We're here");
+      return this.scheduleFacadeSvc.createSchedule(newSchedule);
+      
 
-       },
-       err => {
-         if (err.status === 422) {
-           console.log(err.error);
-         }
-         else {
-         }
-       }
-     )}
-   } 
- 
-     resetSchedule(){
-       this.listOfDeliverables=[];
-       this.http.delete("http://localhost:3000/resetSchedule/").subscribe( 
-         resp => {
-       },
-       err => {
-         if (err.status === 422) {
-           console.log(err.error);
-         }
-         else {
-         }
-       }
-     )}
-     getAll(){
-       this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
-      }
+      // this.http.post("https://academic-calendar-backend.onrender.com/api/schedules/create", newSchedule).subscribe(
+      //   resp => {
+      //     return Object(resp);
+      //   },
+      //   err => {
+      //     if (err.status === 422) {
+      //       console.log(err.error);
+      //     }
+      //     else {
+      //     }
+      //   }
+      // )
+    }
+    else{
+      return null;
+    }
+  };
+
   
-//need to make sure that some of the fields are not required 
-//checks needed before creating the schedule otherwise ics will be corrupted{changes required}
+  resetSchedule() {
+    this.listOfDeliverables = [];
+    this.http.delete("http://localhost:3000/resetSchedule/").subscribe(
+      resp => {
+      },
+      err => {
+        if (err.status === 422) {
+          console.log(err.error);
+        }
+        else {
+        }
+      }
+    )
+  }
+  getAll() {
+    this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
+  }
+
+  //need to make sure that some of the fields are not required 
+  //checks needed before creating the schedule otherwise ics will be corrupted{changes required}
   downloadIcs() {
     const schedule = this.tempList;
-    console.log("schedule",schedule);
+    console.log("schedule", schedule);
 
     let id = 'id123';
     let createdTime = new Date().toISOString();
@@ -126,15 +150,15 @@ export class SubmitScheduleComponent {
     // Event details
     schedule.forEach(element => {
 
-      if(element.description && element.startDate && element.dueDate && element.location && element.type)
-      calendarData.push('BEGIN:VEVENT',
-        'DESCRIPTION:' + element.description,
-        'DTSTART:' + new Date(element.startDate).toISOString().substring(0, 10),
-        'DTEND:' + new Date(element.dueDate).toISOString().substring(0, 10),
-        'LOCATION:' + element.location,
-        'SUMMARY:' + element.type,
-        'TRANSP:TRANSPARENT',
-        'END:VEVENT');
+      if (element.description && element.startDate && element.dueDate && element.location && element.type)
+        calendarData.push('BEGIN:VEVENT',
+          'DESCRIPTION:' + element.description,
+          'DTSTART:' + new Date(element.startDate).toISOString().substring(0, 10),
+          'DTEND:' + new Date(element.dueDate).toISOString().substring(0, 10),
+          'LOCATION:' + element.location,
+          'SUMMARY:' + element.type,
+          'TRANSP:TRANSPARENT',
+          'END:VEVENT');
     });
 
 
@@ -154,10 +178,10 @@ export class SubmitScheduleComponent {
     window.open(url);
 
   }
-  ngOnInit(){
+  ngOnInit() {
     this._getAllEventsService.getUsers().
-    subscribe(data => this.listOfDeliverables = data);
-   }
-  
+      subscribe(data => this.listOfDeliverables = data);
+  }
+
 
 }

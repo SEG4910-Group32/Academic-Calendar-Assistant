@@ -1,4 +1,4 @@
-import { EventFacade } from '../Facades/Event.facade';
+import { EventFacade } from '../Facades/event.facade';
 import { EventRepository } from '../Repositories/event.repository';
 
 export function eventFacadeFactory(eventRepository: EventRepository) {

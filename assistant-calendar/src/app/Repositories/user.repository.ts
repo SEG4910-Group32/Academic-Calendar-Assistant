@@ -9,7 +9,8 @@ import { UserRepositoryInterface } from './Interfaces/user.repository.interface'
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
   
-  private apiUrl = 'http://localhost:3000/users';
+  private apiUrl = 'https://academic-calendar-backend.onrender.com/api/users';
+
 
   constructor(private http: HttpClient) {}
    
