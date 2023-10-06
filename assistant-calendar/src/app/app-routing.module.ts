@@ -8,7 +8,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
 import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-to-schedule.component';
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
-
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { AuthenticationGuard } from './authentication.guard';
@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'subscribe', component: SubscribescheduleComponent},
   { path: 'subscribe-schedule', component: SubscribeToScheduleComponent },
   { path: 'profile', component: UpdateProfilePageComponent, canActivate: [AuthenticationGuard] },
+  {path: 'profile-page', component: ProfilePageComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
