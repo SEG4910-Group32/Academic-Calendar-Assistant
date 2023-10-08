@@ -10,6 +10,7 @@ h1 {
     font-size: 4em;
     font-weight: 500;
     margin-top: 2em;
+    align-items: left;
 }
 
 .text {
@@ -28,13 +29,7 @@ h1 {
     font-weight: 500;
 }
 
-.search-field input {
-    font-size: 1.1em;
-    line-height: 1.5;
-    margin-left: 3em;
-    padding: 0.2em 0.3em;
-    font-size: 1.1em;
-}
+
 
 button {
     border: none;
@@ -77,3 +72,11 @@ button:disabled {
     margin-top: 20px;
     margin-top: 20px
 }
+
+  .button-container{
+    float: right;
+    width: 50%; 
+    margin-left: 58%;
+  }
+ 
+
