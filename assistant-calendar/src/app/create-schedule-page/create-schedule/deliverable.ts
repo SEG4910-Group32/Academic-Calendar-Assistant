@@ -1,9 +1,10 @@
 export interface Deliverable{
+    name:string,
     scheduleId:string,
     _id:string,
     type: string,
-    dueDate: string,
-    startDate: string,
+    endTime: string,
+    startTime: string,
     location: string,
     description: string;
 }

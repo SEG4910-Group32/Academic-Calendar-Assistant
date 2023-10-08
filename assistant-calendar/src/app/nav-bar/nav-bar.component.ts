@@ -53,7 +53,7 @@ export class NavBarComponent {
         prompts?.classList.add('invisible');
         loggedIn?.classList.remove('invisible');
         
-        this.startIdleTimeoutTimer(5);
+        this.startIdleTimeoutTimer(5000);
       }
       else {
         prompts?.classList.remove('invisible');
@@ -69,7 +69,7 @@ export class NavBarComponent {
       prompts?.classList.add('invisible');
       loggedIn?.classList.remove('invisible');
 
-      this.startIdleTimeoutTimer(5);
+      this.startIdleTimeoutTimer(50000);
     }
 
   }

@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: visible;
 }
 
 h1 {
@@ -60,10 +61,19 @@ button:disabled {
     opacity: 0.5;
 }
 
-button:hover {
+/* button:hover {
     background-color: var(--save-changes-color-hover);
-}
+} */
 
 .btn-danger {
     background-color: red
+}
+
+.scheduleList{
+    padding-top: 20px;
+    padding-bottom: 20px
+}
+.mat-list-item{
+    margin-top: 20px;
+    margin-top: 20px
 }

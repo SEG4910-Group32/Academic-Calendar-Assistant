@@ -62,7 +62,7 @@ export class CreateScheduleComponent implements OnInit{
   public December: string[] = [];
 
 
-  private endpoint = 'http://localhost:3000/event/';
+  private endpoint = 'http://localhost:3000/api/events/';
 
   constructor(public dialog: MatDialog, private sendSchduleSvc: SendScheduleService,private http: HttpClient, private _getAllEventsService:GetAllEventsService) {
     sendSchduleSvc.sc = this.listOfDeliverables
@@ -72,8 +72,9 @@ export class CreateScheduleComponent implements OnInit{
     //adding new task to db
     createEvent = async (newEvent: Object) => {
 
-    this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(
+    this.http.post("http://localhost:3000/api/schedules/create",newEvent).pipe(
       tap(()=>{ 
+        console.log("new event", newEvent)
         this._getAllEventsService.refreshRequired.next(); 
         this.getAll();
       })).subscribe(
@@ -97,7 +98,7 @@ export class CreateScheduleComponent implements OnInit{
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({scheduleId:result.scheduleId,_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
+      mockSchedules.push({scheduleId:result.scheduleId,type:result.type,_id:result._id,name:result.name , endTime:result.endTime, startTime: result.startTime,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
       this.createEvent({scheduleId:"",type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
@@ -111,7 +112,7 @@ update = async (event: Object) => {
   console.log(event);
   this.emptyMonthlyTasks();
   var eve = event as Deliverable;
-  this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
+  this.http.patch("http://localhost:3000/api/schedules/update/"+eve._id, event).pipe(tap(()=>{ 
     this._getAllEventsService.refreshRequired.next();
     this.getAll();
   })).subscribe(res => {
@@ -127,7 +128,7 @@ delete = async (event: Object) => {
   this.emptyMonthlyTasks();
   console.log(event)
   var eve = event as Deliverable;
-  this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
+  this.http.delete("http://localhost:3000/api/schedules/delete/"+eve._id, event).pipe(tap(()=>{ 
     this._getAllEventsService.refreshRequired.next();
     this.getAll();
   })).subscribe(res => {
@@ -167,8 +168,8 @@ organizeTasksIntoMonths(){
   const sth = this.listOfDeliverables;
    for (let i = 0; i < this.listOfDeliverables.length; i++) {
     const deliverable = this.listOfDeliverables[i];
-  console.log(deliverable.dueDate + ' - ' );
-  const date = new Date(deliverable.dueDate);
+  console.log(deliverable.endTime + ' - ' );
+  const date = new Date(deliverable.endTime);
 const month = date.getMonth() + 1; // add 1 since getMonth() returns 0-based index
 if(month == 1 && (this.January.indexOf(deliverable.type) == -1)){
   this.January.push(deliverable.type)
