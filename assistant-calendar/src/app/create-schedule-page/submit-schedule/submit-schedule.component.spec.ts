@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SendScheduleService } from '../send-schedule.service';
 import { of } from 'rxjs';
+import { Schedule } from 'src/app/Models/schedule.model';
 
 
 
@@ -43,7 +44,7 @@ describe('SubmitScheduleComponent', () => {
       // mock schedule data
     ];
   
-    component.createSchedule();
+    component.createSchedule(new Schedule({}));
     const req = httpTestingController.expectOne('/schedule/create');
     expect(req.request.method).toBe('POST');
     req.flush({});

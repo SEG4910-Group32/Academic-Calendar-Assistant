@@ -32,7 +32,7 @@
                   </mat-form-field> 
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Start Date:</mat-label>
-                    <input matInput [matDatepicker]="datepicker1" [(ngModel)]="deliverable.startDate">
+                    <input matInput [matDatepicker]="datepicker1" [(ngModel)]="deliverable.startTime">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
                     <mat-datepicker #datepicker1>
@@ -46,7 +46,7 @@
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Due date:</mat-label>
 
-                    <input matInput [matDatepicker]="adatepicker" [(ngModel)]="deliverable.dueDate" required>
+                    <input matInput [matDatepicker]="adatepicker" [(ngModel)]="deliverable.endTime" required>
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="adatepicker"></mat-datepicker-toggle>
                     <mat-datepicker #adatepicker>

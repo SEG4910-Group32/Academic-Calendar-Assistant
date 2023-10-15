@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { GetAllEventsService } from '../create-schedule/get-all-events.service';
 import { tap } from 'rxjs';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, timeout } from 'rxjs/operators';
 import { EventFacade } from 'src/app/Facades/event.facade';
 import { CurrentEventsService } from 'src/services/current-events.service';
 import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
@@ -20,12 +20,12 @@ import { Schedule } from 'src/app/Models/schedule.model';
 })
 export class SubmitScheduleComponent {
 
-  scheduleName: string;
+  scheduleName: string | undefined;
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
   private endpoint = "https://academic-calendar-backend.onrender.com";
   constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade) {
-    this.scheduleName = '';
+    
   }
 
   //the id should be generated in the generateScheduleId component
@@ -33,8 +33,12 @@ export class SubmitScheduleComponent {
     // let id = await this.generateUniqueId();
     // console.log("id is ",id);
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
-    this.scheduleInDB = this.createSchedule(new Schedule({title:this.scheduleName}));
-    console.log("New Schedule is: " + this.scheduleInDB.name);
+    
+    
+    this.createSchedule(new Schedule({name:this.scheduleName}));
+    console.log("New Schedule is: " + this.scheduleInDB?.name);
+    console.log(this.scheduleInDB?.name);
+    
 
     // this.currentEventsSvc.eventList.forEach(currentEvent => {
     //   currentEvent.scheduleId = DBSchedule.scheduleID;
@@ -90,8 +94,29 @@ export class SubmitScheduleComponent {
     const createdTime = new Date().toISOString();
     
     if (this.currentEventsSvc.eventList.length != 0) {
-      console.log("We're here");
-      return this.scheduleFacadeSvc.createSchedule(newSchedule);
+      this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule=>{        
+        this.scheduleInDB = new Schedule(returnSchedule);
+        console.log("The schedule in DB is " + this.scheduleInDB.id);
+        // Create Events
+        this.currentEventsSvc.eventList.forEach(event=>{
+          event.scheduleid = this.scheduleInDB.id
+          event.name = "no name";
+          console.log("Event going in is: ");
+          
+          console.log(event);
+          
+          this.eventsFacade.createEvent(event).subscribe(returnEvent =>{
+            console.log("returned event is" + returnEvent.description);
+            console.log(returnEvent);
+            
+            
+          })
+         
+        });
+      });
+      console.log("We're going to events now");
+      
+       
       
 
       // this.http.post("https://academic-calendar-backend.onrender.com/api/schedules/create", newSchedule).subscribe(
@@ -108,7 +133,8 @@ export class SubmitScheduleComponent {
       // )
     }
     else{
-      return null;
+      console.log("No Events");
+      
     }
   };
 

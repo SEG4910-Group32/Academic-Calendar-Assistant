@@ -19,8 +19,9 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
     return this.scheduleRepository.getScheduleById(id);
   }
 
-  createSchedule(schedule: Schedule) {
-    return this.scheduleRepository.createSchedule(schedule);
+  createSchedule(schedule: Schedule):Observable<Schedule> {
+    console.log("We're in facade");
+    return this.scheduleRepository.createSchedule(schedule)
   }
 
   updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule> {

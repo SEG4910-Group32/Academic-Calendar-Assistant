@@ -1,18 +1,20 @@
 export class Event {
 
-  scheduleId: string;
-  type!: String;
-  dueDate!: String;
-  startDate!: String;
-  location!: String;
-  description!: String;
+  name!: string;
+  type!: string;  
+  description!: string;
+  location!: string;
+  startTime!: string;
+  endTime!: string;
+  scheduleid: string|undefined;
 
   constructor(eventData: any) {
-    this.scheduleId = eventData.scheduleId;
+    this.name = eventData.name;
     this.type = eventData.type;
-    this.dueDate = eventData.dueDate;
-    this.startDate = eventData.startDate;
-    this.location = eventData.location;
     this.description = eventData.description;
+    this.location = eventData.location;
+    this.startTime = eventData.startTime;
+    this.endTime = eventData.endTime;
+    this.scheduleid = eventData.scheduleid;
   }
 }

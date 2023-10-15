@@ -28,7 +28,7 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${user.userId}`, user);
+    return this.http.put<User>(`${this.apiUrl}/${user.id}`, user);
   }
 
   deleteUser(userId: string): Observable<void> {

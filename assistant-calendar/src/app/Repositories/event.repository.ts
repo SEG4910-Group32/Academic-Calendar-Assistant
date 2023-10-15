@@ -25,11 +25,21 @@ export class EventRepository implements EventRepositoryInterface {
   }
 
   createEvent(event: Event): Observable<Event> {
+    // this.http.post<Event>(this.apiUrl, event).subscribe(
+    //   resp =>{
+    //     return new Event(resp);
+    // },
+    // err =>{
+    //   console.log("The resp Error is: " );
+    //   console.log(err);
+    //   return err;
+      
+    // })
     return this.http.post<Event>(this.apiUrl, event);
   }
 
   updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${event.scheduleId}`, event);
+    return this.http.put<Event>(`${this.apiUrl}/${event.scheduleid}`, event);
   }
 
   deleteEvent(eventId: string): Observable<void> {

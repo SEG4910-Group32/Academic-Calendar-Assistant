@@ -109,7 +109,7 @@ export class CreateScheduleComponent implements OnInit{
       mockSchedules.push({scheduleId:result.scheduleId,_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
-      this.createEvent({scheduleId:"",type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
+      this.createEvent({name: result.name, scheduleid:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
       this.organizeTasksIntoMonths();
     });
     
@@ -119,7 +119,7 @@ export class CreateScheduleComponent implements OnInit{
 update = async (event: Event, i: number) => {
   console.log(event);
   this.emptyMonthlyTasks();
-  var eve = event as Deliverable;
+  var eve = event as Event;
   this.currentEventsSvc.eventList[i]=event;
   this.listOfDeliverables = this.currentEventsSvc.eventList;
   console.log(this.currentEventsSvc.eventList)
@@ -186,9 +186,9 @@ organizeTasksIntoMonths(){
   //this.getAll();
   const sth = this.listOfDeliverables;
    for (let i = 0; i < this.listOfDeliverables.length; i++) {
-    const deliverable = this.listOfDeliverables[i] as Deliverable;
-  console.log(deliverable.dueDate + ' - ' );
-  const date = new Date(deliverable.dueDate);
+    const deliverable = this.listOfDeliverables[i] as Event;
+  console.log(deliverable.endTime + ' - ' );
+  const date = new Date(deliverable.endTime);
 const month = date.getMonth() + 1; // add 1 since getMonth() returns 0-based index
 if(month == 1 && (this.January.indexOf(deliverable.type) == -1)){
   this.January.push(deliverable.type)
