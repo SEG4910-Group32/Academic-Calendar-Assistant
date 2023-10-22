@@ -20,7 +20,6 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
   }
 
   createSchedule(schedule: Schedule):Observable<Schedule> {
-    console.log("We're in facade");
     return this.scheduleRepository.createSchedule(schedule)
   }
 

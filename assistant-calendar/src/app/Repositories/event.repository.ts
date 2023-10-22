@@ -25,16 +25,7 @@ export class EventRepository implements EventRepositoryInterface {
   }
 
   createEvent(event: Event): Observable<Event> {
-    // this.http.post<Event>(this.apiUrl, event).subscribe(
-    //   resp =>{
-    //     return new Event(resp);
-    // },
-    // err =>{
-    //   console.log("The resp Error is: " );
-    //   console.log(err);
-    //   return err;
-      
-    // })
+
     return this.http.post<Event>(this.apiUrl, event);
   }
 

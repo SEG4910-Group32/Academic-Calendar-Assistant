@@ -24,29 +24,7 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   }
 
   createSchedule(schedule: Schedule): Observable<Schedule> {
-    // this.http.post<Schedule>(this.apiUrl , schedule).subscribe(
-    //   resp => {
-    //     console.log("We're in the resp");
-    //     console.log(resp);
-        
-    //     console.log(new Schedule(resp));
-        
-    //     return new Schedule(resp);
-    //   },
-    //   err => {
-    //     console.log("We're in err");
-    //     console.log(err.error);
-    //     if (err.status === 422) {
-    //       console.log(err.error);
-    //       return err.error;
-    //     }
-    //     else {
-          
-    //       return err.error;
-    //     }
-    //   }
-    // )
-    // console.log("We're outside the resp");
+
     return this.http.post<Schedule>(this.apiUrl, schedule);
   }
 

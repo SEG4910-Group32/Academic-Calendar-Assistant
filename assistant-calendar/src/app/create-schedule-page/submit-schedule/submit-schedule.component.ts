@@ -36,8 +36,6 @@ export class SubmitScheduleComponent {
     
     
     this.createSchedule(new Schedule({name:this.scheduleName}));
-    console.log("New Schedule is: " + this.scheduleInDB?.name);
-    console.log(this.scheduleInDB?.name);
     
 
     // this.currentEventsSvc.eventList.forEach(currentEvent => {
@@ -69,18 +67,6 @@ export class SubmitScheduleComponent {
         .catch(() => false);
     };
 
-    let isUniqueId = false;
-    // while (!isUniqueId) {
-    //   isUniqueId = !((await checkUniqueId(id)) ?? false);
-    //   if (!isUniqueId) {
-    //     for (let i = 0; i < 4; i++) {
-    //       const randomIndex = Math.floor(Math.random() * id.length);
-    //       const newChar = chars[Math.floor(Math.random() * chars.length)];
-    //       id = id.substring(0, randomIndex) + newChar + id.substring(randomIndex + 1);
-    //     }
-    //   }
-    // }
-
     return id;
   }
   //to save the data from db
@@ -96,41 +82,19 @@ export class SubmitScheduleComponent {
     if (this.currentEventsSvc.eventList.length != 0) {
       this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule=>{        
         this.scheduleInDB = new Schedule(returnSchedule);
-        console.log("The schedule in DB is " + this.scheduleInDB.id);
+        
         // Create Events
         this.currentEventsSvc.eventList.forEach(event=>{
           event.scheduleid = this.scheduleInDB.id
           event.name = "no name";
-          console.log("Event going in is: ");
-          
-          console.log(event);
           
           this.eventsFacade.createEvent(event).subscribe(returnEvent =>{
-            console.log("returned event is" + returnEvent.description);
-            console.log(returnEvent);
-            
             
           })
          
         });
       });
-      console.log("We're going to events now");
-      
-       
-      
-
-      // this.http.post("https://academic-calendar-backend.onrender.com/api/schedules/create", newSchedule).subscribe(
-      //   resp => {
-      //     return Object(resp);
-      //   },
-      //   err => {
-      //     if (err.status === 422) {
-      //       console.log(err.error);
-      //     }
-      //     else {
-      //     }
-      //   }
-      // )
+  
     }
     else{
       console.log("No Events");
@@ -139,20 +103,20 @@ export class SubmitScheduleComponent {
   };
 
   
-  resetSchedule() {
-    this.listOfDeliverables = [];
-    this.http.delete("http://localhost:3000/resetSchedule/").subscribe(
-      resp => {
-      },
-      err => {
-        if (err.status === 422) {
-          console.log(err.error);
-        }
-        else {
-        }
-      }
-    )
-  }
+  // resetSchedule() {
+  //   this.listOfDeliverables = [];
+  //   this.http.delete("http://localhost:3000/resetSchedule/").subscribe(
+  //     resp => {
+  //     },
+  //     err => {
+  //       if (err.status === 422) {
+  //         console.log(err.error);
+  //       }
+  //       else {
+  //       }
+  //     }
+  //   )
+  // }
   getAll() {
     this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
   }

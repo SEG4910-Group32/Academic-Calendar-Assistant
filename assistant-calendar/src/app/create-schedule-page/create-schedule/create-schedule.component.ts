@@ -77,23 +77,6 @@ export class CreateScheduleComponent implements OnInit{
     createEvent = async (newEvent: Event) => {
 
       this.currentEventsSvc.eventList.push(newEvent);
-
-    // this.http.post("http://localhost:3000/currentSchedule/create",newEvent).pipe(
-    //   tap(()=>{ 
-    //     this._getAllEventsService.refreshRequired.next(); 
-    //     this.getAll();
-    //   })).subscribe(
-    //   resp => {
-    //   },
-    //   err => {
-    //     if (err.status === 422) {
-    //       console.log(err.error);
-    //     }
-    //     else {
-    //     }
-    //   }
-    // )
-  
   
   }
 
@@ -122,17 +105,6 @@ update = async (event: Event, i: number) => {
   var eve = event as Event;
   this.currentEventsSvc.eventList[i]=event;
   this.listOfDeliverables = this.currentEventsSvc.eventList;
-  console.log(this.currentEventsSvc.eventList)
-
-  // this.http.patch("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
-  //   this._getAllEventsService.refreshRequired.next();
-  //   this.getAll();
-  // })).subscribe(res => {
-  //   console.log(res);
-  // }, err => {
-  //   console.log("error");
-  //   console.log(err.response.data)
-  // });
 };
 
 //deleting 
@@ -143,16 +115,6 @@ delete = async (event: Object, index: number) => {
   this.currentEventsSvc.eventList = this.currentEventsSvc.eventList.filter((v,i)=> i !== index);
   this.listOfDeliverables = this.currentEventsSvc.eventList;
 
-  // var eve = event as Deliverable;
-  // this.http.delete("http://localhost:3000/currentSchedule/"+eve._id, event).pipe(tap(()=>{ 
-  //   this._getAllEventsService.refreshRequired.next();
-  //   this.getAll();
-  // })).subscribe(res => {
-  //   console.log(res);
-  // }, err => {
-  //   console.log("error");
-  //   console.log(err.response.data)
-  // });
 };
 
  ngOnInit(){
@@ -164,13 +126,7 @@ delete = async (event: Object, index: number) => {
  getAll(){
 
   this.listOfDeliverables = this.currentEventsSvc.eventList;
-  // this._getAllEventsService.getUsers().subscribe(data => {
-  //   this.listOfDeliverables = data;
-  //   this.sendSchduleSvc.sc = this.listOfDeliverables;
-  //   console.log("this.sendSchduleSvc.sc ",this.sendSchduleSvc.sc);
-  //   console.log("List of deliverables after getAll ",this.listOfDeliverables);
-  // }
-  // );
+
   
  }
  ngAfterViewInit(){
