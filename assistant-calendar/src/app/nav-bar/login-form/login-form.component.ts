@@ -24,7 +24,7 @@ export class LoginFormComponent {
   redirectPath: string = "";
 
   login = async (user: Object) => {
-    this.http.post("http://localhost:3000/user/login", user).subscribe(res => {
+    this.http.get("https://academic-calendar-backend.onrender.com/api/users/login", user).subscribe(res => {
     // create local storage item containing user information  
     localStorage.setItem("currUser", JSON.stringify(res));
     this.data.updateLoggedInStatus(true);
@@ -36,7 +36,7 @@ export class LoginFormComponent {
 
       this.dialogRef.close();
     }, err => {
-      console.log("error");
+      console.log(err.error);
     });
   };
 

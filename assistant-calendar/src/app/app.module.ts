@@ -45,6 +45,9 @@ import { LogoutDialogComponent } from './nav-bar/logout-dialog/logout-dialog.com
 
 import { BnNgIdleService } from 'bn-ng-idle';
 import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-to-schedule.component';
+import { eventFacadeFactory } from './Factories/event.factory';
+import { EventFacade } from './Facades/event.facade';
+import { ScheduleFacade } from './Facades/schedule.facade';
 
 @NgModule({
   declarations: [
@@ -89,7 +92,11 @@ import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-
     DragDropModule,
 
   ],
-  providers: [BnNgIdleService],
+  providers: [
+    BnNgIdleService,
+    EventFacade,
+    ScheduleFacade
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

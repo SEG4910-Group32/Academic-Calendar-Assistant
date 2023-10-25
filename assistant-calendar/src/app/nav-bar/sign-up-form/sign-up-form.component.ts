@@ -20,8 +20,10 @@ export class SignUpFormComponent {
     email: ['', [Validators.required, Validators.email]],
     firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+    type: ['Student'],
+    username: ['tester'],
     password: ['', [Validators.required, Validators.minLength(8), 
-                    Validators.maxLength(16), mustContainValidator()]]
+                    Validators.maxLength(16), mustContainValidator()]],
   });
 
   constructor(
@@ -55,13 +57,14 @@ export class SignUpFormComponent {
   }
 
   createUser = async (newUser: Object) => {
-    this.http.post("http://localhost:3000/user/create", newUser).subscribe(res => {
+    this.http.post("https://academic-calendar-backend.onrender.com/api/users/create", newUser).subscribe(res => {
       this._snackBar.open("User Created!", "", {
         duration: 1500
       });
 
       this.dialogRef.close();
     }, err => {
+      console.log(err.error);
       if (err.status === 422) {
         console.log(err.error);
 
