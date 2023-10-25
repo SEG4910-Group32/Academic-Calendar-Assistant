@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {MatTableModule} from '@angular/material/table';
+
 
 @Component({
   selector: 'app-edit-schedule-page',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-schedule-page.component.css']
 })
 export class EditSchedulePageComponent {
+
+  displayedColumns: string[] = ['name', 'type', 'end time', 'action'];
 
 }

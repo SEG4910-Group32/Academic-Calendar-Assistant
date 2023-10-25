@@ -10,7 +10,7 @@ import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { EditSchedulePageComponent } from './profile-page/edit-schedule-page/edit-schedule-page.component';
 import { AuthenticationGuard } from './authentication.guard';
 
 const routes: Routes = [
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'subscribe-schedule', component: SubscribeToScheduleComponent },
   { path: 'profile', component: UpdateProfilePageComponent, canActivate: [AuthenticationGuard] },
   {path: 'profile-page', component: ProfilePageComponent},
+  {path: 'edit-schedule', component: EditSchedulePageComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
