@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { UserFacade } from 'src/app/Facades/user.facade';
+import { UserFactory } from 'src/app/Factories/user.factory';
+import { User } from 'src/app/Models/user.model';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -24,21 +27,22 @@ export class LoginFormComponent {
   redirectPath: string = "";
 
   login = async (user: Object) => {
-    this.http.get("https://academic-calendar-backend.onrender.com/api/users/login", user).subscribe(res => {
-    // create local storage item containing user information  
-    localStorage.setItem("currUser", JSON.stringify(res));
-    this.data.updateLoggedInStatus(true);
-    
-      // if login was redirected to, navigate to intended page after login
-      if (this.redirect == "true") {
-        this.router.navigate([this.redirectPath]);
+    this.userFacade.login(user).subscribe(
+      (res: any) => {
+        localStorage.setItem('currUser', JSON.stringify(res));
+        this.data.updateLoggedInStatus(true);
+        if (this.redirect === 'true') {
+          this.router.navigate([this.redirectPath]);
+        }
+        this.dialogRef.close();
+      },
+      (err: any) => {
+        console.log(err.error);
       }
+    );
 
-      this.dialogRef.close();
-    }, err => {
-      console.log(err.error);
-    });
   };
+  
 
   /**
    * Clear local storage and check for route params
@@ -58,7 +62,10 @@ export class LoginFormComponent {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<LoginFormComponent>,
     public http: HttpClient,
-    private data: DataService
+    private data: DataService,
+    private userFacade: UserFacade,
+    private userFactory: UserFactory,
+  
   ) {}
 
   /**
