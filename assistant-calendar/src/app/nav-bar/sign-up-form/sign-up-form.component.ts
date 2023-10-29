@@ -4,6 +4,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { mustContainValidator } from 'src/app/must-contain-validator';
 import { EmailService } from 'src/app/email.service';
+import { UserFacade } from 'src/app/Facades/user.facade';
+import { UserFactory } from 'src/app/Factories/user.factory';
+import { User } from 'src/app/Models/user.model';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -20,8 +23,10 @@ export class SignUpFormComponent {
     email: ['', [Validators.required, Validators.email]],
     firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+    type: ['Student'],
+    username: ['tester'],
     password: ['', [Validators.required, Validators.minLength(8), 
-                    Validators.maxLength(16), mustContainValidator()]]
+                    Validators.maxLength(16), mustContainValidator()]],
   });
 
   constructor(
@@ -30,7 +35,9 @@ export class SignUpFormComponent {
     public dialogRef: MatDialogRef<SignUpFormComponent>,
     private http: HttpClient,
     private email: EmailService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private userFacade: UserFacade,
+    private userFactory: UserFactory,
   ) { }
 
   getFormValues(): Object {
@@ -55,26 +62,30 @@ export class SignUpFormComponent {
   }
 
   createUser = async (newUser: Object) => {
-    this.http.post("http://localhost:3000/user/create", newUser).subscribe(res => {
-      this._snackBar.open("User Created!", "", {
-        duration: 1500
-      });
-
-      this.dialogRef.close();
-    }, err => {
-      if (err.status === 422) {
-        console.log(err.error);
-
-        this._snackBar.open(err.error.join('\n'));
-      }
-      else {
-        this._snackBar.open("Unknown Error Occurred!", "", {
+    this.userFacade.createUser(newUser).subscribe(
+      (res: any) => {
+        this._snackBar.open("User Created!", "", {
           duration: 1500
         });
+  
+        this.dialogRef.close();
+      },
+      (err: any) => {
+        console.log(err.error);
+        if (err.status === 422) {
+          console.log(err.error);
+  
+          this._snackBar.open(err.error.join('\n'));
+        } else {
+          this._snackBar.open("Unknown Error Occurred!", "", {
+            duration: 1500
+          });
+        }
       }
-    });
+    );
   };
-
+  
+  
   openSignInForm(): void {
     this.dialogRef.close('openSignIn');
   }

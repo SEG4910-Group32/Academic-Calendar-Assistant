@@ -44,6 +44,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LogoutDialogComponent } from './nav-bar/logout-dialog/logout-dialog.component';
 
 import { BnNgIdleService } from 'bn-ng-idle';
+import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-to-schedule.component';
+import { eventFacadeFactory } from './Factories/event.factory';
+import { EventFacade } from './Facades/event.facade';
+import { ScheduleFacade } from './Facades/schedule.facade';
 
 @NgModule({
   declarations: [
@@ -67,7 +71,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
     UpdateProfilePageComponent,
     GenerateScheduleIdComponent,
     PageNotFoundComponent,
-    LogoutDialogComponent
+    LogoutDialogComponent,
+    SubscribeToScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +92,11 @@ import { BnNgIdleService } from 'bn-ng-idle';
     DragDropModule,
 
   ],
-  providers: [BnNgIdleService],
+  providers: [
+    BnNgIdleService,
+    EventFacade,
+    ScheduleFacade
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

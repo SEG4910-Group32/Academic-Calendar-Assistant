@@ -29,6 +29,7 @@ router.post('/event/create', async function (req, res, next) {
   res.send(results).status(204);
 });
 
+
 // ---------------------------------
 /* Update Event. */
 // ---------------------------------
@@ -55,26 +56,135 @@ router.delete("/event/:id", async (req, res) => {
   res.send(result).status(200);
 });
 
+// ---------------------------------
+// get all schedules
+// ---------------------------------
+router.get('/schedule', async (req, res) => {
+  let schedules = await db.collection("Schedules").find({}).toArray();
+
+  res.send(schedules).status(200);
+});
 
 // ---------------------------------
-/* GET Schedule. */
+// get schedule by id
 // ---------------------------------
-router.get('/schedule/', async function (req, res, next) {
+router.get('/schedule/:id', async (req, res) => {
+  let collection = await db.collection("Schedules");
 
-  let results = await db.collection("Schedules").find({}).toArray();
+  await collection.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, doc) => {
+    if (err) throw err;
+
+    res.send(doc).status(200);
+  });
+});
+
+// ---------------------------------
+/* GET tempSchedule. */
+// ---------------------------------
+router.get('/currentSchedule/', async function (req, res, next) {
+
+  let results = await db.collection("tempSchedule").find({}).toArray();
 
   res.send(results).status(200);
+});
+
+// ---------------------------------
+/* Create tempSchedule. */
+// ---------------------------------
+router.post('/currentSchedule/create', async function (req, res, next) {
+
+  let results = await db.collection("tempSchedule").insertOne(req.body);
+
+  res.send(results).status(204);
+});
+
+// ---------------------------------
+/* Update tempSchedule. */
+// ---------------------------------
+router.patch("/currentSchedule/:id", async (req, res) => {
+  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+  delete req.body._id;
+  let collection = await db.collection("tempSchedule");
+  console.log(query)
+  console.log(req.body)
+  let result = await collection.updateOne(query, { $set: req.body }, { upsert: true })
+
+  res.send(result).status(200);
+});
+
+// ---------------------------------
+/* Delete tempSchedule. */
+// ---------------------------------
+router.delete("/currentSchedule/:id", async (req, res) => {
+  const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+  console.log(query);
+  const collection = db.collection("tempSchedule");
+  let result = await collection.deleteOne(query);
+
+  res.send(result).status(200);
+});
+
+// ---------------------------------
+/* Delete ALL tempSchedule. */
+// ---------------------------------
+router.delete("/resetSchedule/", async (req, res) => {
+  //const query = { _id: mongoose.Types.ObjectId(req.params.id) };
+ // console.log(query);
+  const collection = db.collection("tempSchedule");
+  let result = await collection.deleteMany();
+
+  res.send(result).status(200);
+});
+
+// get all schedules
+// ---------------------------------
+router.get('/schedule', async (req, res) => {
+  let schedules = await db.collection("Schedules").find({}).toArray();
+
+  res.send(schedules).status(200);
+});
+
+// ---------------------------------
+// get schedule by id
+// ---------------------------------
+router.get('/schedule/:id', async (req, res) => {
+  let collection = await db.collection("Schedules");
+
+  await collection.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, doc) => {
+    if (err) throw err;
+
+    res.send(doc).status(200);
+  });
+});
+
+// ---------------------------------
+// check if schedule with id exists
+// ---------------------------------
+router.get('/schedule/check/:id', async (req, res) => {
+  let collection = await db.collection("Schedules");
+
+  await collection.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, doc) => {
+    if (err) throw err;
+
+    if (doc) {
+      res.send(true);
+    }
+    else {
+      res.send(false);
+    }
+    
+  });
 });
 
 // ---------------------------------
 /* Create Schedule. */
 // ---------------------------------
 router.post('/schedule/create', async function (req, res, next) {
-
   let results = await db.collection("Schedules").insertOne(req.body);
 
   res.send(results).status(204);
 });
+
 
 // ---------------------------------
 /* Update Schedule. */
@@ -101,7 +211,24 @@ router.delete("/schedule/:id", async (req, res) => {
 
   res.send(result).status(200);
 });
+// ---------------------------------
+/* Check if ID exists in the database*/
+// ---------------------------------
 
+router.get('/schedule/check/id/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log('Checking for ID:', id); // Log the ID being checked
+    
+    const result = await db.collection('Schedules').findOne({ id });
+    console.log('Result:', result); // Log the result of the query
+
+    res.send(!!result);
+  } catch (error) {
+    console.error('Error:', error); // Log the error if any
+    res.status(500).send('An error occurred while checking the ID.');
+  }
+});
 
 
 
@@ -111,11 +238,10 @@ const User = mongoose.model("User");
 // ---------------------------------
 /* GET Users. */
 // ---------------------------------
-router.get('/user', async function (req, res, next) {
+router.get('/user', async (req, res) => {
+  let users = await db.collection("users").find({}).toArray();
 
-  let results = await db.collection("users").find({}).toArray();
-
-  res.send(results).status(200);
+  res.send(users).status(200);
 });
 
 // ---------------------------------
