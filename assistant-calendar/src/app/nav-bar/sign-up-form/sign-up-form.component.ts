@@ -65,6 +65,7 @@ export class SignUpFormComponent {
     this.userFacade.createUser(newUser).subscribe(
       (res: any) => {
         this._snackBar.open("User Created!", "", {
+
           duration: 1500
         });
   

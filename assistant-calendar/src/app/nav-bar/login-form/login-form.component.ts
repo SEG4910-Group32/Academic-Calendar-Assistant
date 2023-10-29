@@ -40,6 +40,7 @@ export class LoginFormComponent {
         console.log(err.error);
       }
     );
+
   };
   
 
