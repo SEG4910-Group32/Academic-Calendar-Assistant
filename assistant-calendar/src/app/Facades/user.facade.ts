@@ -30,5 +30,5 @@ export class UserFacade {
     return this.http.delete<void>(`${this.apiUrl}/delete-user/${userId}`);
   }
 
-  // Add more methods as needed
+  // To add more methods as needed
 }
