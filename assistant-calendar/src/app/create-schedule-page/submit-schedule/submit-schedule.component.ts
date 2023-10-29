@@ -7,7 +7,11 @@ import { HttpClient } from '@angular/common/http';
 import { GetAllEventsService } from '../create-schedule/get-all-events.service';
 import { tap } from 'rxjs';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, timeout } from 'rxjs/operators';
+import { EventFacade } from 'src/app/Facades/event.facade';
+import { CurrentEventsService } from 'src/services/current-events.service';
+import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
+import { Schedule } from 'src/app/Models/schedule.model';
 
 @Component({
   selector: 'app-submit-schedule',
@@ -16,26 +20,37 @@ import { map } from 'rxjs/operators';
 })
 export class SubmitScheduleComponent {
 
-  scheduleName: string;
+  scheduleName: string | undefined;
   generatedId: string | null = null;
-  constructor(public dialog: MatDialog, private sendScheduleSvc: SendScheduleService,private http: HttpClient,private _getAllEventsService:GetAllEventsService) {
-    this.scheduleName = '';
-   }
+  scheduleInDB!: Schedule;
+  private endpoint = "https://academic-calendar-backend.onrender.com";
+  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade) {
+    
+  }
 
-   //the id should be generated in the generateScheduleId component
- openImportDialog() {
+  //the id should be generated in the generateScheduleId component
+  openImportDialog() {
     // let id = await this.generateUniqueId();
     // console.log("id is ",id);
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass'})
-      this._getAllEventsService.getUsers().subscribe(data => {
-        this.listOfDeliverables = data;
-        this.createSchedule({Event:this.listOfDeliverables, createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
-        this.tempList = this.listOfDeliverables;
-        this.resetSchedule();
-      });
-    };
+    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
     
-  
+    
+    this.createSchedule(new Schedule({name:this.scheduleName}));
+    
+
+    // this.currentEventsSvc.eventList.forEach(currentEvent => {
+    //   currentEvent.scheduleId = DBSchedule.scheduleID;
+    // });
+
+    // this._getAllEventsService.getUsers().subscribe(data => {
+    //   this.listOfDeliverables = data;
+    //   this.createSchedule({Event:this.listOfDeliverables, createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
+    //   this.tempList = this.listOfDeliverables;
+    //   this.resetSchedule();
+    // });
+  };
+
+
   async generateUniqueId(): Promise<string> {
     const chars = '0123456789abcdef';
     let id = '';
@@ -43,7 +58,7 @@ export class SubmitScheduleComponent {
       const randomIndex = Math.floor(Math.random() * chars.length);
       id += chars[randomIndex];
     }
-  
+
     const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
       return this.http
         .get<boolean>(`/schedule/check/id/${id}`)
@@ -51,67 +66,68 @@ export class SubmitScheduleComponent {
         .toPromise()
         .catch(() => false);
     };
-  
-    let isUniqueId = false;
-    // while (!isUniqueId) {
-    //   isUniqueId = !((await checkUniqueId(id)) ?? false);
-    //   if (!isUniqueId) {
-    //     for (let i = 0; i < 4; i++) {
-    //       const randomIndex = Math.floor(Math.random() * id.length);
-    //       const newChar = chars[Math.floor(Math.random() * chars.length)];
-    //       id = id.substring(0, randomIndex) + newChar + id.substring(randomIndex + 1);
-    //     }
-    //   }
-    // }
-  
+
     return id;
   }
-   //to save the data from db
-   public listOfDeliverables: Deliverable[] = [];
-   private tempList: Deliverable[] = [];
-   
-   createSchedule = async (newSchedule: Object) => {
+  //to save the data from db
+  public listOfDeliverables: Deliverable[] = [];
+  private tempList: Deliverable[] = [];
+
+  createSchedule (newSchedule: Schedule){
     // Generate a unique ID for the schedule
     // const id = await this.generateUniqueId();
     // this.generatedId = id; // Save the generated id
     const createdTime = new Date().toISOString();
-     if(this.listOfDeliverables.length != 0){
-     this.http.post("http://localhost:3000/api/schedules/create",newSchedule).pipe(tap(()=>{ this._getAllEventsService.refreshRequired.next()})).subscribe(
-       resp => {
 
-       },
-       err => {
-         if (err.status === 422) {
-           console.log(err.error);
-         }
-         else {
-         }
-       }
-     )}
-   } 
- 
-     resetSchedule(){
-       this.listOfDeliverables=[];
-       this.http.delete("http://localhost:3000/resetSchedule/").subscribe( 
-         resp => {
-       },
-       err => {
-         if (err.status === 422) {
-           console.log(err.error);
-         }
-         else {
-         }
-       }
-     )}
-     getAll(){
-       this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
-      }
+    
+    if (this.currentEventsSvc.eventList.length != 0) {
+      this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule=>{        
+        this.scheduleInDB = new Schedule(returnSchedule);
+        
+        // Create Events
+        this.currentEventsSvc.eventList.forEach(event=>{
+          event.scheduleid = this.scheduleInDB.id
+          event.name = "no name";
+          
+          this.eventsFacade.createEvent(event).subscribe(returnEvent =>{
+            
+          })
+         
+        });
+      });
   
-//need to make sure that some of the fields are not required 
-//checks needed before creating the schedule otherwise ics will be corrupted{changes required}
+    }
+    else{
+      console.log("No Events");
+      
+    }
+  };
+
+
+  
+  // resetSchedule() {
+  //   this.listOfDeliverables = [];
+  //   this.http.delete("http://localhost:3000/resetSchedule/").subscribe(
+  //     resp => {
+  //     },
+  //     err => {
+  //       if (err.status === 422) {
+  //         console.log(err.error);
+  //       }
+  //       else {
+  //       }
+  //     }
+  //   )
+  // }
+  getAll() {
+    this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
+  }
+
+  //need to make sure that some of the fields are not required 
+  //checks needed before creating the schedule otherwise ics will be corrupted{changes required}
   downloadIcs() {
     const schedule = this.tempList;
-    console.log("schedule",schedule);
+    console.log("schedule", schedule);
 
     let id = 'id123';
     let createdTime = new Date().toISOString();
@@ -126,15 +142,17 @@ export class SubmitScheduleComponent {
     // Event details
     schedule.forEach(element => {
 
-      if(element.description && element.startTime && element.endTime && element.location && element.type)
-      calendarData.push('BEGIN:VEVENT',
-        'DESCRIPTION:' + element.description,
-        'DTSTART:' + new Date(element.startTime).toISOString().substring(0, 10),
-        'DTEND:' + new Date(element.endTime).toISOString().substring(0, 10),
-        'LOCATION:' + element.location,
-        'SUMMARY:' + element.type,
-        'TRANSP:TRANSPARENT',
-        'END:VEVENT');
+
+      if (element.description && element.startDate && element.dueDate && element.location && element.type)
+        calendarData.push('BEGIN:VEVENT',
+          'DESCRIPTION:' + element.description,
+          'DTSTART:' + new Date(element.startDate).toISOString().substring(0, 10),
+          'DTEND:' + new Date(element.dueDate).toISOString().substring(0, 10),
+          'LOCATION:' + element.location,
+          'SUMMARY:' + element.type,
+          'TRANSP:TRANSPARENT',
+          'END:VEVENT');
+
     });
 
 
@@ -154,10 +172,10 @@ export class SubmitScheduleComponent {
     window.open(url);
 
   }
-  ngOnInit(){
+  ngOnInit() {
     this._getAllEventsService.getUsers().
-    subscribe(data => this.listOfDeliverables = data);
-   }
-  
+      subscribe(data => this.listOfDeliverables = data);
+  }
+
 
 }
