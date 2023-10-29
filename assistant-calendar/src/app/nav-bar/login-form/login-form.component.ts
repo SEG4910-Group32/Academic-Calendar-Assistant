@@ -27,6 +27,7 @@ export class LoginFormComponent {
   redirectPath: string = "";
 
   login = async (user: Object) => {
+
     this.userFacade.login(user).subscribe(
       (res: any) => {
         localStorage.setItem('currUser', JSON.stringify(res));
@@ -38,6 +39,7 @@ export class LoginFormComponent {
       },
       (err: any) => {
         console.log(err.error);
+
       }
     );
 

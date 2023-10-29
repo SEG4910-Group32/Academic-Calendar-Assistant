@@ -28,7 +28,7 @@ export class UpdateProfilePageComponent {
   ) { }
 
   update = async (user: Object) => {
-    this.http.patch("http://localhost:3000/user/update", user).subscribe(res => {
+    this.http.patch("http://localhost:3000/api/user/update", user).subscribe(res => {
       console.log(res);
       this._snackBar.open("Changes Saved!", "", {
         duration: 1500
@@ -39,7 +39,7 @@ export class UpdateProfilePageComponent {
   };
 
   delete = async (email: string) => {
-    this.http.delete("http://localhost:3000/user/delete/" + email).subscribe(res => {
+    this.http.delete("http://localhost:3000/api/user/delete/" + email).subscribe(res => {
       console.log(res);
       this._snackBar.open("User Deleted!", "", {
         duration: 1500

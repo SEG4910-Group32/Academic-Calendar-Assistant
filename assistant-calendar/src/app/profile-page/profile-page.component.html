@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <h1>User X</h1>
+  </div>
+  <div class="button-container">
+    <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
+  </div>
+    
+    <div class="scheduleList">
+      <h2>My Schedules</h2>
+        <mat-list #schedules>
+          <div class="container">
+          <mat-list-item *ngFor="let schedule of Schedules | async">
+            {{schedule.name}}
+            <a routerLink="/"><button class="btn btn-success" > Edit schedule </button></a>
+            <a routerLink="/"><button class="btn btn-danger" > Delete schedule </button></a>
+        </mat-list-item>
+      </div>
+      </mat-list>
+    </div>
+    <h2>You can view and edit/delete/share your schedules from here</h2>
+    
+  </div>

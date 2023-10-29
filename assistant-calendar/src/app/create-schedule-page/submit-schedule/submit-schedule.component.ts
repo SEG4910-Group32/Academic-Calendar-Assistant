@@ -78,6 +78,7 @@ export class SubmitScheduleComponent {
     // const id = await this.generateUniqueId();
     // this.generatedId = id; // Save the generated id
     const createdTime = new Date().toISOString();
+
     
     if (this.currentEventsSvc.eventList.length != 0) {
       this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule=>{        
@@ -101,6 +102,7 @@ export class SubmitScheduleComponent {
       
     }
   };
+
 
   
   // resetSchedule() {
@@ -140,6 +142,7 @@ export class SubmitScheduleComponent {
     // Event details
     schedule.forEach(element => {
 
+
       if (element.description && element.startDate && element.dueDate && element.location && element.type)
         calendarData.push('BEGIN:VEVENT',
           'DESCRIPTION:' + element.description,
@@ -149,6 +152,7 @@ export class SubmitScheduleComponent {
           'SUMMARY:' + element.type,
           'TRANSP:TRANSPARENT',
           'END:VEVENT');
+
     });
 
 

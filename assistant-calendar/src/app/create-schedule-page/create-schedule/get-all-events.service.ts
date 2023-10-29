@@ -8,8 +8,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GetAllEventsService {
 
+  
   //gets the events from the db to be used in the frontend
-private endpoint = 'http://localhost:3000/currentSchedule/';
+private endpoint = 'http://localhost:3000/api/events/';
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +21,7 @@ private endpoint = 'http://localhost:3000/currentSchedule/';
   }
   //we cast the observable into a Deliverable array
   getUsers():Observable<Deliverable[]>{
+    console.log("get all events called")
     return this.http.get<Deliverable[]>(this.endpoint);
   }
 
