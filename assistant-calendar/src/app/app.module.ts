@@ -49,7 +49,7 @@ import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-
 import { eventFacadeFactory } from './Factories/event.factory';
 import { EventFacade } from './Facades/event.facade';
 import { ScheduleFacade } from './Facades/schedule.facade';
-
+import { UserFactory } from './Factories/user.factory';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { EditSchedulePageComponent } from './profile-page/edit-schedule-page/edit-schedule-page.component';
 
@@ -102,7 +102,8 @@ import { EditSchedulePageComponent } from './profile-page/edit-schedule-page/edi
   providers: [
     BnNgIdleService,
     EventFacade,
-    ScheduleFacade
+    ScheduleFacade,
+    UserFactory
   ],
   bootstrap: [AppComponent]
 })
