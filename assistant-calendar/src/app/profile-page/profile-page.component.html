@@ -8,6 +8,10 @@
     
     <div >
       <h2>My Schedules</h2>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
+      
+      
       <mat-card *ngFor="let schedule of Schedules | async" >
         <mat-card-header>
           <mat-card-title>{{schedule.name}}</mat-card-title>
@@ -18,7 +22,7 @@
           <button mat-button class="btn btn-danger">Delete Schedule</button>
         </mat-card-actions>
       </mat-card>
-      
+    </cdk-virtual-scroll-viewport>
       
       
         <!-- <mat-list #schedules>
