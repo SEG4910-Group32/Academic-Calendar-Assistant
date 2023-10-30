@@ -6,40 +6,43 @@
     <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
   </div>
     
+    
+    <h2>You can view and edit/delete/share your schedules from here</h2>
     <div >
       <h2>My Schedules</h2>
       <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
         <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
-      
-      
       <mat-card *ngFor="let schedule of Schedules | async" >
         <mat-card-header>
           <mat-card-title>{{schedule.name}}</mat-card-title>
           <mat-card-subtitle>Start</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-button class="btn btn-success" >Edit Schedule</button>
-          <button mat-button class="btn btn-danger">Delete Schedule</button>
+          <a routerLink="/edit-schedule"><button mat-button class="btn btn-success" >Edit Schedule</button></a>
+          <a routerLink="/"><button mat-button class="btn btn-danger">Delete Schedule</button></a>
         </mat-card-actions>
       </mat-card>
     </cdk-virtual-scroll-viewport>
       
-      
-        <!-- <mat-list #schedules>
-          <div class="container">
-          <mat-list-item *ngFor="let schedule of Schedules | async">
-            <mat-card class="example-card">
-              <mat-card-content> {{schedule.name}}</mat-card-content>
-              <a routerLink="/"><button class="btn btn-success" > Edit schedule </button></a>
-              <a routerLink="/"><button class="btn btn-danger" > Delete schedule </button></a>
-          
-            </mat-card>
-        </mat-list-item>
-      </div>
-      </mat-list> -->
     </div>
-    <h2>You can view and edit/delete/share your schedules from here</h2>
-    
+<br>
+    <div >
+      
+      <h2>Subscribed Schedules</h2>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
+      <mat-card *ngFor="let schedule of Schedules | async" >
+        <mat-card-header>
+          <mat-card-title>{{schedule.name}}</mat-card-title>
+          <mat-card-subtitle>Start</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions align="end">
+          <a routerLink="/"><button mat-button class="btn btn-danger" >Unsubscribe</button></a>
+      </mat-card-actions>
+      </mat-card>
+    </cdk-virtual-scroll-viewport>
+      
+    </div>
   </div>
 
   

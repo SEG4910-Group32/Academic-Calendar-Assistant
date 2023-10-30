@@ -15,7 +15,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
   
 })
 export class ProfilePageComponent {
-  displayedColumns: string[] = ['Name', 'Id', 'Edit', 'Delete'];
+  //displayedColumns: string[] = ['Name', 'Id', 'Edit', 'Delete'];
   Schedules: Observable<Deliverable[]>;
   // private endpoint = '"https://academic-calendar-backend.onrender.com/api/schedules/';
   //private endpoint = 'https://academic-calendar-backend.onrender.com/api/owner/65175b6ec4cfd5b8effe44ee';
