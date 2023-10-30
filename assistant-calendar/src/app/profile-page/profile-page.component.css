@@ -41,8 +41,8 @@ button {
     white-space: nowrap;
     cursor: pointer;
     margin-left: 2em;
-    background-color: blue;
-    /* background-color: var(--save-changes-color); */
+    /* background-color: blue; */
+    background-color: var(--save-changes-color);
 }
 
 .error-message {
@@ -81,3 +81,13 @@ button:disabled {
   }
  
 
+  .example-viewport {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+  }
+  
+  .example-item {
+    height: 50px;
+  }
+  
