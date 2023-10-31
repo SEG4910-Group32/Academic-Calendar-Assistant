@@ -98,3 +98,17 @@ button:disabled {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+  .example-viewport {
+    height: 200px;
+    width: 425px;
+    border: 1px solid black;
+  }
+  
+  /* .example-item {
+    height: 50px;
+  } */
+
+  .nu-table-body {
+    overflow-y:auto;
+    max-height:500px;
+}
