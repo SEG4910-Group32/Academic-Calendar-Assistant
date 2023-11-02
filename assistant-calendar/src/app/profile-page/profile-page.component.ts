@@ -16,15 +16,26 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 })
 export class ProfilePageComponent {
   //displayedColumns: string[] = ['Name', 'Id', 'Edit', 'Delete'];
-  Schedules: Observable<Deliverable[]>;
+  Schedules: any;
   // private endpoint = '"https://academic-calendar-backend.onrender.com/api/schedules/';
   //private endpoint = 'https://academic-calendar-backend.onrender.com/api/owner/65175b6ec4cfd5b8effe44ee';
-  private endpoint = 'https://academic-calendar-backend.onrender.com/api/schedules/'
+  private endpoint = 'https://academic-calendar-backend.onrender.com/api/schedules/user/owns'
    dataSource: any;
    items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
+   
   constructor(private http: HttpClient) { 
-    this.Schedules= this.http.get<Deliverable[]>(this.endpoint);// ['SEG3102', 'SEG3101'];
-  
+    //this.Schedules= this.http.get<Deliverable[]>(this.endpoint);// ['SEG3102', 'SEG3101'];
+    console.log(localStorage.getItem("currUser") )
+    this.Schedules = this.http.post(this.endpoint, { token: localStorage.getItem("currUser") });
+    
+   this.Schedules.subscribe(
+     (response:any) => {
+       console.log('POST request successful:', response);
+     },
+     (error:any) => {
+       console.error('POST request failed:', error);
+     }
+   );
   }
   
 
