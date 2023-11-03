@@ -12,9 +12,9 @@
       <h2>My Schedules</h2>
       <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
         <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
-      <mat-card *ngFor="let schedule of Schedules | async" >
+      <mat-card *ngFor="let schedule of this.dataOwns" >
         <mat-card-header>
-          <mat-card-title>{{schedule.name}}</mat-card-title>
+          <mat-card-title>{{schedule["name"]}}</mat-card-title>
           <mat-card-subtitle>Start</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
