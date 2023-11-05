@@ -64,6 +64,18 @@ export class ProfilePageComponent {
   }
   
 
+  editSchedule(sc: any){
+    console.log("edit schedule")
+    localStorage.setItem('scId', sc["_id"]);
+    localStorage.setItem('scName', sc["name"]);
+    localStorage.setItem('sc', sc);
+    console.log("sc", sc)
+    // for (const key in sc) {
+    //   if (Object.prototype.hasOwnProperty.call(sc, key)) {
+    //     console.log(key + ': ' + sc[key]);
+    //   }
+    // }
+  }
   // ngOnInit(): void{
   //   this.dataSource = this.Schedules;
   // }

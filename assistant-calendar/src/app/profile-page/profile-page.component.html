@@ -24,7 +24,7 @@
           <mat-card-subtitle>{{schedule["description"]}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <a routerLink="/edit-schedule"><button mat-button class="btn btn-success" >Edit Schedule</button></a>
+          <a routerLink="/edit-schedule"><button mat-button class="btn btn-success"  (click)="editSchedule(schedule)">Edit Schedule</button></a>
           <a routerLink="/"><button mat-button class="btn btn-danger">Delete Schedule</button></a>
         </mat-card-actions>
       </mat-card>
@@ -42,7 +42,7 @@
           <mat-card-subtitle>{{schedule["description"]}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions align="end">
-          <a routerLink="/"><button mat-button class="btn btn-danger" >Unsubscribe</button></a>
+          <a routerLink="/"><button mat-button class="btn btn-danger">Unsubscribe</button></a>
       </mat-card-actions>
       </mat-card>
     </cdk-virtual-scroll-viewport>
