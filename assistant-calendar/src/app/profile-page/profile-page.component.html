@@ -1,21 +1,27 @@
 <div class="container">
   <div class="header">
-    <h1>User X</h1>
+    <div class="left">
+      <h1>User X</h1>
+      <div class="button-container">
+        <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
+      </div>
+      <h2>You can view and edit/delete/share your schedules from here</h2>
+    </div>
+    <div class="right">
+    
+    </div>
   </div>
-  <div class="button-container">
-    <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
-  </div>
+  
     
     
-    <h2>You can view and edit/delete/share your schedules from here</h2>
-    <div >
+    <div id="mySchedules">
       <h2>My Schedules</h2>
       <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
         <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
       <mat-card *ngFor="let schedule of this.dataOwns" >
         <mat-card-header>
           <mat-card-title>{{schedule["name"]}}</mat-card-title>
-          <mat-card-subtitle>Start</mat-card-subtitle>
+          <mat-card-subtitle>{{schedule["description"]}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
           <a routerLink="/edit-schedule"><button mat-button class="btn btn-success" >Edit Schedule</button></a>
@@ -23,18 +29,17 @@
         </mat-card-actions>
       </mat-card>
     </cdk-virtual-scroll-viewport>
-      
     </div>
-<br>
-    <div >
+
+    <div id="subscribedSchedules">
       
       <h2>Subscribed Schedules</h2>
       <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
         <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
-      <mat-card *ngFor="let schedule of Schedules | async" >
+      <mat-card *ngFor="let schedule of this.dataSubs" >
         <mat-card-header>
-          <mat-card-title>{{schedule.name}}</mat-card-title>
-          <mat-card-subtitle>Start</mat-card-subtitle>
+          <mat-card-title>{{schedule["name"]}}</mat-card-title>
+          <mat-card-subtitle>{{schedule["description"]}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions align="end">
           <a routerLink="/"><button mat-button class="btn btn-danger" >Unsubscribe</button></a>

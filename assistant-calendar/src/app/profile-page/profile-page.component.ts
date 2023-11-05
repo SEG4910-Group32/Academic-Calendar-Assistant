@@ -33,6 +33,7 @@ export class ProfilePageComponent {
     this.subsSchedules = this.http.post(this.endpoint2, { token: localStorage.getItem("currUser") });
     console.log("this.Schedules", this.Schedules);
     console.log("this.subsSchedules", this.subsSchedules);
+    console.log(localStorage.getItem("currUser"), " localStorage.getItem(currUser)")
    this.Schedules.subscribe(
      (response:any) => {
       this.dataOwns = response
@@ -50,7 +51,11 @@ export class ProfilePageComponent {
    this.subsSchedules.subscribe(
     (response:any) => {
      this.dataSubs = response.schedule
-      console.log('POST request successful:', this.dataSubs);
+     if (response && response.schedules) {
+      // Extract the 'schedules' array from the JSON response
+      this.dataSubs = response.schedules;
+    }
+      console.log('POST request successful: subs', this.dataSubs);
     },
     (error:any) => {
       console.error('POST request failed:', error);
