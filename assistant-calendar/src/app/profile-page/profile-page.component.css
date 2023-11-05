@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: 500;
+    margin-top: 2em;
+    align-items: left;
+}
+
+.text {
+    font-size: 1.2em;
+    margin-top: 3em;
+}
+
+.search-field {
+    display: flex;
+    margin-top: 3em;
+    align-items: center;
+}
+
+.input-label {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+
+
+button {
+    border: none;
+    color: #FFF;
+    font-size: 1.1em;
+    padding: 0.5em 1em;
+    border-radius: 0.35em;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    margin-left: 2em;
+    background-color: blue;
+    /* background-color: var(--save-changes-color); */
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: red;
+    margin-top: 0.5em;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+/* button:hover {
+    background-color: var(--save-changes-color-hover);
+} */
+
+.btn-danger {
+    background-color: red
+}
+
+.scheduleList{
+    padding-top: 20px;
+    padding-bottom: 20px
+}
+.mat-list-item{
+    margin-top: 20px;
+    margin-top: 20px
+}
+
+  .button-container{
+    float: right;
+    width: 50%; 
+    margin-left: 58%;
+  }
+ 
+
