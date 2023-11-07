@@ -24,34 +24,70 @@ export class EditSchedulePageComponent {
   scheduleId = localStorage.getItem("scId")
   scheduleName = localStorage.getItem("scName")
   eve = localStorage.getItem("sc")
-  //  console.log(eve)
-  // if(eve && eve.events){
-  //   console.log(eve.events)
-  // }
+ 
   updatedEndpoint = this.endpoint + this.scheduleId
-  eventIDs = []
+  eventIDs: any[] = [];
+  eventDetails: any[] = [];
  constructor(public dialog: MatDialog,private http: HttpClient) { 
    this.Events= this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });// ['SEG3102', 'SEG3101'];
  
    this.Events.subscribe(
     (response:any) => {
      this.Events = response.schedule.events
-     //this.eventIDs = this.Events["events"]
-     //console.log("eeee",this.eventIDs)
-    //  if (response && response.events) {
-    //    // Extract the 'schedules' array from the JSON response
-    //    this.EVENTSS = response;
-    //  }
       console.log('POST request successful: this.Events', this.Events);
     },
     (error:any) => {
       console.error('POST request failed:', error);
     }
   );
+
+  this.loadData();
    
    
  }
-  
+ 
+   
+   getEventById(eventId: string): Observable<any> {
+    const eventUrl = `https://academic-calendar-backend.onrender.com/api/events/id/${eventId}`;
+    return this.http.get(eventUrl);
+  }
+
+  loadData() {
+    const updatedEndpoint = this.endpoint + this.scheduleId;
+    const token = localStorage.getItem("currUser");
+
+    //gets the event id for all events in a schedule
+    this.http.post(updatedEndpoint, { token }).subscribe(
+      (response: any) => {
+        this.Events = response.schedule.events;
+        this.eventIDs = this.Events.map((event: any) => event); 
+        console.log('POST request successful: this.Events', this.Events);
+
+        // calling a GET request for each event
+        this.getEventDetails();
+      },
+      (error: any) => {
+        console.error('POST request failed:', error);
+      }
+    );
+  }
+ getEventDetails() {
+  for (const eventId of this.eventIDs) {
+    this.getEventById(eventId).subscribe(
+      (eventData: any) => {
+        
+        //storing the event data 
+        this.eventDetails.push(eventData)
+        
+        console.log("eventDetails", this.eventDetails)
+        console.log('GET request successful for event:eventData', eventData);
+      },
+      (error: any) => {
+        console.error('GET request failed for event:', error);
+      }
+    );
+  }
+}
  openDialog() {
   this.dialog.open(EditEventComponent);
 }
