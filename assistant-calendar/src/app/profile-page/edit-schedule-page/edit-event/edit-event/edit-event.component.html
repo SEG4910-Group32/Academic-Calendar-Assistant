@@ -6,20 +6,25 @@
       </div>
       <div class="example-form-fields">
         <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
-          <mat-label>Event type: </mat-label>
-          <input matInput #input maxlength="20" placeholder="Ex. Assignment"  required>
+          <mat-label>Name: </mat-label>
+          <input matInput #input maxlength="20" placeholder="Ex. Assignment" [(ngModel)]="data.name" required>
         </mat-form-field>
     
         <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
           <mat-label>Location: </mat-label>
-          <input matInput #input maxlength="20" placeholder="Ottawa" >
+          <input matInput #input maxlength="20" placeholder="Ottawa"  [(ngModel)]="data.location">
+        </mat-form-field>
+
+        <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
+          <mat-label>Type: </mat-label>
+          <input matInput #input maxlength="20" placeholder="midterm"  [(ngModel)]="data.type">
         </mat-form-field>
         
       </div>
       <div class="example-form-fields">
         <mat-form-field appearance="fill" class="example-form-field">
           <mat-label>Start Date:</mat-label>
-          <input matInput [matDatepicker]="datepicker1" >
+          <input matInput [matDatepicker]="datepicker1" [(ngModel)]="data.startTime" >
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
           <mat-datepicker #datepicker1>
@@ -33,7 +38,7 @@
         <mat-form-field appearance="fill" class="example-form-field">
           <mat-label>Due date:</mat-label>
     
-          <input matInput [matDatepicker]="adatepicker"  required>
+          <input matInput [matDatepicker]="adatepicker" [(ngModel)]="data.endTime" required>
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="adatepicker"></mat-datepicker-toggle>
           <mat-datepicker #adatepicker>
@@ -50,7 +55,7 @@
       
         <mat-form-field hintLabel="" appearance="fill" class="example-full-width">
           <mat-label>Description: </mat-label>
-          <input matInput #input maxlength="70" placeholder="Event" >
+          <input matInput #input maxlength="70" placeholder="Event" [(ngModel)]="data.description" >
         </mat-form-field>
        
     
@@ -64,4 +69,6 @@
     </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
+  <button mat-button [mat-dialog-close]="data" id="addbtn" >Add</button>
+  
 </div>

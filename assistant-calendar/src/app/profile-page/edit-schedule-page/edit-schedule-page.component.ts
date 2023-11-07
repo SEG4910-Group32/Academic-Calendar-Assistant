@@ -78,7 +78,7 @@ export class EditSchedulePageComponent {
         
         //storing the event data 
         this.eventDetails.push(eventData)
-        
+
         console.log("eventDetails", this.eventDetails)
         console.log('GET request successful for event:eventData', eventData);
       },
@@ -88,7 +88,27 @@ export class EditSchedulePageComponent {
     );
   }
 }
- openDialog() {
-  this.dialog.open(EditEventComponent);
+
+  //saving the data for the event for which the edit button is clicked for
+ openDialog(event: any) {
+  console.log("event ",event[0]);
+  const dialogRef = this.dialog.open(EditEventComponent, {
+    
+    //this.getEventById()
+    // data: {task: this.type, dueDate: this.dueDate},
+    data: { name: event[0].name,type: event[0].type, description: event[0].description , location: event[0].location, startTime: event[0].createdAt, endTime: event[0].endTime }
+   });
+
+  //  dialogRef.afterClosed().subscribe(result => {
+  //    console.log('The dialog was closed');
+  //    this.type = result.type;
+  //    this.dueDate = result.dueDate;
+  //    mockSchedules.push({scheduleId:result.scheduleId,type:result.type,_id:result._id,name:result.name , endTime:result.endTime, startTime: result.startTime,location: result.location,description: result.description });
+  //    console.log("result.type",result.type);
+  //    console.log(mockSchedules);
+  //    this.createEvent({name: result.name, scheduleid:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
+  //    this.organizeTasksIntoMonths();
+  //  });
+//  this.dialog.open(EditEventComponent);
 }
 }
