@@ -112,3 +112,24 @@ button:disabled {
     margin-left: 1%;
   }
 
+  #editbtn{
+    width: 150px;
+    height: 47px;
+    background: #435A86;
+    border: 1px solid #676D7A;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  #deletebtn{
+    background: #FFFFFF;
+    border: 1px solid #A4A4A4;
+    border-radius: 10px;
+    width: 150px;
+    height: 47px;
+    color: #434343;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
