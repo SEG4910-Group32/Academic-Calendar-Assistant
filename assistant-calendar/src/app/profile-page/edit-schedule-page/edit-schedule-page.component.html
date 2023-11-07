@@ -3,23 +3,25 @@
       <h1>Edit events for schedule {{scheduleName}}</h1>
     </div>
     <div>
-          
+      <!-- <button mat-button (click)="openDialog()" id="cancelbtn">Launch dialog</button> -->
+
         <table>
           <div class="nu-table-body">
             <tr>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Due date</th>
+              <th>ID</th>
+              <th>Name</th>
+              <!-- <th>Due date</th> -->
               <th>Action</th>
             </tr>
             
             <tr *ngFor="let event of this.Events ">
               <!-- <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport"> -->
        
-              <td>{{event["events"][0]}}</td>
-              <td>{{event["description"]}}</td>
-              <!-- <td>{{event.endTime}}</td> -->
-              <td><button type="button">Edit</button><button type="button" class="btn btn-danger">Delete</button></td>
+              <td>{{event}}</td>
+              <td>{{event.name}}</td>
+              <!-- <td>{{event}}</td> -->
+              <td><button type="button" id="cancelbtn" (click)="openDialog()">Edit</button>
+                <button type="button"  id="addbtn">Delete</button></td>
             <!-- </cdk-virtual-scroll-viewport> -->
          
             </tr>

@@ -4,6 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Deliverable } from 'src/app/create-schedule-page/create-schedule/deliverable';
 import { Event } from 'src/app/shared/event.model';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import { EditEventComponent } from './edit-event/edit-event/edit-event.component';
+
 @Component({
   selector: 'app-edit-schedule-page',
   templateUrl: './edit-schedule-page.component.html',
@@ -26,7 +30,7 @@ export class EditSchedulePageComponent {
   // }
   updatedEndpoint = this.endpoint + this.scheduleId
   eventIDs = []
- constructor(private http: HttpClient) { 
+ constructor(public dialog: MatDialog,private http: HttpClient) { 
    this.Events= this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });// ['SEG3102', 'SEG3101'];
  
    this.Events.subscribe(
@@ -48,5 +52,7 @@ export class EditSchedulePageComponent {
    
  }
   
- 
+ openDialog() {
+  this.dialog.open(EditEventComponent);
+}
 }
