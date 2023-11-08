@@ -28,6 +28,10 @@ export class EditSchedulePageComponent {
   updatedEndpoint = this.endpoint + this.scheduleId
   eventIDs: any[] = [];
   eventDetails: any[] = [];
+  editedEvent: any[]=[];
+  // httpClient: any;
+
+  
  constructor(public dialog: MatDialog,private http: HttpClient) { 
    this.Events= this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });// ['SEG3102', 'SEG3101'];
  
@@ -89,6 +93,16 @@ export class EditSchedulePageComponent {
   }
 }
 
+updateEvent(updatedEvent: any){
+  const  editUrl = 'https://academic-calendar-backend.onrender.com/api/events'
+  this.http.patch(editUrl, updatedEvent)
+  .subscribe((response: any) => {
+    // Handle the API response here
+    console.log('Event added to the database:', response);
+   
+  });
+}
+
   //saving the data for the event for which the edit button is clicked for
  openDialog(event: any) {
   console.log("event ",event[0]);
@@ -98,17 +112,35 @@ export class EditSchedulePageComponent {
     // data: {task: this.type, dueDate: this.dueDate},
     data: { name: event[0].name,type: event[0].type, description: event[0].description , location: event[0].location, startTime: event[0].createdAt, endTime: event[0].endTime }
    });
+   const token = localStorage.getItem("currUser");
+   //getting the updated event data from the dialog
+   dialogRef.afterClosed().subscribe(result => {
 
-  //  dialogRef.afterClosed().subscribe(result => {
-  //    console.log('The dialog was closed');
-  //    this.type = result.type;
-  //    this.dueDate = result.dueDate;
-  //    mockSchedules.push({scheduleId:result.scheduleId,type:result.type,_id:result._id,name:result.name , endTime:result.endTime, startTime: result.startTime,location: result.location,description: result.description });
-  //    console.log("result.type",result.type);
-  //    console.log(mockSchedules);
-  //    this.createEvent({name: result.name, scheduleid:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
-  //    this.organizeTasksIntoMonths();
-  //  });
-//  this.dialog.open(EditEventComponent);
+    //the reason for using || '', is that some properties are optional and if they are empty, the property will be set to undefined which will create issues for sending the patch requst
+   const updatedEvent = {
+      name: result.name || '',
+      type: result.type|| '',
+      description: result.description|| '',
+      location: result.location|| '',
+      startTime: result.startTime|| '',
+      endTime: result.endTime|| '',
+      id: event[0]._id,
+      token: token
+      
+  };
+  console.log('The dialog was closed, result: ',updatedEvent);
+  this.updateEvent(updatedEvent);
+  // this.httpClient.patch('https://academic-calendar-backend.onrender.com/api/events', updatedEvent)
+  //   .subscribe((response: any) => {
+  //     // Handle the API response here
+  //     console.log('Event added to the database:', response);
+     
+  //   });
+    // console.log(mockSchedules);
+    //this.updateEvent();
+    // this.organizeTasksIntoMonths();
+  });
+
+  
 }
 }
