@@ -11,6 +11,7 @@ import { EventRepositoryInterface } from './Interfaces/event.repository.interfac
 })
 export class EventRepository implements EventRepositoryInterface {
   
+  
   private apiUrl = 'https://academic-calendar-backend.onrender.com/api/events';
 
   constructor(private http: HttpClient) {}
@@ -25,12 +26,13 @@ export class EventRepository implements EventRepositoryInterface {
   }
 
   createEvent(event: Event): Observable<Event> {
-
+    console.log(event);
+    
     return this.http.post<Event>(this.apiUrl, event);
   }
 
   updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${event.scheduleid}`, event);
+    return this.http.put<Event>(`${this.apiUrl}/${event.schedule}`, event);
   }
 
   deleteEvent(eventId: string): Observable<void> {

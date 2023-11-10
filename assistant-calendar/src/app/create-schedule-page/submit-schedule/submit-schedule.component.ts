@@ -12,6 +12,7 @@ import { EventFacade } from 'src/app/Facades/event.facade';
 import { CurrentEventsService } from 'src/services/current-events.service';
 import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
 import { Schedule } from 'src/app/Models/schedule.model';
+import { googleCalendar } from './googleCalendar.service';
 
 @Component({
   selector: 'app-submit-schedule',
@@ -21,33 +22,24 @@ import { Schedule } from 'src/app/Models/schedule.model';
 export class SubmitScheduleComponent {
 
   scheduleName: string | undefined;
+  googleCheckbox: boolean = false;
+  outlookCheckbox: boolean = false;
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
   private endpoint = "https://academic-calendar-backend.onrender.com";
-  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade) {
-    
+  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade, private googleCalendarService: googleCalendar) {
+
   }
 
   //the id should be generated in the generateScheduleId component
   openImportDialog() {
-    // let id = await this.generateUniqueId();
-    // console.log("id is ",id);
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
-    
-    
-    this.createSchedule(new Schedule({name:this.scheduleName}));
-    
 
-    // this.currentEventsSvc.eventList.forEach(currentEvent => {
-    //   currentEvent.scheduleId = DBSchedule.scheduleID;
-    // });
 
-    // this._getAllEventsService.getUsers().subscribe(data => {
-    //   this.listOfDeliverables = data;
-    //   this.createSchedule({Event:this.listOfDeliverables, createdTime:new Date().toISOString(), scheduleName: this.scheduleName });
-    //   this.tempList = this.listOfDeliverables;
-    //   this.resetSchedule();
-    // });
+    this.createSchedule(new Schedule({ name: this.scheduleName }));
+
+
+
   };
 
 
@@ -73,52 +65,38 @@ export class SubmitScheduleComponent {
   public listOfDeliverables: Deliverable[] = [];
   private tempList: Deliverable[] = [];
 
-  createSchedule (newSchedule: Schedule){
-    // Generate a unique ID for the schedule
-    // const id = await this.generateUniqueId();
-    // this.generatedId = id; // Save the generated id
+  createSchedule(newSchedule: Schedule) {
     const createdTime = new Date().toISOString();
 
-    
     if (this.currentEventsSvc.eventList.length != 0) {
-      this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule=>{        
-        this.scheduleInDB = new Schedule(returnSchedule);
-        
+      this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule => {
+        this.scheduleInDB = new Schedule(returnSchedule.schedule);
+        var scheduleBody = {
+          "id": this.scheduleInDB.id,
+          'events': new Array
+        }
         // Create Events
-        this.currentEventsSvc.eventList.forEach(event=>{
-          event.scheduleid = this.scheduleInDB.id
-          event.name = "no name";
-          
-          this.eventsFacade.createEvent(event).subscribe(returnEvent =>{
-            
-          })
-         
+        this.currentEventsSvc.eventList.forEach(event => {
+          event.schedule = this.scheduleInDB.id
+          event.name = event.type;
+          scheduleBody.events.push({ 'name': event.type })
+          if (this.googleCheckbox) {
+            this.googleCalendarService.createEvent(event);
+          }
         });
+        this.scheduleFacadeSvc.createEvents(scheduleBody).subscribe(returnSchedule => {
+        })
       });
-  
+
     }
-    else{
+    else {
       console.log("No Events");
-      
+
     }
   };
 
 
-  
-  // resetSchedule() {
-  //   this.listOfDeliverables = [];
-  //   this.http.delete("http://localhost:3000/resetSchedule/").subscribe(
-  //     resp => {
-  //     },
-  //     err => {
-  //       if (err.status === 422) {
-  //         console.log(err.error);
-  //       }
-  //       else {
-  //       }
-  //     }
-  //   )
-  // }
+
   getAll() {
     this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
   }

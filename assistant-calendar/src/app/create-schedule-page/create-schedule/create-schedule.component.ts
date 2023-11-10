@@ -94,7 +94,7 @@ export class CreateScheduleComponent implements OnInit{
       mockSchedules.push({scheduleId:result.scheduleId,type:result.type,_id:result._id,name:result.name , endTime:result.endTime, startTime: result.startTime,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
-      this.createEvent({name: result.name, scheduleid:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
+      this.createEvent({name: result.name, schedule:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
       this.organizeTasksIntoMonths();
     });
     

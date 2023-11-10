@@ -1,3 +1,5 @@
+
+
 <div class="container">
   <h2 class="pageTitle">Submit your schedule:</h2>
   <div class="description">
@@ -16,9 +18,9 @@
       <p class="textForm">Create your integrated Calender </p>
       <div class="links">
         <img class="calenderImg" src="../../../assets/images/create schedule page/submit schedule/Google.png" width="57" height="56">
-        <mat-checkbox class="GoogleCheckbox"> </mat-checkbox>
+        <mat-checkbox [(ngModel)]="googleCheckbox" class="GoogleCheckbox"> </mat-checkbox>
         <img class="calenderImg" src="../../../assets/images/create schedule page/submit schedule/Outlook.png" width="57" height="56">
-        <mat-checkbox class="outlookCheckbox"> </mat-checkbox>
+        <mat-checkbox [(ngModel)]="outlookCheckbox" class="outlookCheckbox"> </mat-checkbox>
       </div>
     </div>
     <div class="col">
