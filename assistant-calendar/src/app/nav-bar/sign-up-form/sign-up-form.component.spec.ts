@@ -61,30 +61,35 @@ describe('SignUpFormComponent', () => {
     }
 });
 
-  it('should submit form if valid', () => {
-    let control = component.signUpForm;
-    control.setValue({
-      email: 'test@test.com', 
-      firstName: 'John', 
-      lastName: 'Doe', 
-      password: 'Password123'
+    it('should submit form if valid', () => {
+      let control = component.signUpForm;
+      control.setValue({
+        email: 'test@test.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        type: 'Student', // This is now included
+        username: 'tester', // This is now included
+        password: 'Password123'
+      });
+      httpClientSpy.post.and.returnValue(of({}));
+      component.submit();
+      expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
     });
-    httpClientSpy.post.and.returnValue(of({}));
-    component.submit();
-    expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
-  });
 
-  it('should not submit form if invalid', () => {
-    let control = component.signUpForm;
-    control.setValue({
-      email: 'invalidEmail', 
-      firstName: 'John', 
-      lastName: 'Doe', 
-      password: 'short'
+
+    it('should not submit form if invalid', () => {
+      let control = component.signUpForm;
+      control.setValue({
+        email: 'invalidEmail',
+        firstName: 'John',
+        lastName: 'Doe',
+        type: 'Student', // This is now included
+        username: 'tester', // This is now included
+        password: 'short'
+      });
+      component.submit();
+      expect(httpClientSpy.post.calls.count()).toBe(0, 'no calls');
     });
-    component.submit();
-    expect(httpClientSpy.post.calls.count()).toBe(0, 'no calls');
-  });
 
   it('should handle error on user creation', () => {
     httpClientSpy.post.and.returnValue(throwError({ status: 422, error: ['User exists'] }));
