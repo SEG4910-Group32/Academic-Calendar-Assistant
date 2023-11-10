@@ -89,10 +89,10 @@ export class CreateScheduleComponent implements OnInit{
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({scheduleId:result.scheduleId,_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
+      mockSchedules.push({schedule:result.scheduleId,_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
-      this.createEvent({name: result.name, scheduleid:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
+      this.createEvent({name: result.name, schedule:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
       this.organizeTasksIntoMonths();
     });
     

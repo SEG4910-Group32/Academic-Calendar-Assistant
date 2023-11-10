@@ -6,7 +6,7 @@ export class Event {
   location!: string;
   startTime!: string;
   endTime!: string;
-  scheduleid: string|undefined;
+  schedule: string|undefined;
 
   constructor(eventData: any) {
     this.name = eventData.name;
@@ -15,6 +15,6 @@ export class Event {
     this.location = eventData.location;
     this.startTime = eventData.startTime;
     this.endTime = eventData.endTime;
-    this.scheduleid = eventData.scheduleid;
+    this.schedule = eventData.schedule;
   }
 }

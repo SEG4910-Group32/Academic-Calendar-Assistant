@@ -1,5 +1,5 @@
 export interface Deliverable{
-    scheduleId:string,
+    schedule:string,
     _id:string,
     type: string,
     dueDate: string,
