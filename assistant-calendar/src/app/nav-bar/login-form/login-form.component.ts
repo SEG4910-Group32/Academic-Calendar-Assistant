@@ -30,7 +30,7 @@ export class LoginFormComponent {
 
     this.userFacade.login(user).subscribe(
       (res: any) => {
-        localStorage.setItem('currUser', JSON.stringify(res));
+        localStorage.setItem('currUser', res.token);
         this.data.updateLoggedInStatus(true);
         if (this.redirect === 'true') {
           this.router.navigate([this.redirectPath]);

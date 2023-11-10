@@ -28,7 +28,7 @@ export class SubmitScheduleComponent {
   scheduleInDB!: Schedule;
   private endpoint = "https://academic-calendar-backend.onrender.com";
   constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade, private googleCalendarService: googleCalendar) {
-
+        
   }
 
   //the id should be generated in the generateScheduleId component
@@ -73,13 +73,14 @@ export class SubmitScheduleComponent {
         this.scheduleInDB = new Schedule(returnSchedule.schedule);
         var scheduleBody = {
           "id": this.scheduleInDB.id,
-          'events': new Array
+          'events': new Array,
+          'token' : localStorage.getItem("currUser")
         }
         // Create Events
         this.currentEventsSvc.eventList.forEach(event => {
           event.schedule = this.scheduleInDB.id
           event.name = event.type;
-          scheduleBody.events.push({ 'name': event.type })
+          scheduleBody.events.push(event)
           // if (this.googleCheckbox) {
           //   this.googleCalendarService.createEvent(event);
           // }
