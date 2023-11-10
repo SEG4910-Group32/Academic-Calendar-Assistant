@@ -80,9 +80,9 @@ export class SubmitScheduleComponent {
           event.schedule = this.scheduleInDB.id
           event.name = event.type;
           scheduleBody.events.push({ 'name': event.type })
-          if (this.googleCheckbox) {
-            this.googleCalendarService.createEvent(event);
-          }
+          // if (this.googleCheckbox) {
+          //   this.googleCalendarService.createEvent(event);
+          // }
         });
         this.scheduleFacadeSvc.createEvents(scheduleBody).subscribe(returnSchedule => {
         })
