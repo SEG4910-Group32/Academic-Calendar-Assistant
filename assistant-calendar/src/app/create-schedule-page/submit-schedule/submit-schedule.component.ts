@@ -96,6 +96,7 @@ export class SubmitScheduleComponent {
   };
 
 
+
   getAll() {
     this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
   }
@@ -119,15 +120,17 @@ export class SubmitScheduleComponent {
     // Event details
     schedule.forEach(element => {
 
-      if (element.description && element.startDate && element.dueDate && element.location && element.type)
+
+      if (element.description && element.startTime && element.endTime && element.location && element.type)
         calendarData.push('BEGIN:VEVENT',
           'DESCRIPTION:' + element.description,
-          'DTSTART:' + new Date(element.startDate).toISOString().substring(0, 10),
-          'DTEND:' + new Date(element.dueDate).toISOString().substring(0, 10),
+          'DTSTART:' + new Date(element.startTime).toISOString().substring(0, 10),
+          'DTEND:' + new Date(element.endTime).toISOString().substring(0, 10),
           'LOCATION:' + element.location,
           'SUMMARY:' + element.type,
           'TRANSP:TRANSPARENT',
           'END:VEVENT');
+
     });
 
 

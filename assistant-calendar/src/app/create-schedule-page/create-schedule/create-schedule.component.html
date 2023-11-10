@@ -21,15 +21,15 @@
                 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{deliverable.type}}
+                      {{deliverable.name}}
                     </mat-panel-title>
                     <mat-panel-description>
                       {{panelOpenState ? 'click on the arrow to close the details' : 'click on the arrow to view more details'}}
                     </mat-panel-description>
                   </mat-expansion-panel-header>
                   <mat-form-field hintLabel="" appearance="fill" class="example-form-field">
-                    <mat-label>Deliverable type: </mat-label>
-                    <input matInput #input maxlength="20"  placeholder="Ex. Assignment" required  [(ngModel)]="deliverable.type" >     
+                    <mat-label>Deliverable name: </mat-label>
+                    <input matInput #input maxlength="20"  placeholder="Ex. Assignment" required  [(ngModel)]="deliverable.name" >     
                   </mat-form-field> 
                   <mat-form-field appearance="fill" class="example-form-field">
                     <mat-label>Start Date:</mat-label>

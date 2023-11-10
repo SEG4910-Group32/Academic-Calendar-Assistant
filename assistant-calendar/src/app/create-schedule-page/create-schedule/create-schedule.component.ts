@@ -65,7 +65,7 @@ export class CreateScheduleComponent implements OnInit{
   public December: string[] = [];
 
 
-  private endpoint = 'http://localhost:3000/event/';
+  private endpoint = 'http://localhost:3000/api/events/';
 
   constructor(public dialog: MatDialog, private http: HttpClient, private _getAllEventsService:GetAllEventsService, private currentEventsSvc: CurrentEventsService) {
     // sendSchduleSvc.sc = this.listOfDeliverables
@@ -74,11 +74,13 @@ export class CreateScheduleComponent implements OnInit{
 
 
     //adding new task to db
+
     createEvent = async (newEvent: Event) => {
 
       this.currentEventsSvc.eventList.push(newEvent);
   
   }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddScheduleComponent, {
@@ -89,7 +91,7 @@ export class CreateScheduleComponent implements OnInit{
       console.log('The dialog was closed');
       this.type = result.type;
       this.dueDate = result.dueDate;
-      mockSchedules.push({schedule:result.scheduleId,_id:result._id,type:result.type , dueDate:result.dueDate, startDate: result.startDate,location: result.location,description: result.description });
+      mockSchedules.push({scheduleId:result.scheduleId,type:result.type,_id:result._id,name:result.name , endTime:result.endTime, startTime: result.startTime,location: result.location,description: result.description });
       console.log("result.type",result.type);
       console.log(mockSchedules);
       this.createEvent({name: result.name, schedule:"",type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
@@ -102,9 +104,11 @@ export class CreateScheduleComponent implements OnInit{
 update = async (event: Event, i: number) => {
   console.log(event);
   this.emptyMonthlyTasks();
+
   var eve = event as Event;
   this.currentEventsSvc.eventList[i]=event;
   this.listOfDeliverables = this.currentEventsSvc.eventList;
+
 };
 
 //deleting 
@@ -112,8 +116,10 @@ delete = async (event: Object, index: number) => {
   this.emptyMonthlyTasks();
   console.log(event)
 
+
   this.currentEventsSvc.eventList = this.currentEventsSvc.eventList.filter((v,i)=> i !== index);
   this.listOfDeliverables = this.currentEventsSvc.eventList;
+
 
 };
 
@@ -142,7 +148,9 @@ organizeTasksIntoMonths(){
   //this.getAll();
   const sth = this.listOfDeliverables;
    for (let i = 0; i < this.listOfDeliverables.length; i++) {
+
     const deliverable = this.listOfDeliverables[i] as Event;
+
   console.log(deliverable.endTime + ' - ' );
   const date = new Date(deliverable.endTime);
 const month = date.getMonth() + 1; // add 1 since getMonth() returns 0-based index
