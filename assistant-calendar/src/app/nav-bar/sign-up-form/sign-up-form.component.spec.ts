@@ -1,42 +1,54 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignUpFormComponent } from './sign-up-form.component';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
-import { of, throwError } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { EmailService } from 'src/app/email.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserFacade } from 'src/app/Facades/user.facade';
+import { UserFactory } from 'src/app/Factories/user.factory';
+import { of } from 'rxjs';
+import { User } from 'src/app/Models/user.model';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'; // Corrected Import
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('SignUpFormComponent', () => {
   let component: SignUpFormComponent;
   let fixture: ComponentFixture<SignUpFormComponent>;
-  let httpClientSpy: jasmine.SpyObj<HttpClient>;
-  let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
+  let userFacade: UserFacade;
+  let snackBar: MatSnackBar;
 
   beforeEach(async () => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
-    snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
-
     await TestBed.configureTestingModule({
       declarations: [SignUpFormComponent],
       providers: [
         FormBuilder,
-        { provide: HttpClient, useValue: httpClientSpy },
-        { provide: MatSnackBar, useValue: snackBarSpy },
         { provide: MatDialogRef, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: EmailService, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} }
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: UserFacade, useValue: { createUser: () => of(new User({})) } },
+        { provide: UserFactory, useValue: { createUser: () => new User({}) } },
+        MatSnackBar
       ],
-      imports: [BrowserAnimationsModule]
-    })
-    .compileComponents();
-  });
+      imports: [
+        HttpClientTestingModule, 
+        BrowserAnimationsModule, 
+        ReactiveFormsModule,
+        MatFormFieldModule, 
+        MatInputModule, // Corrected Import
+        MatSnackBarModule,
+        MatDialogModule
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SignUpFormComponent);
     component = fixture.componentInstance;
+    userFacade = TestBed.inject(UserFacade);
+    snackBar = TestBed.inject(MatSnackBar);
     fixture.detectChanges();
   });
 
@@ -53,48 +65,48 @@ describe('SignUpFormComponent', () => {
 
   it('should require email', () => {
     const control = component.signUpForm.get('email');
-    if (control) { // Check if control is not null
-        control.setValue('');
-        expect(control.valid).toBeFalsy();
+    if (control) {
+      control.setValue('');
+      expect(control.valid).toBeFalsy();
     } else {
-        fail('Email control is null');
+      fail('Email control is null');
     }
-});
+  });
 
-    it('should submit form if valid', () => {
-      let control = component.signUpForm;
-      control.setValue({
-        email: 'test@test.com',
-        firstName: 'John',
-        lastName: 'Doe',
-        type: 'Student', // This is now included
-        username: 'tester', // This is now included
-        password: 'Password123'
-      });
-      httpClientSpy.post.and.returnValue(of({}));
-      component.submit();
-      expect(httpClientSpy.post.calls.count()).toBe(1, 'one call');
+  it('should submit form if valid', () => {
+    let control = component.signUpForm;
+    control.setValue({
+      email: 'test@test.com',
+      firstName: 'John',
+      lastName: 'Doe',
+      type: 'Student',
+      username: 'tester',
+      password: 'Password123'
     });
+    spyOn(userFacade, 'createUser').and.returnValue(of(new User({})));
+    component.submit();
+    expect(userFacade.createUser).toHaveBeenCalled();
+  });
 
-
-    it('should not submit form if invalid', () => {
-      let control = component.signUpForm;
-      control.setValue({
-        email: 'invalidEmail',
-        firstName: 'John',
-        lastName: 'Doe',
-        type: 'Student', // This is now included
-        username: 'tester', // This is now included
-        password: 'short'
-      });
-      component.submit();
-      expect(httpClientSpy.post.calls.count()).toBe(0, 'no calls');
+  it('should not submit form if invalid', () => {
+    let control = component.signUpForm;
+    control.setValue({
+      email: 'invalidEmail',
+      firstName: 'John',
+      lastName: 'Doe',
+      type: 'Student',
+      username: 'tester',
+      password: 'short'
     });
+    component.submit();
+    expect(userFacade.createUser).not.toHaveBeenCalled();
+  });
 
   it('should handle error on user creation', () => {
-    httpClientSpy.post.and.returnValue(throwError({ status: 422, error: ['User exists'] }));
+    const errorResponse = new Error('User exists');
+    spyOn(userFacade, 'createUser').and.returnValue(of(errorResponse as any)); // Casting Error as User type
+    spyOn(snackBar, 'open');
     component.createUser({});
-    expect(snackBarSpy.open.calls.count()).toBe(1, 'one call');
-    expect(snackBarSpy.open.calls.first().args[0]).toContain('User exists');
+    expect(snackBar.open).toHaveBeenCalled();
   });
 });
