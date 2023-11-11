@@ -25,7 +25,7 @@
         </mat-card-header>
         <mat-card-actions>
           <a routerLink="/edit-schedule"><button mat-button id="editbtn"  (click)="editSchedule(schedule)">Edit Schedule</button></a>
-          <a routerLink="/"><button mat-button id="deletebtn">Delete Schedule</button></a>
+          <a routerLink="/"><button mat-button id="deletebtn" (click)="openDialog(schedule)">Delete Schedule</button></a>
         </mat-card-actions>
       </mat-card>
     </cdk-virtual-scroll-viewport>

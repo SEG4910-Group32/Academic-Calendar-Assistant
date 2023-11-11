@@ -8,6 +8,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { DeleteScheduleComponent } from './delete-schedule/delete-schedule/delete-schedule.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
@@ -26,7 +29,7 @@ export class ProfilePageComponent {
   dataSource: any;
    items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
    
-  constructor(private http: HttpClient) { 
+  constructor(public dialog: MatDialog, private http: HttpClient) { 
     //this.Schedules= this.http.get<Deliverable[]>(this.endpoint);// ['SEG3102', 'SEG3101'];
     console.log(localStorage.getItem("currUser") )
     this.Schedules = this.http.post(this.endpoint1, { token: localStorage.getItem("currUser") });
@@ -95,5 +98,38 @@ export class ProfilePageComponent {
     localStorage.setItem('sc', sc);
     console.log("sc", sc)
  
+  }
+
+  openDialog(schedule: any) {
+   
+      console.log("schedule ", schedule);
+      const dialogRef = this.dialog.open(DeleteScheduleComponent, {
+        data: {
+          name: schedule.name || '', // Add a null check here
+          id : schedule._id
+        
+        }
+      });
+      const token = localStorage.getItem("currUser");
+  
+      // getting the updated event data from the dialog
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if (result) {
+      //     const updatedEvent = {
+      //       name: result.name || '',
+      //       type: result.type || '',
+      //       description: result.description || '',
+      //       location: result.location || '',
+      //       startTime: result.startTime || '',
+      //       endTime: result.endTime || '',
+      //       id: schedule._id,
+      //       token: token
+      //     };
+  
+      //     console.log('The dialog was closed, result: ', updatedEvent);
+      //    // this.updateEvent(updatedEvent);
+      //   }
+      // });
+    
   }
 }
