@@ -111,7 +111,10 @@ export class ProfilePageComponent {
         }
       });
       const token = localStorage.getItem("currUser");
-  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        // this.animal = result;
+      });
       // getting the updated event data from the dialog
       // dialogRef.afterClosed().subscribe(result => {
       //   if (result) {
