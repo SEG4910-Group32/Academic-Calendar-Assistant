@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,13 +7,14 @@ import { Event } from 'src/app/shared/event.model';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { EditEventComponent } from './edit-event/edit-event/edit-event.component';
+import { FormsModule } from '@angular/forms'; // Import the FormsModule
 
 @Component({
   selector: 'app-edit-schedule-page',
   templateUrl: './edit-schedule-page.component.html',
   styleUrls: ['./edit-schedule-page.component.css']
 })
-export class EditSchedulePageComponent {
+export class EditSchedulePageComponent implements OnInit{
 
   Events: any;
   displayedColumns: string[] = ['name', 'type', 'end time', 'action'];
@@ -29,7 +30,6 @@ export class EditSchedulePageComponent {
   eventIDs: any[] = [];
   eventDetails: any[] = [];
   editedEvent: any[]=[];
-  // httpClient: any;
 
   
  constructor(public dialog: MatDialog,private http: HttpClient) { 
@@ -44,11 +44,13 @@ export class EditSchedulePageComponent {
       console.error('POST request failed:', error);
     }
   );
-
-  this.loadData();
-   
-   
+     
+  
  }
+  ngOnInit() {
+   // throw new Error('Method not implemented.');
+    this.loadData();
+  }
  
    
    getEventById(eventId: string): Observable<any> {
@@ -102,45 +104,63 @@ updateEvent(updatedEvent: any){
    
   });
 }
+deleteEvent(deletedEvent: any) {
+  const deleteUrl = 'https://academic-calendar-backend.onrender.com/api/events';
+  const token = localStorage.getItem("currUser");
+  const id = deletedEvent[0]._id;
 
-  //saving the data for the event for which the edit button is clicked for
- openDialog(event: any) {
-  console.log("event ",event[0]);
-  const dialogRef = this.dialog.open(EditEventComponent, {
-    
-    //this.getEventById()
-    // data: {task: this.type, dueDate: this.dueDate},
-    data: { name: event[0].name,type: event[0].type, description: event[0].description , location: event[0].location, startTime: event[0].createdAt, endTime: event[0].endTime }
-   });
-   const token = localStorage.getItem("currUser");
-   //getting the updated event data from the dialog
-   dialogRef.afterClosed().subscribe(result => {
-
-    //the reason for using || '', is that some properties are optional and if they are empty, the property will be set to undefined which will create issues for sending the patch requst
-   const updatedEvent = {
-      name: result.name || '',
-      type: result.type|| '',
-      description: result.description|| '',
-      location: result.location|| '',
-      startTime: result.startTime|| '',
-      endTime: result.endTime|| '',
-      id: event[0]._id,
-      token: token
-      
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: {
+      id: deletedEvent[0]._id,
+      token: token,
+    },
   };
-  console.log('The dialog was closed, result: ',updatedEvent);
-  this.updateEvent(updatedEvent);
-  // this.httpClient.patch('https://academic-calendar-backend.onrender.com/api/events', updatedEvent)
-  //   .subscribe((response: any) => {
-  //     // Handle the API response here
-  //     console.log('Event added to the database:', response);
-     
-  //   });
-    // console.log(mockSchedules);
-    //this.updateEvent();
-    // this.organizeTasksIntoMonths();
-  });
 
-  
+  this.http.delete(deleteUrl, options)
+    .subscribe((response: any) => {
+      // Handle the API response here
+      console.log('Event deleted from the database:', response);
+    });
 }
+
+
+openDialog(event: any) {
+  if (event && event[0]) {
+    console.log("event ", event[0]);
+    const dialogRef = this.dialog.open(EditEventComponent, {
+      data: {
+        name: event[0].name || '', // Add a null check here
+        type: event[0].type,
+        description: event[0].description,
+        location: event[0].location,
+        startTime: event[0].createdAt,
+        endTime: event[0].endTime
+      }
+    });
+    const token = localStorage.getItem("currUser");
+
+    // getting the updated event data from the dialog
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updatedEvent = {
+          name: result.name || '',
+          type: result.type || '',
+          description: result.description || '',
+          location: result.location || '',
+          startTime: result.startTime || '',
+          endTime: result.endTime || '',
+          id: event[0]._id,
+          token: token
+        };
+
+        console.log('The dialog was closed, result: ', updatedEvent);
+        this.updateEvent(updatedEvent);
+      }
+    });
+  }
+}
+
 }

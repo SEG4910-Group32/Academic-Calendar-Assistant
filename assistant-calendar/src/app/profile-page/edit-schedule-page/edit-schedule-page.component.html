@@ -13,11 +13,11 @@
             
             <tr *ngFor="let eventArray of eventDetails; let i = index">
               <ng-container *ngFor="let event of eventArray">
-                <td>{{ event._id }}</td>
-                <td>{{ event.name }}</td>
+                <td >{{ event._id }}</td>
+                <td >{{ event.name }}</td>
                 <td>
                   <button type="button" id="cancelbtn" (click)="openDialog(eventArray)">Edit</button>
-                  <button type="button" id="addbtn">Delete</button>
+                  <button type="button" id="addbtn" (click)="deleteEvent(eventArray)">Delete</button>
                 </td>
               </ng-container>
             </tr>
