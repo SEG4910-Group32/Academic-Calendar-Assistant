@@ -104,6 +104,8 @@ updateEvent(updatedEvent: any){
    
   });
 }
+
+//method used to delete an event
 deleteEvent(deletedEvent: any) {
   const deleteUrl = 'https://academic-calendar-backend.onrender.com/api/events';
   const token = localStorage.getItem("currUser");

@@ -63,21 +63,37 @@ export class ProfilePageComponent {
   );
   }
   
+//unsubscribe schedule method
+  unsubscribeFromSchedule(schedule:any ){
+    console.log("unsubscribe from schedule called");
+    const url = 'https://academic-calendar-backend.onrender.com/api/users/schedule/';
+    ///schedule/:scheduleid/remove
+    const token = localStorage.getItem("currUser");
+    const id = schedule._id;
+    const ubsubscribeUrl = url + id + "/remove"
+    const options = {
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+      // body: {
+        id: id,
+        token: token,
+      // },
+    };
+  
+    this.http.patch(ubsubscribeUrl, options)
+      .subscribe((response: any) => {
+        // Handle the API response here
+        console.log('Event deleted from the database:', response);
+      });
 
+  }
   editSchedule(sc: any){
     console.log("edit schedule")
     localStorage.setItem('scId', sc["_id"]);
     localStorage.setItem('scName', sc["name"]);
     localStorage.setItem('sc', sc);
     console.log("sc", sc)
-    // for (const key in sc) {
-    //   if (Object.prototype.hasOwnProperty.call(sc, key)) {
-    //     console.log(key + ': ' + sc[key]);
-    //   }
-    // }
+ 
   }
-  // ngOnInit(): void{
-  //   this.dataSource = this.Schedules;
-  // }
- //Schedules: string[] = this.http.get<Deliverable[]>(this.endpoint);// ['SEG3102', 'SEG3101'];
 }
