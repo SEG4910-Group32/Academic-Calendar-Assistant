@@ -10,6 +10,8 @@ import {MatCardModule} from '@angular/material/card';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { DeleteScheduleComponent } from './delete-schedule/delete-schedule/delete-schedule.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { forkJoin } from 'rxjs';
+
 
 @Component({
   selector: 'app-profile-page',
@@ -29,42 +31,7 @@ export class ProfilePageComponent {
   dataSource: any;
    items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
    
-  constructor(public dialog: MatDialog, private http: HttpClient) { 
-    //this.Schedules= this.http.get<Deliverable[]>(this.endpoint);// ['SEG3102', 'SEG3101'];
-    console.log(localStorage.getItem("currUser") )
-    this.Schedules = this.http.post(this.endpoint1, { token: localStorage.getItem("currUser") });
-    this.subsSchedules = this.http.post(this.endpoint2, { token: localStorage.getItem("currUser") });
-    console.log("this.Schedules", this.Schedules);
-    console.log("this.subsSchedules", this.subsSchedules);
-    console.log(localStorage.getItem("currUser"), " localStorage.getItem(currUser)")
-   this.Schedules.subscribe(
-     (response:any) => {
-      this.dataOwns = response
-      if (response && response.schedules) {
-        // Extract the 'schedules' array from the JSON response
-        this.dataOwns = response.schedules;
-      }
-       console.log('POST request successful: this.dataOwns', this.dataOwns);
-     },
-     (error:any) => {
-       console.error('POST request failed:', error);
-     }
-   );
-
-   this.subsSchedules.subscribe(
-    (response:any) => {
-     this.dataSubs = response.schedule
-     if (response && response.schedules) {
-      // Extract the 'schedules' array from the JSON response
-      this.dataSubs = response.schedules;
-    }
-      console.log('POST request successful: subs', this.dataSubs);
-    },
-    (error:any) => {
-      console.error('POST request failed:', error);
-    }
-  );
-  }
+  constructor(public dialog: MatDialog, private http: HttpClient) {}
   
 //unsubscribe schedule method
   unsubscribeFromSchedule(schedule:any ){
@@ -75,13 +42,8 @@ export class ProfilePageComponent {
     const id = schedule._id;
     const ubsubscribeUrl = url + id + "/remove"
     const options = {
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
-      // body: {
         id: id,
         token: token,
-      // },
     };
   
     this.http.patch(ubsubscribeUrl, options)
@@ -113,26 +75,31 @@ export class ProfilePageComponent {
       const token = localStorage.getItem("currUser");
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        // this.animal = result;
       });
-      // getting the updated event data from the dialog
-      // dialogRef.afterClosed().subscribe(result => {
-      //   if (result) {
-      //     const updatedEvent = {
-      //       name: result.name || '',
-      //       type: result.type || '',
-      //       description: result.description || '',
-      //       location: result.location || '',
-      //       startTime: result.startTime || '',
-      //       endTime: result.endTime || '',
-      //       id: schedule._id,
-      //       token: token
-      //     };
-  
-      //     console.log('The dialog was closed, result: ', updatedEvent);
-      //    // this.updateEvent(updatedEvent);
-      //   }
-      // });
     
   }
+
+  
+ngOnInit() {
+  console.log(localStorage.getItem("currUser"));
+
+  const schedulesRequest = this.http.post(this.endpoint1, { token: localStorage.getItem("currUser") });
+  const subsSchedulesRequest = this.http.post(this.endpoint2, { token: localStorage.getItem("currUser") });
+
+  forkJoin([schedulesRequest, subsSchedulesRequest]).subscribe(
+    (responses: any[]) => {
+      // responses[0] is the response from the first request
+      // responses[1] is the response from the second request
+      this.dataOwns = responses[0] && responses[0].schedules ? responses[0].schedules : [];
+      this.dataSubs = responses[1] && responses[1].schedules ? responses[1].schedules : [];
+
+      console.log('POST requests successful: this.dataOwns', this.dataOwns);
+      console.log('POST requests successful: subs', this.dataSubs);
+    },
+    (error: any) => {
+      console.error('POST requests failed:', error);
+    }
+  );
+}
+
 }

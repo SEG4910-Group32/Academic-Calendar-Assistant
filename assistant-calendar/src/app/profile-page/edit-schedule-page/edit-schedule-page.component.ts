@@ -32,23 +32,20 @@ export class EditSchedulePageComponent implements OnInit{
   editedEvent: any[]=[];
 
   
- constructor(public dialog: MatDialog,private http: HttpClient) { 
-   this.Events= this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });// ['SEG3102', 'SEG3101'];
+ constructor(public dialog: MatDialog,private http: HttpClient) {}
  
-   this.Events.subscribe(
-    (response:any) => {
-     this.Events = response.schedule.events
-      console.log('POST request successful: this.Events', this.Events);
-    },
-    (error:any) => {
-      console.error('POST request failed:', error);
-    }
-  );
-     
-  
- }
-  ngOnInit() {
-   // throw new Error('Method not implemented.');
+  ngOnInit(): void {
+    this.Events = this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });
+
+    this.Events.subscribe(
+      (response: any) => {
+        this.Events = response.schedule.events;
+        console.log('POST request successful: this.Events', this.Events);
+      },
+      (error: any) => {
+        console.error('POST request failed:', error);
+      }
+    );
     this.loadData();
   }
  
