@@ -3,7 +3,13 @@
       <h1>Edit events for schedule {{scheduleName}}</h1>
     </div>
     <br>
-    <div>
+    <!-- only shows this message if there are no events in the schedule -->
+    <div *ngIf="noEventsExist">
+      <h2>This schedule has no events😢</h2>
+    </div>
+
+    <!-- if the schedule has events, shows them in a table -->
+    <div *ngIf="!noEventsExist">
         <table>
           <div class="nu-table-body">
             <tr>

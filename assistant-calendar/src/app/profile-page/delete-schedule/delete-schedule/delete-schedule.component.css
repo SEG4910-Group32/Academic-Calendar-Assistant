@@ -20,6 +20,13 @@
     font-weight: 500;
     font-size: 16px;
   }
+  
+  #delbtn:hover {
+    background-color: red;
+    color: white; /* Optional: Change text color on hover */
+    /* Add any other styles you want to apply on hover */
+  }
+  
 #cancelbtn{
     background: #FFFFFF;
     border: 1px solid #A4A4A4;

@@ -30,7 +30,7 @@ export class EditSchedulePageComponent implements OnInit{
   eventIDs: any[] = [];
   eventDetails: any[] = [];
   editedEvent: any[]=[];
-
+  noEventsExist: boolean = false;
   
  constructor(public dialog: MatDialog,private http: HttpClient) {}
  
@@ -65,9 +65,15 @@ export class EditSchedulePageComponent implements OnInit{
         this.Events = response.schedule.events;
         this.eventIDs = this.Events.map((event: any) => event); 
         console.log('POST request successful: this.Events', this.Events);
-
-        // calling a GET request for each event
-        this.getEventDetails();
+        if (this.Events.length === 0) {
+          this.noEventsExist = true
+        }
+        else{
+          this.noEventsExist = false;
+          // calling a GET request for each event
+          this.getEventDetails();
+        }
+        
       },
       (error: any) => {
         console.error('POST request failed:', error);
