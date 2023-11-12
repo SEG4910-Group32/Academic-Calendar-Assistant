@@ -74,15 +74,16 @@ export class EditSchedulePageComponent implements OnInit{
       }
     );
   }
- getEventDetails() {
+
+getEventDetails() {
+  //this.eventDetails = [];
   for (const eventId of this.eventIDs) {
     this.getEventById(eventId).subscribe(
       (eventData: any) => {
-        
-        //storing the event data 
-        this.eventDetails.push(eventData)
+        // Assuming eventData is an object, wrap it in an array
+        this.eventDetails.push([eventData]);
 
-        console.log("eventDetails", this.eventDetails)
+        console.log("eventDetails", this.eventDetails);
         console.log('GET request successful for event:eventData', eventData);
       },
       (error: any) => {
@@ -122,7 +123,11 @@ deleteEvent(deletedEvent: any) {
     .subscribe((response: any) => {
       // Handle the API response here
       console.log('Event deleted from the database:', response);
+       this.eventDetails = []
+       this.loadData()
     });
+    //this.eventDetails = []
+   // this.loadData()
 }
 
 
@@ -157,6 +162,8 @@ openDialog(event: any) {
 
         console.log('The dialog was closed, result: ', updatedEvent);
         this.updateEvent(updatedEvent);
+        this.eventDetails = []
+        this.loadData()
       }
     });
   }
