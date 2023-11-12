@@ -12,4 +12,8 @@ export interface ScheduleFacadeInterface {
   updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule>;
   
   deleteSchedule(id: string): Observable<void>;
+
+  getOwnedSchedules(tokenId: string):Observable<any>;
+
+  getSubscribedSchedules(tokenId: string):Observable<any>;
 }

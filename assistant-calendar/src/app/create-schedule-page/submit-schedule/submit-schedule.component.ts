@@ -22,13 +22,14 @@ import { googleCalendar } from './googleCalendar.service';
 export class SubmitScheduleComponent {
 
   scheduleName: string | undefined;
+  scheduleDescription: string | undefined
   googleCheckbox: boolean = false;
   outlookCheckbox: boolean = false;
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
   private endpoint = "https://academic-calendar-backend.onrender.com";
   constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade, private googleCalendarService: googleCalendar) {
-        
+
   }
 
   //the id should be generated in the generateScheduleId component
@@ -36,9 +37,7 @@ export class SubmitScheduleComponent {
     this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
 
 
-    this.createSchedule(new Schedule({ name: this.scheduleName }));
-
-
+    this.createSchedule(new Schedule({ name: this.scheduleName, description: this.scheduleDescription }));
 
   };
 
@@ -74,7 +73,7 @@ export class SubmitScheduleComponent {
         var scheduleBody = {
           "id": this.scheduleInDB.id,
           'events': new Array,
-          'token' : localStorage.getItem("currUser")
+          'token': localStorage.getItem("currUser")
         }
         // Create Events
         this.currentEventsSvc.eventList.forEach(event => {

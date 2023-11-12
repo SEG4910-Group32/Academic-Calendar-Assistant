@@ -9,4 +9,6 @@ export interface ScheduleRepositoryInterface {
   createSchedule(schedule: Schedule):any;
   updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule>;
   deleteSchedule(scheduleId: string): Observable<any>;
+  getOwnedSchedules(tokenId: string):Observable<any>;
+  getSubscribedSchedules(tokenId: string):Observable<any>;
 }
