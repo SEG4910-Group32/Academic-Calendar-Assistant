@@ -51,6 +51,7 @@ export class ProfilePageComponent {
         // Handle the API response here
         console.log('Event deleted from the database:', response);
       });
+      this.loadData();
 
   }
   editSchedule(sc: any){
@@ -75,6 +76,7 @@ export class ProfilePageComponent {
       const token = localStorage.getItem("currUser");
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
+        this.loadData();
       });
     
   }
@@ -82,7 +84,11 @@ export class ProfilePageComponent {
   
 ngOnInit() {
   console.log(localStorage.getItem("currUser"));
+  this.loadData()
+ 
+}
 
+loadData(){
   const schedulesRequest = this.http.post(this.endpoint1, { token: localStorage.getItem("currUser") });
   const subsSchedulesRequest = this.http.post(this.endpoint2, { token: localStorage.getItem("currUser") });
 
