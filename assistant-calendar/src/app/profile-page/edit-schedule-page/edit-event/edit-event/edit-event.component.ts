@@ -19,13 +19,9 @@ export class EditEventComponent {
     @Inject(MAT_DIALOG_DATA) public data: {name:string, type:string, description:string, location:string, startTime:string, endTime:string},
   ) {}
 
+  //for closing the dialog
   onNoClick(): void {
     this.dialogRef.close();
   }
-  // constructor(public dialog: MatDialog) {}
-
-  // openDialog() {
-  //   this.dialog.open(EditEventComponent);
-  // }
 }
 

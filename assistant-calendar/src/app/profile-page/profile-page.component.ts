@@ -11,6 +11,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { DeleteScheduleComponent } from './delete-schedule/delete-schedule/delete-schedule.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { forkJoin } from 'rxjs';
+import { ScheduleFacade } from '../Facades/schedule.facade';
 
 
 @Component({
@@ -20,18 +21,20 @@ import { forkJoin } from 'rxjs';
   
 })
 export class ProfilePageComponent {
-  //displayedColumns: string[] = ['Name', 'Id', 'Edit', 'Delete'];
-  Schedules:  any;
-  subsSchedules: any;
-  dataOwns = [];
-  dataSubs = [];
-  private endpoint1 = 'https://academic-calendar-backend.onrender.com/api/schedules/user/owns'
-  private endpoint2 = 'https://academic-calendar-backend.onrender.com/api/schedules/user/subscribed'
+ 
   
-  dataSource: any;
-   items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
+  //list of schedules owned by the user
+  dataOwns = [];
+
+  //list of schedules that the user has subscribed to 
+  dataSubs = [];
+
+  
+
+  //the purpose for items is for the list of schedules to be scrollable
+  items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
    
-  constructor(public dialog: MatDialog, private http: HttpClient) {}
+  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade) {}
   
 //unsubscribe schedule method
   unsubscribeFromSchedule(schedule:any ){
@@ -54,6 +57,8 @@ export class ProfilePageComponent {
       this.loadData();
 
   }
+
+  //sets some values in the local storage item for when the "edit schedule" button is clicked in the profile page
   editSchedule(sc: any){
     console.log("edit schedule")
     localStorage.setItem('scId', sc["_id"]);
@@ -63,9 +68,12 @@ export class ProfilePageComponent {
  
   }
 
+  //for opening the dialog for deleting owned schedules
   openDialog(schedule: any) {
    
       console.log("schedule ", schedule);
+
+      //sends the schedule name and schedule id to the delete dialog component
       const dialogRef = this.dialog.open(DeleteScheduleComponent, {
         data: {
           name: schedule.name || '', // Add a null check here
@@ -73,9 +81,10 @@ export class ProfilePageComponent {
         
         }
       });
-      const token = localStorage.getItem("currUser");
+      
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
+        //after the dialog is closed, the data is refreshsed in case a schedule was deleted
         this.loadData();
       });
     
@@ -88,14 +97,18 @@ ngOnInit() {
  
 }
 
+//gets the list of owned/subscribed to schedules to be shown in the profile page
 loadData(){
-  const schedulesRequest = this.http.post(this.endpoint1, { token: localStorage.getItem("currUser") });
-  const subsSchedulesRequest = this.http.post(this.endpoint2, { token: localStorage.getItem("currUser") });
+  //gets the list of schedules owned by the user
+  const schedulesRequest =this.scheduleFacade.getOwnedSchedules(localStorage.getItem("currUser") as string);
+
+  //gets the list of schedules that the user subscribed to
+  const subsSchedulesRequest = this.scheduleFacade.getSubscribedSchedules(localStorage.getItem("currUser") as string );
 
   forkJoin([schedulesRequest, subsSchedulesRequest]).subscribe(
     (responses: any[]) => {
-      // responses[0] is the response from the first request
-      // responses[1] is the response from the second request
+      // responses[0] is the response from the first request for getting owned schedules
+      // responses[1] is the response from the second request for getting subscribed schedules
       this.dataOwns = responses[0] && responses[0].schedules ? responses[0].schedules : [];
       this.dataSubs = responses[1] && responses[1].schedules ? responses[1].schedules : [];
 

@@ -136,7 +136,7 @@ deleteEvent(deletedEvent: any) {
    // this.loadData()
 }
 
-
+//opens the edit event dialog
 openDialog(event: any) {
   if (event && event[0]) {
     console.log("event ", event[0]);
