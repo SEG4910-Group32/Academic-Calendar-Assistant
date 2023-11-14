@@ -8,5 +8,5 @@ export interface ScheduleRepositoryInterface {
   getScheduleById(scheduleId: string): Observable<Schedule>;
   createSchedule(schedule: Schedule):any;
   updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule>;
-  deleteSchedule(scheduleId: string): Observable<any>;
+  deleteSchedule(token:string, scheduleId: string): Observable<any>;
 }

@@ -30,8 +30,8 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
     return this.scheduleRepository.updateSchedule(schedule, scheduleId);
   }
 
-  deleteSchedule(id: string): Observable<void> {
-    return this.scheduleRepository.deleteSchedule(id);
+  deleteSchedule(id: string, token:string): Observable<void> {
+    return this.scheduleRepository.deleteSchedule(id,token);
   }
 
   getOwnedSchedules(tokenId: string):Observable<any>{

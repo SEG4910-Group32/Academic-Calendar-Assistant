@@ -8,6 +8,8 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { EditEventComponent } from './edit-event/edit-event/edit-event.component';
 import { FormsModule } from '@angular/forms'; // Import the FormsModule
+import { EventFacade } from 'src/app/Facades/event.facade';
+import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
 
 @Component({
   selector: 'app-edit-schedule-page',
@@ -32,9 +34,10 @@ export class EditSchedulePageComponent implements OnInit{
   editedEvent: any[]=[];
   noEventsExist: boolean = false;
   
- constructor(public dialog: MatDialog,private http: HttpClient) {}
+ constructor(public dialog: MatDialog,private http: HttpClient,private eventFacade: EventFacade, private scheduleFacade: ScheduleFacade) {}
  
   ngOnInit(): void {
+    // to change
     this.Events = this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });
 
     this.Events.subscribe(
@@ -49,16 +52,19 @@ export class EditSchedulePageComponent implements OnInit{
     this.loadData();
   }
  
-   
+ // gets the event information(like id, name etc) in order to display the events 
    getEventById(eventId: string): Observable<any> {
-    const eventUrl = `https://academic-calendar-backend.onrender.com/api/events/id/${eventId}`;
-    return this.http.get(eventUrl);
+
+    //getEventById
+    return this.eventFacade.getEventById(eventId)//`https://academic-calendar-backend.onrender.com/api/events/id/${eventId}`;
+    //return this.http.get(eventUrl);
   }
 
   loadData() {
     const updatedEndpoint = this.endpoint + this.scheduleId;
     const token = localStorage.getItem("currUser");
 
+    //to change
     //gets the event id for all events in a schedule
     this.http.post(updatedEndpoint, { token }).subscribe(
       (response: any) => {
@@ -99,16 +105,21 @@ getEventDetails() {
   }
 }
 
+//to change
 updateEvent(updatedEvent: any){
   const  editUrl = 'https://academic-calendar-backend.onrender.com/api/events'
-  this.http.patch(editUrl, updatedEvent)
+
+  updatedEvent.scheduleid = updatedEvent.id as string
+  console.log("updated event is" ,updatedEvent)
+  this.eventFacade.updateEvent(updatedEvent)
   .subscribe((response: any) => {
     // Handle the API response here
-    console.log('Event added to the database:', response);
+    console.log('Event updated succesfully, changes added to the database:', response);
    
   });
 }
 
+//to change
 //method used to delete an event
 deleteEvent(deletedEvent: any) {
   const deleteUrl = 'https://academic-calendar-backend.onrender.com/api/events';

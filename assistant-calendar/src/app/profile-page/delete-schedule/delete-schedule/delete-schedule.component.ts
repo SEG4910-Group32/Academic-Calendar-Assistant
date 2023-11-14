@@ -56,8 +56,10 @@ export class DeleteScheduleComponent {
 //method used to delete an schedule, called when user clicks on delete in the dialog, the method sends the delete requst to the db
 deleteSched() {
   
+  console.log("this.data.id",this.data.id)
+  const id = this.data.id
   //calls the delete schedule function in the schedule facade
-  this.scheduleFacade.deleteSchedule(this.data.id)
+  this.scheduleFacade.deleteSchedule( localStorage.getItem("currUser") as string, id as string)
     .subscribe((response: any) => {
       // Handle the API response here
       console.log('Schedule deleted from the database:', response);
