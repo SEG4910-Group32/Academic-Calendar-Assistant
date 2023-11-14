@@ -8,6 +8,8 @@ import { EventFacadeInterface } from './interfaces/eventFacade.interface';
   providedIn: 'root',
 })
 export class EventFacade implements EventFacadeInterface {
+
+  
   constructor(private eventRepository: EventRepository) {}
 
   // Define methods to interact with the repository
@@ -22,6 +24,7 @@ export class EventFacade implements EventFacadeInterface {
   createEvent(event: Event): Observable<Event> {
     return this.eventRepository.createEvent(event);
   }
+
 
   updateEvent(event: Event): Observable<Event> {
     return this.eventRepository.updateEvent(event);

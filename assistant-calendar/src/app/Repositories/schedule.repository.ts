@@ -23,9 +23,13 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
     return this.http.get<Schedule>(`${this.apiUrl}/${scheduleId}`);
   }
 
-  createSchedule(schedule: Schedule): Observable<Schedule> {
+  createSchedule(schedule: Schedule): Observable<any> {
 
     return this.http.post<Schedule>(this.apiUrl, schedule);
+  }
+  
+  createEvents(body: { id: string | undefined; events: any[]; }) {
+    return this.http.patch<any>(this.apiUrl+'/createEvents', body);
   }
 
   updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule> {
@@ -34,5 +38,13 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
 
   deleteSchedule(scheduleId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${scheduleId}`);
+  }
+
+  getOwnedSchedules(tokenId: string):Observable<any>{
+    return this.http.post(this.apiUrl+'/user/owns', { token: tokenId });
+  }
+  
+  getSubscribedSchedules(tokenId: string):Observable<any>{
+    return this.http.post(this.apiUrl+'/user/subscribed', { token: tokenId });
   }
 }

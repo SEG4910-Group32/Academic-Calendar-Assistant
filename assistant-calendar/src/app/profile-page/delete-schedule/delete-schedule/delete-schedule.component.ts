@@ -30,7 +30,7 @@ export class DeleteScheduleComponent {
     if(scName == this.data.name){
       this.deleteSched();
 
-      this.openSnackbar('Schedule deleted successfully');
+      this.openSnackbar(`Schedule ${scName} deleted successfully`);
       //this._snackBar.open("Schedule delete succesfully");
     }
     else{
