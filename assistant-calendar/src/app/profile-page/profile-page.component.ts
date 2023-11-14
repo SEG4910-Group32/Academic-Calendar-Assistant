@@ -53,8 +53,9 @@ export class ProfilePageComponent {
       .subscribe((response: any) => {
         // Handle the API response here
         console.log('Event deleted from the database:', response);
+        this.loadData();
       });
-      this.loadData();
+      
 
   }
 
