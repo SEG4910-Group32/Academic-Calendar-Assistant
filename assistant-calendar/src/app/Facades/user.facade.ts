@@ -31,22 +31,11 @@ export class UserFacade {
   }
 
 
+  //Method to unsubscribe from a schedule
   removeSchedule(id: string, token:string): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, {token:token}
     
     );
   }
-  //Method to unsubscribe from a schedule
-  // removeSchedule(id: string, token:string): Observable<void> {
-  //   return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, 
-  //   {
-  //     headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: {
-  //     id: id,
-  //     token: token,
-  //   }});
-  // }
-  // To add more methods as needed
+
 }

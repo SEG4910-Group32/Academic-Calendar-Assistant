@@ -40,15 +40,7 @@ export class ProfilePageComponent {
 //unsubscribe schedule method
   unsubscribeFromSchedule(schedule:any ){
     console.log("unsubscribe from schedule called");
-    const url = 'https://academic-calendar-backend.onrender.com/api/users/schedule/';
-    ///schedule/:scheduleid/remove
-    const token = localStorage.getItem("currUser");
-    const id = schedule._id;
-    const ubsubscribeUrl = url + id + "/remove"
-    const options = {
-        id: id,
-        token: token,
-    };
+   
     console.log("schedule._id", schedule._id,`localStorage.getItem("currUser")`, localStorage.getItem("currUser"))
   // this.http.patch(ubsubscribeUrl, options)
     this.userFacade.removeSchedule(schedule._id as string, localStorage.getItem("currUser") as string)

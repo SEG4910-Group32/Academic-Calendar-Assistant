@@ -41,18 +41,4 @@ export class UserRepository implements UserRepositoryInterface {
     );
   }
 
-  // removeSchedule(id: string, token:string): Observable<void> {
-  //   return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, token
-    
-  //   );
-  // }
 }
-
-// {
-//   headers: {
-//   'Content-Type': 'application/json',
-// },
-// body: {
-//   id: id,
-//   token: token,
-// }}
