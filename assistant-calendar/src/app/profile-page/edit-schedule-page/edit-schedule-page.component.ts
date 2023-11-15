@@ -27,6 +27,7 @@ export class EditSchedulePageComponent implements OnInit{
   scheduleId = localStorage.getItem("scId")
   scheduleName = localStorage.getItem("scName")
   eve = localStorage.getItem("sc")
+  token = localStorage.getItem("currUser")
  
   updatedEndpoint = this.endpoint + this.scheduleId
   eventIDs: any[] = [];
@@ -37,18 +38,6 @@ export class EditSchedulePageComponent implements OnInit{
  constructor(public dialog: MatDialog,private http: HttpClient,private eventFacade: EventFacade, private scheduleFacade: ScheduleFacade) {}
  
   ngOnInit(): void {
-    // to change
-    this.Events = this.http.post(this.updatedEndpoint, { token: localStorage.getItem("currUser") });
-
-    this.Events.subscribe(
-      (response: any) => {
-        this.Events = response.schedule.events;
-        console.log('POST request successful: this.Events', this.Events);
-      },
-      (error: any) => {
-        console.error('POST request failed:', error);
-      }
-    );
     this.loadData();
   }
  
@@ -96,7 +85,7 @@ getEventDetails() {
         this.eventDetails.push([eventData]);
 
         console.log("eventDetails", this.eventDetails);
-        console.log('GET request successful for event:eventData', eventData);
+        console.log('GET request successful for getEventDetails event:eventData', eventData);
       },
       (error: any) => {
         console.error('GET request failed for event:', error);
@@ -110,41 +99,31 @@ updateEvent(updatedEvent: any){
   const  editUrl = 'https://academic-calendar-backend.onrender.com/api/events'
 
   updatedEvent.scheduleid = updatedEvent.id as string
-  console.log("updated event is" ,updatedEvent)
+  console.log("updated event is" ,updatedEvent, "token ", localStorage.getItem("currUser") as string)
   this.eventFacade.updateEvent(updatedEvent)
-  .subscribe((response: any) => {
+    .subscribe((response: any) => {
     // Handle the API response here
     console.log('Event updated succesfully, changes added to the database:', response);
    
+  },
+  (error: any) => {
+    console.error('GET request failed for event:', error);
   });
 }
 
 //to change
 //method used to delete an event
 deleteEvent(deletedEvent: any) {
-  const deleteUrl = 'https://academic-calendar-backend.onrender.com/api/events';
-  const token = localStorage.getItem("currUser");
-  const id = deletedEvent[0]._id;
 
-  const options = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      id: deletedEvent[0]._id,
-      token: token,
-    },
-  };
+  console.log(deletedEvent[0]._id, "deletedEvent[0]._id")
 
-  this.http.delete(deleteUrl, options)
+  this.eventFacade.deleteEvent( localStorage.getItem("currUser") as string, deletedEvent[0]._id as string)
     .subscribe((response: any) => {
       // Handle the API response here
       console.log('Event deleted from the database:', response);
        this.eventDetails = []
        this.loadData()
     });
-    //this.eventDetails = []
-   // this.loadData()
 }
 
 //opens the edit event dialog

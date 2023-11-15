@@ -35,7 +35,13 @@ export class EventRepository implements EventRepositoryInterface {
     return this.http.put<Event>(`${this.apiUrl}/${event.scheduleid}`, event);
   }
 
-  deleteEvent(eventId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${eventId}`);
+  deleteEvent(token:string, eventId: string): Observable<void> {
+    return this.http.delete<void>(this.apiUrl,{headers: {
+      'Content-Type': 'application/json',
+    },
+    body: {
+      id: eventId,
+      token: token,
+    }});
   }
 }

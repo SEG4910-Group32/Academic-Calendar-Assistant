@@ -11,5 +11,5 @@ export interface EventFacadeInterface {
   
   updateEvent(event: Event): Observable<Event>;
   
-  deleteEvent(id: string): Observable<void>;
+  deleteEvent(token:string, id: string): Observable<void>;
 }

@@ -30,7 +30,7 @@ export class EventFacade implements EventFacadeInterface {
     return this.eventRepository.updateEvent(event);
   }
 
-  deleteEvent(id: string): Observable<void> {
-    return this.eventRepository.deleteEvent(id);
+  deleteEvent(token:string ,id: string): Observable<void> {
+    return this.eventRepository.deleteEvent(token, id);
   }
 }
