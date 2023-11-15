@@ -22,7 +22,7 @@ export class EventRepository implements EventRepositoryInterface {
   }
 
   getEventById(eventId: string): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${eventId}`);
+    return this.http.get<Event>(`${this.apiUrl}/id/${eventId}`);
   }
 
   createEvent(event: Event): Observable<Event> {
