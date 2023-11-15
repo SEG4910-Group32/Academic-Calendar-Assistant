@@ -98,3 +98,39 @@ button:disabled {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+  .example-viewport {
+    height: 200px;
+    width: 425px;
+    border: 1px solid black;
+  }
+  
+  /* .example-item {
+    height: 50px;
+  } */
+
+  .nu-table-body {
+    overflow-y:auto;
+    max-height:500px;
+}
+
+
+#addbtn{
+  width: 100px;
+  height: 47px;
+  background: #435A86;
+  border: 1px solid #676D7A;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+#cancelbtn{
+  background: #FFFFFF;
+  border: 1px solid #A4A4A4;
+  border-radius: 10px;
+  width: 100px;
+  height: 47px;
+  color: #434343;
+  font-weight: 700;
+  font-size: 16px;
+}

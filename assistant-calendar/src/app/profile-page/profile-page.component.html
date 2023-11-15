@@ -1,23 +1,53 @@
 <div class="container">
   <div class="header">
-    <h1>User X</h1>
-  </div>
-  <div class="button-container">
-    <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
-  </div>
-    
-    <div class="scheduleList">
-      <h2>My Schedules</h2>
-        <mat-list #schedules>
-          <div class="container">
-          <mat-list-item *ngFor="let schedule of Schedules | async">
-            {{schedule.name}}
-            <a routerLink="/"><button class="btn btn-success" > Edit schedule </button></a>
-            <a routerLink="/"><button class="btn btn-danger" > Delete schedule </button></a>
-        </mat-list-item>
+    <div class="left">
+      <h1>User X</h1>
+      <div class="button-container">
+        <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
       </div>
-      </mat-list>
+      <h2>You can view and edit/delete/share your schedules from here</h2>
     </div>
-    <h2>You can view and edit/delete/share your schedules from here</h2>
+    <div class="right">
     
+    </div>
   </div>
+  
+    
+    
+    <div id="mySchedules">
+      <h2>My Schedules</h2>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
+      <mat-card *ngFor="let schedule of this.dataOwns" >
+        <mat-card-header>
+          <mat-card-title>{{schedule["name"]}}</mat-card-title>
+          <mat-card-subtitle>{{schedule["description"]}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a routerLink="/edit-schedule"><button mat-button id="editbtn"  (click)="editSchedule(schedule)">Edit Schedule</button></a>
+          <a ><button mat-button id="deletebtn" (click)="openDialog(schedule)">Delete Schedule</button></a>
+        </mat-card-actions>
+      </mat-card>
+    </cdk-virtual-scroll-viewport>
+    </div>
+
+    <div id="subscribedSchedules">
+      
+      <h2>Subscribed Schedules</h2>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
+      <mat-card *ngFor="let schedule of this.dataSubs" >
+        <mat-card-header>
+          <mat-card-title>{{schedule["name"]}}</mat-card-title>
+          <mat-card-subtitle>{{schedule["description"]}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions align="end">
+          <a><button mat-button id="deletebtn" (click)="unsubscribeFromSchedule(schedule)">Unsubscribe</button></a>
+      </mat-card-actions>
+      </mat-card>
+    </cdk-virtual-scroll-viewport>
+      
+    </div>
+  </div>
+
+  

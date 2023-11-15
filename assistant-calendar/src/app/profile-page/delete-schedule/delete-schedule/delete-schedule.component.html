@@ -1,0 +1,22 @@
+<div class="example-container">
+    <mat-dialog-content>
+      <div class="title">
+        <h3>Delete Schedule:</h3>
+        <br>
+        <p>To delete the schedule, enter the schedule name <b>{{data.name}}</b></p>
+      </div>
+      <div class="example-form-fields">   
+        <mat-form-field hintLabel="" appearance="fill" class="example-full-width">
+          <mat-label>Schedule Name: </mat-label>
+          <input matInput #input maxlength="70" placeholder="Schedule name" [(ngModel)]="scheduleName">
+        </mat-form-field>  
+      </div>
+      
+    
+    </mat-dialog-content>
+    </div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close id="cancelbtn" (click)="onNoClick()" >Close</button>
+  <button mat-button mat-dialog-close id="delbtn" (click)="deleteSchedule(scheduleName)">Delete</button>
+  
+</div>

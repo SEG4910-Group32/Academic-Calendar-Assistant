@@ -1,9 +1,15 @@
 .container {
-    display: flex;
+    /* display: flex;*/
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: visible;
+    overflow: visible; 
+    margin-left: 10%;
+}
+
+.header{
+    display: list-item;
+    margin-bottom: 20px;
 }
 
 h1 {
@@ -41,8 +47,7 @@ button {
     white-space: nowrap;
     cursor: pointer;
     margin-left: 2em;
-    background-color: blue;
-    /* background-color: var(--save-changes-color); */
+    background-color: var(--save-changes-color);
 }
 
 .error-message {
@@ -65,10 +70,11 @@ button:disabled {
     background-color: red
 }
 
-.scheduleList{
-    padding-top: 20px;
-    padding-bottom: 20px
+.btn-primary{
+    background-color: #314671;
 }
+
+
 .mat-list-item{
     margin-top: 20px;
     margin-top: 20px
@@ -76,8 +82,54 @@ button:disabled {
 
   .button-container{
     float: right;
-    width: 50%; 
-    margin-left: 58%;
+    margin-right: 18%;
   }
  
+
+  .example-viewport {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+  }
+  
+  .example-item {
+    height: 50px;
+  }
+  
+  #mySchedules{
+    width: 40%;
+    float: left;
+    height: 300px;
+    margin-right: 1%;
+    margin-left: 1%;
+  }
+
+  #subscribedSchedules{
+    width: 40%;
+    float: left;
+    height: 300px;
+    margin-right: 1%;
+    margin-left: 1%;
+  }
+
+  #editbtn{
+    width: 150px;
+    height: 47px;
+    background: #435A86;
+    border: 1px solid #676D7A;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  #deletebtn{
+    background: #FFFFFF;
+    border: 1px solid #A4A4A4;
+    border-radius: 10px;
+    width: 150px;
+    height: 47px;
+    color: #434343;
+    font-weight: 700;
+    font-size: 16px;
+  }
 

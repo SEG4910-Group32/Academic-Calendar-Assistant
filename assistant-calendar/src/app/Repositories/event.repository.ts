@@ -31,11 +31,19 @@ export class EventRepository implements EventRepositoryInterface {
     return this.http.post<Event>(this.apiUrl, event);
   }
 
-  updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${event.schedule}`, event);
+
+  updateEvent(event: any): Observable<any> {
+    return this.http.patch<Event>(this.apiUrl, event);
+
   }
 
-  deleteEvent(eventId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${eventId}`);
+  deleteEvent(token:string, eventId: string): Observable<void> {
+    return this.http.delete<void>(this.apiUrl,{headers: {
+      'Content-Type': 'application/json',
+    },
+    body: {
+      id: eventId,
+      token: token,
+    }});
   }
 }

@@ -1,0 +1,75 @@
+.addNewDelButton{
+    position: absolute;
+    right:    0;
+    bottom:   0;
+}
+.cancelNewDelButton{
+    position: absolute;
+    right:    20;
+    bottom:   0;
+}
+
+
+#addbtn{
+    width: 330px;
+    height: 47px;
+    background: #435A86;
+    border: 1px solid #676D7A;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+  }
+#cancelbtn{
+    background: #FFFFFF;
+    border: 1px solid #A4A4A4;
+    border-radius: 10px;
+    width: 330px;
+    height: 47px;
+    color: #434343;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .title h3{
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 0.025em;
+    color: #0E2655;
+    margin-bottom: 50px;
+
+  }
+
+  .example-form-field {
+    width: 50%;
+  }
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .example-container mat-form-field + mat-form-field {
+    margin-left: 8px;
+  }
+  
+ 
+  
+  .example-container form {
+    margin-bottom: 20px;
+  }
+  
+  .example-container form > * {
+    margin: 12px 0;
+  }
+  
+  .example-container .mat-radio-button {
+    margin: 0 12px;
+  }
+  
+  .example-form-fields {
+    display: flex;
+    align-items: flex-start;
+  }
+  .example-full-width {
+    width: 100%;
+  }

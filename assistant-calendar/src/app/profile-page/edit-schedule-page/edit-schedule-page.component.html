@@ -1,24 +1,34 @@
 <div class="container">
     <div class="header">
-      <h1>Edit events for schedule SEG4910:</h1>
+      <h1>Edit events for schedule {{scheduleName}}</h1>
     </div>
-    <div>
+    <br>
+    <!-- only shows this message if there are no events in the schedule -->
+    <div *ngIf="noEventsExist">
+      <h2>This schedule has no events😢</h2>
+    </div>
+
+    <!-- if the schedule has events, shows them in a table -->
+    <div *ngIf="!noEventsExist">
         <table>
+          <div class="nu-table-body">
             <tr>
+              <th>ID</th>
               <th>Name</th>
-              <th>Type</th>
-              <th>End date</th>
-              <th>Action</th>
+              <th>Actions</th>
             </tr>
-            <tr>
-              <td>Midterm 2</td>
-              <td>Midterm</td>
-              <td>22/2/2024</td>
-              <td><button type="button">Edit</button><button type="button" class="btn btn-danger">Delete</button></td>
+            
+            <tr *ngFor="let eventArray of eventDetails; let i = index">
+              <ng-container *ngFor="let event of eventArray">
+                <td >{{ event._id }}</td>
+                <td >{{ event.name }}</td>
+                <td>
+                  <button type="button" id="cancelbtn" (click)="openDialog(eventArray)">Edit</button>
+                  <button type="button" id="addbtn" (click)="deleteEvent(eventArray)">Delete</button>
+                </td>
+              </ng-container>
             </tr>
-           
-          </table>
-          
-          
+          </div>
+          </table>      
     </div>
 </div>

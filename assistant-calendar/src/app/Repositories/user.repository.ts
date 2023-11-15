@@ -34,4 +34,11 @@ export class UserRepository implements UserRepositoryInterface {
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${userId}`);
   }
+  
+  removeSchedule(id: string, token:string): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, {token:token}
+    
+    );
+  }
+
 }

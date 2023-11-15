@@ -30,5 +30,12 @@ export class UserFacade {
     return this.http.delete<void>(`${this.apiUrl}/delete-user/${userId}`);
   }
 
-  // To add more methods as needed
+
+  //Method to unsubscribe from a schedule
+  removeSchedule(id: string, token:string): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, {token:token}
+    
+    );
+  }
+
 }
