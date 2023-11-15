@@ -19,8 +19,12 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
     return this.http.get<Schedule[]>(this.apiUrl);
   }
 
-  getScheduleById(scheduleId: string): Observable<Schedule> {
-    return this.http.get<Schedule>(`${this.apiUrl}/${scheduleId}`);
+  getScheduleById(scheduleId: string) {
+    return this.http.post<any>(`${this.apiUrl}/id/${scheduleId}`, scheduleId);
+  }
+
+  getScheduleByName(scheduleName: string): Observable<Schedule>{
+    return this.http.post<Schedule>(`${this.apiUrl}/name/${scheduleName}`, scheduleName);
   }
 
   createSchedule(schedule: Schedule): Observable<any> {

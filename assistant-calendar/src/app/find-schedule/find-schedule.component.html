@@ -22,6 +22,12 @@
         </div>
     </div>
 
+    <div *ngFor="let sched of scheduleList">
+        <span>{{sched.name}}</span><br>
+        <span>{{sched.id}}</span><br>
+        <span>{{sched.description}}</span>
+    </div>
+
     <div *ngIf="!scheduleIdForm.controls.id.errors" class="error-message">
         <div *ngIf="!doesScheduleExist">
             <i class='bx bxs-error-circle'></i>
