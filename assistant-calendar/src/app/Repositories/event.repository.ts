@@ -31,8 +31,8 @@ export class EventRepository implements EventRepositoryInterface {
     return this.http.post<Event>(this.apiUrl, event);
   }
 
-  updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/${event.scheduleid}`, event);
+  updateEvent(event: any): Observable<any> {
+    return this.http.patch<Event>(this.apiUrl, event);
   }
 
   deleteEvent(token:string, eventId: string): Observable<void> {

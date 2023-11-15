@@ -98,7 +98,7 @@ getEventDetails() {
 updateEvent(updatedEvent: any){
   const  editUrl = 'https://academic-calendar-backend.onrender.com/api/events'
 
-  updatedEvent.scheduleid = updatedEvent.id as string
+  updatedEvent.id = updatedEvent.id as string
   console.log("updated event is" ,updatedEvent, "token ", localStorage.getItem("currUser") as string)
   this.eventFacade.updateEvent(updatedEvent)
     .subscribe((response: any) => {
