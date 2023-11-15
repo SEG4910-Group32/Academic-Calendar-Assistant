@@ -11,4 +11,5 @@ export interface UserRepositoryInterface {
   createUser(user: User): Observable<User>;
   updateUser(user: User): Observable<User>;
   deleteUser(userId: string): Observable<any>;
+  removeSchedule(id: string, token:string):Observable<any>;
 }

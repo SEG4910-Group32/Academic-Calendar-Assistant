@@ -12,6 +12,7 @@ import { DeleteScheduleComponent } from './delete-schedule/delete-schedule/delet
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { forkJoin } from 'rxjs';
 import { ScheduleFacade } from '../Facades/schedule.facade';
+import { UserFacade } from '../Facades/user.facade';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class ProfilePageComponent {
   //the purpose for items is for the list of schedules to be scrollable
   items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
    
-  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade) {}
+  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade, private userFacade: UserFacade) {}
   
 //unsubscribe schedule method
   unsubscribeFromSchedule(schedule:any ){
@@ -48,9 +49,10 @@ export class ProfilePageComponent {
         id: id,
         token: token,
     };
-  
-    this.http.patch(ubsubscribeUrl, options)
-      .subscribe((response: any) => {
+    console.log("schedule._id", schedule._id,`localStorage.getItem("currUser")`, localStorage.getItem("currUser"))
+  // this.http.patch(ubsubscribeUrl, options)
+    this.userFacade.removeSchedule(schedule._id as string, localStorage.getItem("currUser") as string)
+    .subscribe((response: any) => {
         // Handle the API response here
         console.log('Event deleted from the database:', response);
         this.loadData();
