@@ -53,11 +53,11 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   }
 
   getOwnedSchedules(tokenId: string):Observable<any>{
-    return this.http.post(this.apiUrl+'/user/owns', { token: tokenId });
+    return this.http.get(`${this.apiUrl}/user/${tokenId}/owns`);
   }
   
   getSubscribedSchedules(tokenId: string):Observable<any>{
-    return this.http.post(this.apiUrl+'/user/subscribed', { token: tokenId });
+    return this.http.get(`${this.apiUrl}/user/${tokenId}/subscribed`);
   }
 
 }
