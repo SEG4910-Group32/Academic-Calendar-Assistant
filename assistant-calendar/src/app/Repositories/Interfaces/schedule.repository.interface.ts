@@ -5,7 +5,7 @@ import { Schedule } from '../../Models/schedule.model';
 
 export interface ScheduleRepositoryInterface {
   getAllSchedules(): Observable<Schedule[]>;
-  getScheduleById(scheduleId: string):any;
+  getScheduleById(scheduleId: string, token:string):any;
   createSchedule(schedule: Schedule):any;
   updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule>;
 

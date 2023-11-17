@@ -55,7 +55,7 @@ export class EditSchedulePageComponent implements OnInit{
 
     //to change
     //gets the event id for all events in a schedule
-    this.http.post(updatedEndpoint, { token }).subscribe(
+    this.scheduleFacade.getScheduleById(this.scheduleId as string,token as string).subscribe(
       (response: any) => {
         this.Events = response.schedule.events;
         this.eventIDs = this.Events.map((event: any) => event); 
