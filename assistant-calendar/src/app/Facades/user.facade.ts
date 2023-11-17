@@ -33,8 +33,8 @@ export class UserFacade {
 
   //Method to unsubscribe from a schedule
   removeSchedule(id: string, token:string): Observable<void> {
-    return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, {token:token}
-    
+    return this.http.patch<void>(`${this.apiUrl}/user/${token}/schedule/${id}/remove`, {token:token}
+    // /user/:token/schedule/:scheduleid/remove
     );
   }
 
