@@ -27,6 +27,7 @@ export class DeleteScheduleComponent {
     private _snackBar: MatSnackBar,
     private scheduleFacade: ScheduleFacade
   ) {}
+  deletedVerification = false;
 
   //deletes the schedule if the schedule name entered by the user is the same as schedule name(case sensitive)
   deleteSchedule(scName:any):void{
@@ -34,9 +35,13 @@ export class DeleteScheduleComponent {
     if(scName == this.data.name){
       this.deleteSched();
 
-      //snackbar shows a message if the delete request was succesful
-      this.openSnackbar(`Schedule ${scName} deleted successfully`);
-      //this._snackBar.open("Schedule delete succesfully");
+      if(this.deletedVerification){
+         //snackbar shows a message if the delete request was succesful
+        this.openSnackbar(`Schedule ${scName} deleted successfully`);
+        //this._snackBar.open("Schedule delete succesfully");
+        this.deletedVerification = false;
+      }
+     
     }
     else{
       //if the user entered the wrong name, they will get a message indicating the schedule didn't get deleted
@@ -63,6 +68,7 @@ deleteSched() {
     .subscribe((response: any) => {
       // Handle the API response here
       console.log('Schedule deleted from the database:', response);
+      this.deletedVerification = true
     });
 }
   //used for closing the dialog

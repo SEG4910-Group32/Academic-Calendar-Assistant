@@ -29,7 +29,9 @@ h1 {
     font-weight: 500;
 }
 
-
+.btn-primary{
+  background-color: #314671;
+}
 
 button {
     border: none;

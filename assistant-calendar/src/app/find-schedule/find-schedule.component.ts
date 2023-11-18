@@ -37,7 +37,7 @@ export class FindScheduleComponent {
      * @param id 24 length hexadecimal id corresponding to a schedule
      */
   scheduleExists = async (id: string) => {
-    return this.scheduleFacadesvc.getScheduleById(id).subscribe(exists => {
+    return this.scheduleFacadesvc.getScheduleById(id, localStorage.getItem("currUser") as string).subscribe(exists => {
       if (exists) {
         this.doesScheduleExist = true;
         console.log("doc exists!!!!!!!!!!!!!!!!!!!");

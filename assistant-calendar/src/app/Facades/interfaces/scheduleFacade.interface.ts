@@ -5,11 +5,11 @@ export interface ScheduleFacadeInterface {
   // Define methods to interact with the repository
   getSchedules(): Observable<Schedule[]>;
   
-  getScheduleById(id: string): Observable<Schedule | undefined>;
+  getScheduleById(id: string, token:string): Observable<Schedule | undefined>;
   
   createSchedule(schedule: Schedule): Observable<Schedule>;
   
-  updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule>;
+  updateSchedule(schedule: Schedule, scheduleId: string, token:string): Observable<Schedule>;
   
 
   deleteSchedule(token: string, id: string): Observable<void>;

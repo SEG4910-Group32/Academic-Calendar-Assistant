@@ -15,8 +15,8 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
     return this.scheduleRepository.getAllSchedules();
   }
 
-  getScheduleById(id: string): Observable<any> {
-    return this.scheduleRepository.getScheduleById(id);
+  getScheduleById(id: string, token:string): Observable<any> {
+    return this.scheduleRepository.getScheduleById(id,token);
   }
 
   createSchedule(schedule: Schedule):Observable<any> {
@@ -26,8 +26,8 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
   createEvents(body: { id: string | undefined; events: any[]; }): Observable<any> {
     return this.scheduleRepository.createEvents(body);
   }
-  updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule> {
-    return this.scheduleRepository.updateSchedule(schedule, scheduleId);
+  updateSchedule(schedule: Schedule, scheduleId: string, token:string): Observable<Schedule> {
+    return this.scheduleRepository.updateSchedule(schedule, scheduleId,token);
   }
 
   deleteSchedule(id: string, token:string): Observable<void> {

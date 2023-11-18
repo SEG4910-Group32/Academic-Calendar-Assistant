@@ -19,15 +19,18 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
     return this.http.get<Schedule[]>(this.apiUrl);
   }
 
-  getScheduleById(scheduleId: string) {
-    return this.http.post<any>(`${this.apiUrl}/id/${scheduleId}`, scheduleId);
+  getScheduleById(scheduleId: string, token:string) {
+    return this.http.get<any>(`${this.apiUrl}/schedule/${scheduleId}/${token}`);
   }
 
 
   getScheduleByName(scheduleName: string): Observable<Schedule>{
-    return this.http.post<Schedule>(`${this.apiUrl}/name/${scheduleName}`, scheduleName);
+    return this.http.get<Schedule>(`${this.apiUrl}/name/${scheduleName}`);
   }
 
+  getScheduleByOwner(ownerId: string): Observable<Schedule>{
+    return this.http.get<Schedule>(`${this.apiUrl}/name/${ownerId}`);
+  }
 
   createSchedule(schedule: Schedule): Observable<any> {
 
@@ -38,12 +41,12 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
     return this.http.patch<any>(this.apiUrl+'/createEvents', body);
   }
 
-  updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule> {
-    return this.http.put<Schedule>(`${this.apiUrl}/${scheduleId}`, schedule);
+  updateSchedule(schedule: Schedule, scheduleId: string, token:string): Observable<Schedule> {
+    return this.http.put<Schedule>(`${this.apiUrl}/${scheduleId}/${token}`, schedule);
   }
 
   deleteSchedule(token:string, scheduleId: string): Observable<void> {
-    return this.http.delete<void>(this.apiUrl, {headers: {
+    return this.http.delete<void>(`${this.apiUrl}/schedule/${scheduleId}/${token}`, {headers: {
       'Content-Type': 'application/json',
     },
     body: {
@@ -53,11 +56,11 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   }
 
   getOwnedSchedules(tokenId: string):Observable<any>{
-    return this.http.post(this.apiUrl+'/user/owns', { token: tokenId });
+    return this.http.get(`${this.apiUrl}/user/${tokenId}/owns`);
   }
   
   getSubscribedSchedules(tokenId: string):Observable<any>{
-    return this.http.post(this.apiUrl+'/user/subscribed', { token: tokenId });
+    return this.http.get(`${this.apiUrl}/user/${tokenId}/subscribed`);
   }
 
 }

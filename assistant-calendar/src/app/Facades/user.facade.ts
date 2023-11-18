@@ -21,20 +21,29 @@ export class UserFacade {
   }
 
   // Method to update a user's information
-  updateUser(updatedUser: any): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/update-user/${updatedUser.id}`, updatedUser);
+  updateUser(updatedUser: any, token:String): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/user/${token}`, updatedUser);
+  }
+
+  getUserById(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/user/${userId}`);
   }
 
   // Method to delete a user
   deleteUser(userId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete-user/${userId}`);
+    return this.http.delete<void>(`${this.apiUrl}/user/${userId}`);
   }
-
+  //Method to add a schedule to Users Schedules
+  addSchedule(scheduleId:string, token:string, password:string ): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/user/${token}/schedule/${scheduleId}/add`, {token:token, scheduleId: scheduleId, password: password}
+    // /user/:token/schedule/:scheduleid/remove
+    );
+  }
 
   //Method to unsubscribe from a schedule
   removeSchedule(id: string, token:string): Observable<void> {
-    return this.http.patch<void>(`${this.apiUrl}/schedule/${id}/remove`, {token:token}
-    
+    return this.http.patch<void>(`${this.apiUrl}/user/${token}/schedule/${id}/remove`, {token:token}
+    // /user/:token/schedule/:scheduleid/remove
     );
   }
 
