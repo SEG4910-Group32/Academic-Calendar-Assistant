@@ -9,7 +9,7 @@ export interface ScheduleFacadeInterface {
   
   createSchedule(schedule: Schedule): Observable<Schedule>;
   
-  updateSchedule(schedule: Schedule, scheduleId: string): Observable<Schedule>;
+  updateSchedule(schedule: Schedule, scheduleId: string, token:string): Observable<Schedule>;
   
 
   deleteSchedule(token: string, id: string): Observable<void>;
