@@ -77,8 +77,10 @@ button:disabled {
 
   .button-container{
     float: right;
-    width: 50%; 
-    margin-left: 58%;
+    /* width: 50%;  */
+    /* margin-left: 58%; */
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
  
 
