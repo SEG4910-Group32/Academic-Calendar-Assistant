@@ -14,6 +14,7 @@ import { Schedule } from '../Models/schedule.model';
   styleUrls: ['./find-schedule.component.css']
 })
 export class FindScheduleComponent {
+
   scheduleIdForm = this.fb.group({
     id: ['']
   });
@@ -142,4 +143,11 @@ export class FindScheduleComponent {
       this.scheduleExists(id);
     }
   }
+
+  selectSchedule(id: string|undefined) {
+    localStorage.setItem("ScheduleDetailID", String(id));
+    console.log("The ID in local storage is: " + localStorage.getItem("ScheduleDetailID"));
+    }
+    
+    
 }

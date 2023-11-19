@@ -38,6 +38,7 @@
         <span>ID: {{sched.id}}</span><br>
         <span>Description: {{sched.description}}</span><br>
         <span>Events: {{sched.events}}</span><br>
+        <span><button type="button" (click)="selectSchedule(sched.id)">Select</button></span>
     </div>
 
     <div *ngIf="searched==true" class="error-message">
