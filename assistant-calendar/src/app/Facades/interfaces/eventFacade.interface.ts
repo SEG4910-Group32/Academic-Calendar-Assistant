@@ -7,7 +7,7 @@ export interface EventFacadeInterface {
   
   getEventById(id: string): Observable<Event | undefined>;
   
-  createEvent(event: Event): Observable<Event>;
+  createEvent(event: any): Observable<any>;
   
   updateEvent(event: any): Observable<any>;
   

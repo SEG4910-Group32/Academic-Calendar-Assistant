@@ -10,7 +10,8 @@ import { EditEventComponent } from './edit-event/edit-event/edit-event.component
 import { FormsModule } from '@angular/forms'; // Import the FormsModule
 import { EventFacade } from 'src/app/Facades/event.facade';
 import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
-
+import { AddEventComponent } from './add-event/add-event/add-event.component';
+import { CurrentEventsService } from 'src/services/current-events.service';
 @Component({
   selector: 'app-edit-schedule-page',
   templateUrl: './edit-schedule-page.component.html',
@@ -35,7 +36,7 @@ export class EditSchedulePageComponent implements OnInit{
   editedEvent: any[]=[];
   noEventsExist: boolean = false;
   
- constructor(public dialog: MatDialog,private http: HttpClient,private eventFacade: EventFacade, private scheduleFacade: ScheduleFacade) {}
+ constructor(public dialog: MatDialog,private http: HttpClient,private eventFacade: EventFacade, private scheduleFacade: ScheduleFacade ,private currentEventsSvc: CurrentEventsService) {}
  
   ngOnInit(): void {
     this.loadData();
@@ -48,6 +49,13 @@ export class EditSchedulePageComponent implements OnInit{
     return this.eventFacade.getEventById(eventId)//`https://academic-calendar-backend.onrender.com/api/events/id/${eventId}`;
     //return this.http.get(eventUrl);
   }
+
+  createEvent = async (newEvent: any) => {
+    console.log("NEW EVENT", newEvent)
+
+    this.currentEventsSvc.eventList.push(newEvent);
+
+}
 
   loadData() {
     const updatedEndpoint = this.endpoint + this.scheduleId;
@@ -163,6 +171,43 @@ openDialog(event: any) {
       }
     });
   }
+}
+
+//opens the add event dialog
+openAddEventDialog(){
+  const dialogRef = this.dialog.open(AddEventComponent, {
+    data: {
+      token: this.token, // Add a null check here
+      scheduleId: this.scheduleId,
+      type:"",
+      dueDate:"",
+      startDate:"",
+      location: "",
+      description:""
+    }
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    if (result) {
+      console.log("schedule", this.scheduleId)
+      const scheduleId = this.scheduleId || ''; // Use an empty string as a fallback
+      this.eventFacade.createEvent({
+        name: result.name,
+        schedule: scheduleId as string ,
+        scheduleid: scheduleId ,
+        token: localStorage.getItem("currUser"),
+        //token: this.token ,
+        type: result.type,
+        endTime: result.dueDate,
+        startTime: result.startDate,
+        location: result.location,
+        description: result.description
+      });
+    }
+   // const schedule = this.scheduleId
+    //this.createEvent({name: result.name, schedule:schedule, token:this.token ,type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
+    //this.eventFacade.createEvent({name: result.name, schedule:localStorage.getItem("scId"), token:this.token ,type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description }) //= this.currentEventsSvc.eventList[0];//({name: result.name, schedule:this.scheduleId as string,type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
+  });
 }
 
 }

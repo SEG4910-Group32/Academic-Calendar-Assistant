@@ -8,7 +8,7 @@ export interface EventRepositoryInterface {
 export interface EventRepositoryInterface {
   getAllEvents(): Observable<Event[]>;
   getEventById(eventId: string): Observable<Event>;
-  createEvent(event: Event): Observable<Event>;
+  createEvent(event: Event): Observable<any>;
   updateEvent(event: any): Observable<any>;
   deleteEvent(token:string,eventId: string): Observable<any>;
 }
