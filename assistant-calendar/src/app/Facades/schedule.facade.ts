@@ -19,6 +19,14 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
     return this.scheduleRepository.getScheduleById(id,token);
   }
 
+  getScheduleByName(scheduleName: string): Observable<any>{
+    return this.scheduleRepository.getScheduleByName(scheduleName);
+  }
+
+  getScheduleByOwner(ownerId: string): Observable<any>{
+    return this.scheduleRepository.getScheduleByOwner(ownerId);
+  }
+
   createSchedule(schedule: Schedule):Observable<any> {
     return this.scheduleRepository.createSchedule(schedule)
   }

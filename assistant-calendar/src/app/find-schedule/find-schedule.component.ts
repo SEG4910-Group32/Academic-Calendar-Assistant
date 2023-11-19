@@ -15,8 +15,7 @@ import { Schedule } from '../Models/schedule.model';
 })
 export class FindScheduleComponent {
   scheduleIdForm = this.fb.group({
-    id: ['', [Validators.required, Validators.minLength(24), Validators.maxLength(24),
-    Validators.pattern('[0-9a-fA-F]*')]]
+    id: ['']
   });
 
   doesScheduleExist: boolean = true; // boolean keeping track of if a schedule with the id provided exists
@@ -37,16 +36,16 @@ export class FindScheduleComponent {
      * @param id 24 length hexadecimal id corresponding to a schedule
      */
   scheduleExists = async (id: string) => {
-    return this.scheduleFacadesvc.getScheduleById(id, localStorage.getItem("currUser") as string).subscribe(exists => {
+    this.searchSchedulesvc.scheduleList = [];
+    this.scheduleFacadesvc.getScheduleById(id, localStorage.getItem("currUser") as string).subscribe(exists => {
       if (exists) {
         this.doesScheduleExist = true;
         console.log("doc exists!!!!!!!!!!!!!!!!!!!");
         console.log(exists);
-        this.searchSchedulesvc.scheduleList = [];
+        
         this.searchSchedulesvc.scheduleList.push(new Schedule(exists.schedule))
-        this.scheduleList = this.searchSchedulesvc.scheduleList
-        console.log(this.scheduleList);
-        this.router.navigate(['/subscribe-schedule'])
+        
+        // this.router.navigate(['/subscribe-schedule'])
         
 
         // this.router.navigate(['/subscribe-schedule'], { queryParams: { id: id } });
@@ -62,6 +61,57 @@ export class FindScheduleComponent {
     }, err => {
       console.log(err);
     });
+
+    this.scheduleFacadesvc.getScheduleByOwner(id).subscribe(exists =>{
+      if (exists){
+        console.log("owned schedules are:" );
+        console.log(exists);
+        exists.schedules.forEach((sched: any) => {
+          this.searchSchedulesvc.scheduleList.push(new Schedule(sched))
+        });
+        
+        
+      }
+      else {
+        console.log("owned doc does not exist");
+        console.log(exists);
+        
+
+        this.doesScheduleExist = false;
+      }
+
+    }, err => {
+      console.log(err);
+    });
+
+    this.scheduleFacadesvc.getScheduleByName(id).subscribe(exists =>{
+      if (exists){
+        console.log("named schedules are:" );
+        console.log(exists);
+        exists.schedules.forEach((sched: any) => {
+          this.searchSchedulesvc.scheduleList.push(new Schedule(sched))
+        });
+        this.router.navigate(['/subscribe-schedule'])
+      }
+      else {
+        console.log("named doc does not exist");
+        console.log(exists);
+        
+
+        this.doesScheduleExist = false;
+        this.router.navigate(['/subscribe-schedule'])
+      }
+
+    }, err => {
+      console.log(err);
+      this.router.navigate(['/subscribe-schedule'])
+    });
+
+    this.scheduleList = this.searchSchedulesvc.scheduleList
+    console.log("The Schedule list is: ");
+    
+    console.log(this.scheduleList);
+        
   };
 
   /**

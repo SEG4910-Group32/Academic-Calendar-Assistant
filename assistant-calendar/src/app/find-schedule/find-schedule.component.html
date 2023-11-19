@@ -1,11 +1,11 @@
 <div class="container" [formGroup]="scheduleIdForm">
     <h1>Find Your Schedule</h1>
     <div class="text">
-        Enter a schedule id provided in the input field below to find your schedule 
+        Enter a schedule ID, Name or owner ID provided in the input field below to find your schedule 
     </div>
     <div class="search-field">
         <div class="input-label">
-            Schedule Id:
+            Search Input:
         </div>
         <input matInput formControlName="id">
         <button (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">search</button>
@@ -23,9 +23,11 @@
     </div>
 
     <div *ngFor="let sched of scheduleList">
-        <span>{{sched.name}}</span><br>
-        <span>{{sched.id}}</span><br>
-        <span>{{sched.description}}</span>
+        <br>
+        <span>Name: {{sched.name}}</span><br>
+        <span>ID: {{sched.id}}</span><br>
+        <span>Description: {{sched.description}}</span><br>
+        <span>Events: {{sched.events}}</span><br>
     </div>
 
     <div *ngIf="!scheduleIdForm.controls.id.errors" class="error-message">
