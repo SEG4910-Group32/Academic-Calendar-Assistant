@@ -19,7 +19,7 @@ h1 {
 .search-field {
     display: flex;
     margin-top: 3em;
-    align-items: center;
+    align-items: baseline;
 }
 
 .input-label {
@@ -30,9 +30,8 @@ h1 {
 .search-field input {
     font-size: 1.1em;
     line-height: 1.5;
-    margin-left: 3em;
-    padding: 0.2em 0.3em;
     font-size: 1.1em;
+    width: 320px;
 }
 
 button {
@@ -62,4 +61,8 @@ button:disabled {
 
 button:hover {
     background-color: var(--save-changes-color-hover);
+}
+mat-form-field{
+    padding-left: 1em;
+    height: auto;
 }
