@@ -1,4 +1,4 @@
-import { Component,Inject } from '@angular/core';
+import { Component,EventEmitter,Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 // import { profile } from '../../edit-schedule-page.component';
 import { ProfilePageComponent } from '../../profile-page.component';
@@ -28,7 +28,8 @@ export class DeleteScheduleComponent {
     private scheduleFacade: ScheduleFacade
   ) {}
   deletedVerification = false;
-
+// Create an event emitter
+scheduleDeleted: EventEmitter<void> = new EventEmitter<void>();
   //deletes the schedule if the schedule name entered by the user is the same as schedule name(case sensitive)
   deleteSchedule(scName:any):void{
     
@@ -69,6 +70,8 @@ deleteSched() {
       // Handle the API response here
       console.log('Schedule deleted from the database:', response);
       this.deletedVerification = true
+      // Emit the event after successful deletion
+      this.scheduleDeleted.emit();
     });
 }
   //used for closing the dialog

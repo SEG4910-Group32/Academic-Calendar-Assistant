@@ -76,6 +76,11 @@ export class ProfilePageComponent {
         
         }
       });
+      // Subscribe to the scheduleDeleted event
+    dialogRef.componentInstance.scheduleDeleted.subscribe(() => {
+      // Call the loadData method after schedule deletion
+      this.loadData();
+    });
       
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
