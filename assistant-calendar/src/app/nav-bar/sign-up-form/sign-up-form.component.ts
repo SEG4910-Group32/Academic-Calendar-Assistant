@@ -24,7 +24,7 @@ export class SignUpFormComponent {
     firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     type: ['Student'],
-    username: ['tester'],
+    username: [''],
     password: ['', [Validators.required, Validators.minLength(8), 
                     Validators.maxLength(16), mustContainValidator()]],
   });
@@ -38,14 +38,37 @@ export class SignUpFormComponent {
     private _snackBar: MatSnackBar,
     private userFacade: UserFacade,
     private userFactory: UserFactory,
-  ) { }
+  ) { 
+    // Subscribe to changes in firstName and lastName fields
+    this.signUpForm.get('firstName')!.valueChanges.subscribe(() => {
+      this.updateUsername();
+    });
+
+    this.signUpForm.get('lastName')!.valueChanges.subscribe(() => {
+      this.updateUsername();
+    });
+  }
+
+  // Method to update the username based on firstName and lastName
+  private updateUsername() {
+    const firstName = this.signUpForm.get('firstName')!.value;
+    const lastName = this.signUpForm.get('lastName')!.value;
+    // Set the username to the concatenated value of firstName and lastName
+    this.signUpForm.get('username')!.setValue(`${firstName} ${lastName}`);
+  }
 
   getFormValues(): Object {
+    console.log("this.signUpForm.controls.firstName.value +' ' + this.signUpForm.controls.lastName.value",this.signUpForm.controls.firstName.value +'_' + this.signUpForm.controls.lastName.value)
     return {
       email: this.signUpForm.controls.email.value,
-      firstName: this.signUpForm.controls.firstName.value,
-      lastName: this.signUpForm.controls.lastName.value,
-      password: this.signUpForm.controls.password.value
+      username: `${this.signUpForm.controls.firstName.value} ${this.signUpForm.controls.lastName.value}`,
+    
+      //username:  this.signUpForm.controls.firstName.value +' ' + this.signUpForm.controls.lastName.value,
+      //firstName: this.signUpForm.controls.firstName.value,
+      //lastName: this.signUpForm.controls.lastName.value,
+      password: this.signUpForm.controls.password.value,
+      type: "Student"
+      
     }
   }
 
@@ -64,6 +87,7 @@ export class SignUpFormComponent {
   createUser = async (newUser: Object) => {
     this.userFacade.createUser(newUser).subscribe(
       (res: any) => {
+        console.log("result of sign up ",res)
         this._snackBar.open("User Created!", "", {
 
           duration: 1500

@@ -17,14 +17,19 @@ export class UserFacade {
   }
  // Method to create a new user
  createUser(newUser: any): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/create-user`, newUser);
+  console.log('Request Payload:', newUser);
+    return this.http.post<User>(this.apiUrl, {email: newUser.email, username: newUser.username, password: newUser.password,type: newUser.type});
   }
+
+
+  
 
   // Method to update a user's information
   updateUser(updatedUser: any, token:String): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/user/${token}`, updatedUser);
   }
 
+    //Method to get user information
   getUserById(userId: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/user/${userId}`);
   }
