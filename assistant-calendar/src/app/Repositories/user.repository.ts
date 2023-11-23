@@ -24,7 +24,7 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, {email: user.email, username: user.username, password: user.password,type: user.type});
+    return this.http.post<User>(this.apiUrl, user);
   }
 
   updateUser(user: User, token:string): Observable<User> {

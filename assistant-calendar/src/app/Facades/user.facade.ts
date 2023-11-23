@@ -18,7 +18,7 @@ export class UserFacade {
  // Method to create a new user
  createUser(newUser: any): Observable<User> {
   console.log('Request Payload:', newUser);
-    return this.http.post<User>(this.apiUrl, {email: newUser.email, username: newUser.username, password: newUser.password,type: newUser.type});
+    return this.http.post<User>(this.apiUrl, newUser);
   }
 
 
@@ -29,12 +29,12 @@ export class UserFacade {
     return this.http.put<User>(`${this.apiUrl}/user/${token}`, updatedUser);
   }
 
-    //Method to get user information
+    //Method to get user information(userID is the user token)
   getUserById(userId: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/user/${userId}`);
   }
 
-  // Method to delete a user
+  // Method to delete a user(user id is the user token)
   deleteUser(userId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/user/${userId}`);
   }
