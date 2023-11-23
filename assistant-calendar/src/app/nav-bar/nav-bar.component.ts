@@ -45,14 +45,15 @@ export class NavBarComponent {
     this.data.loggedInStatus.subscribe(val => {
 
       if (val) {
+        console.log("val",val)
        // this.userFacade.createUser(localStorage.getItem('currUser') as string)
         userInfo = localStorage.getItem('currUser');
         
           this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
             (user) => {
               // Assuming the 'name' property exists in the User object
-              const userName = user.username;
-              console.log('User Name:', userName);
+              const username = user.username;
+              console.log('User Name:', username);
       
               // Now, you can update your UI with the user name
               // For example, you can bind it to a property in your component
@@ -69,6 +70,7 @@ export class NavBarComponent {
           this.username = obj.firstName + " " + obj.lastName;
         }
     
+        console.log("loggedIn",loggedIn)
         prompts?.classList.add('invisible');
         loggedIn?.classList.remove('invisible');
         
