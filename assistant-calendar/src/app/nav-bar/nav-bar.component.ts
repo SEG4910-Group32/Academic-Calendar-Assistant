@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 import { BnNgIdleService } from 'bn-ng-idle';
 import { UserFacade } from '../Facades/user.facade';
+import { User } from '../Models/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -37,7 +38,7 @@ export class NavBarComponent {
       }
     });
 
-    let userInfo = localStorage.getItem('currUser');
+    let userInfo //= localStorage.getItem('currUser');
     let prompts = document.querySelector('.prompts');
     let loggedIn = document.querySelector('.logged-in');
 
@@ -52,9 +53,9 @@ export class NavBarComponent {
           this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
             (user) => {
               // Assuming the 'name' property exists in the User object
-              const username = user.username;
-              console.log('User Name:', username);
-      
+               this.username = user.username.toString();
+              console.log('User Name:', this.username);
+              userInfo = user 
               // Now, you can update your UI with the user name
               // For example, you can bind it to a property in your component
               //this.username = userName;
@@ -63,12 +64,23 @@ export class NavBarComponent {
               console.error('Error fetching user details:', error);
             }
           );
-        
+        // Log the value of 'this.username'
+      console.log("this.username:", this.username);
     
+        // if (userInfo) {
+        //   let obj = JSON.parse(userInfo as string);
+        //   this.username = obj.firstName + " " + obj.lastName;
+        // }
         if (userInfo) {
-          let obj = JSON.parse(userInfo);
-          this.username = obj.firstName + " " + obj.lastName;
+          try {
+            let obj = JSON.parse(userInfo);
+            this.username = obj.firstName + " " + obj.lastName;
+          } catch (error) {
+            console.error('Error parsing userInfo:', error);
+            // Handle the error or log it appropriately
+          }
         }
+        
     
         console.log("loggedIn",loggedIn)
         prompts?.classList.add('invisible');
@@ -84,13 +96,19 @@ export class NavBarComponent {
 
     // if the user was already logged in, display the username in nav-bar
     if (userInfo) {
-      let obj = JSON.parse(userInfo);
+      try {
+        let obj = JSON.parse(userInfo);
       this.username = obj.firstName + " " + obj.lastName;
       
       prompts?.classList.add('invisible');
       loggedIn?.classList.remove('invisible');
 
       this.startIdleTimeoutTimer(50000);
+      } catch (error) {
+        console.error('Error parsing userInfo:', error);
+        // Handle the error or log it appropriately
+      }
+      
     }
 
   }
