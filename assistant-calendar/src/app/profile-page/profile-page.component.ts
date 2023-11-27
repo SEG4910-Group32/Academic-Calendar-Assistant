@@ -23,6 +23,7 @@ import { UserFacade } from '../Facades/user.facade';
 })
 export class ProfilePageComponent {
  
+  username = localStorage.getItem("username")
   
   //list of schedules owned by the user
   dataOwns = [];

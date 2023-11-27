@@ -75,6 +75,7 @@ export class NavBarComponent {
           try {
             let obj = JSON.parse(userInfo);
             this.username = obj.firstName + " " + obj.lastName;
+            localStorage.setItem("username", this.username)
           } catch (error) {
             console.error('Error parsing userInfo:', error);
             // Handle the error or log it appropriately
