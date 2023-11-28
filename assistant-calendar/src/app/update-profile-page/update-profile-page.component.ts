@@ -18,7 +18,8 @@ export class UpdateProfilePageComponent {
     email: [''],
     firstName: [''],
     lastName: [''],
-    password: ['']
+    password: [''],
+    username: ['']
   });
 
   initialFormValues: { [key: string]: any } | null = null;
@@ -96,10 +97,12 @@ export class UpdateProfilePageComponent {
               this.updateProfileForm.controls.email.setValue(user.email);
               this.updateProfileForm.controls.firstName.setValue(user.firstName);
               this.updateProfileForm.controls.lastName.setValue(user.lastName);
+              this.updateProfileForm.controls.username.setValue(user.username as string);
               this.initialFormValues = {
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                username: user.username,
                 password: null,
               };
             }
