@@ -1,13 +1,23 @@
 <div class="container" [formGroup]="scheduleIdForm">
     <h1>Find Your Schedule</h1>
     <div class="text">
-        Enter a schedule id provided in the input field below to find your schedule 
+        Enter a schedule ID, Name or owner ID provided in the input field below to find your schedule 
     </div>
     <div class="search-field">
         <div class="input-label">
-            Schedule Id:
+            Search By:
         </div>
-        <input matInput formControlName="id">
+        <mat-form-field style="width: 190px;">
+            <mat-select [(value)]="selected" required>
+              <mat-option value="Schedule ID">Schedule ID</mat-option>
+              <mat-option value="Owner ID">Owner ID</mat-option>
+              <mat-option value="Schedule Name">Schedule Name</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field style="width: 280px;">
+            <input matInput formControlName="id" >
+          </mat-form-field>
+        
         <button (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">search</button>
     </div>
 
@@ -23,15 +33,18 @@
     </div>
 
     <div *ngFor="let sched of scheduleList">
-        <span>{{sched.name}}</span><br>
-        <span>{{sched.id}}</span><br>
-        <span>{{sched.description}}</span>
+        <br>
+        <span>Name: {{sched.name}}</span><br>
+        <span>ID: {{sched.id}}</span><br>
+        <span>Description: {{sched.description}}</span><br>
+        <span>Events: {{sched.events}}</span><br>
+        <span><button type="button" (click)="selectSchedule(sched.id)">Select</button></span>
     </div>
 
-    <div *ngIf="!scheduleIdForm.controls.id.errors" class="error-message">
-        <div *ngIf="!doesScheduleExist">
+    <div *ngIf="searched==true" class="error-message">
+        <div *ngIf="scheduleList.length == 0">
             <i class='bx bxs-error-circle'></i>
-            schedule with this id does not exist
+            No Schedules Found
         </div>
     </div>
 </div>
