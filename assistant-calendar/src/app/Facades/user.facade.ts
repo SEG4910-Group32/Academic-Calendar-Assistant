@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { User } from 'src/app/Models/user.model';
 
 @Injectable({
@@ -26,7 +26,8 @@ export class UserFacade {
 
   // Method to update a user's information
   updateUser(updatedUser: any, token:String): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/user/${token}`, updatedUser);
+    const url = `${this.apiUrl}/user/${token}`;
+    return this.http.patch<User>(url, updatedUser)
   }
 
     //Method to get user information(userID is the user token)

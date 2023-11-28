@@ -51,10 +51,10 @@ scheduleDeleted: EventEmitter<void> = new EventEmitter<void>();
   }
 
 
-  //opens the snackbar on the bottom of the page
+  //opens the snackbar on the bottom of the page to confirm/deny schedule deletion
   openSnackbar(message: string): void {
     this._snackBar.open(message, 'Close', {
-      duration: 3000, // Set the duration in milliseconds (e.g., 3000 for 3 seconds)
+      duration: 3000, 
       panelClass: 'custom-snackbar',
     });
   }
@@ -67,7 +67,6 @@ deleteSched() {
   //calls the delete schedule function in the schedule facade
   this.scheduleFacade.deleteSchedule( localStorage.getItem("currUser") as string, id as string)
     .subscribe((response: any) => {
-      // Handle the API response here
       console.log('Schedule deleted from the database:', response);
       this.deletedVerification = true
       // Emit the event after successful deletion

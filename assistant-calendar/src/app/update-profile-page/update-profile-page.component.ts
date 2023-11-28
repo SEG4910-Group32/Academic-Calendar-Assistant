@@ -18,8 +18,11 @@ export class UpdateProfilePageComponent {
     email: [''],
     firstName: [''],
     lastName: [''],
-    password: ['']
+    password: [''],
+    username: ['']
   });
+
+  initialFormValues: { [key: string]: any } | null = null;
 
   constructor(
     private router: Router,
@@ -29,9 +32,38 @@ export class UpdateProfilePageComponent {
     private userFacade: UserFacade
   ) { }
 
+  private isFormChanged(): boolean {
+    if (!this.initialFormValues) {
+      return false; // No initial values to compare
+    }
+
+    const formValues = this.updateProfileForm.value;
+    const initialValues = this.initialFormValues;
+
+    return JSON.stringify(formValues) !== JSON.stringify(initialValues);
+  }
+
   update = async (user: Object) => {
-    this.userFacade.updateUser(user, localStorage.getItem("currUser") as string).subscribe(res => {
-      console.log(res);
+    if (!this.isFormChanged()) {
+      // No changes to update
+      return;
+    }
+    const updatedUser: { [key: string]: any } = {};
+  const formValues = this.updateProfileForm.value as { [key: string]: any };
+
+  Object.keys(formValues).forEach((key) => {
+    if (this.initialFormValues && formValues[key] !== this.initialFormValues[key]) {
+      if (key === 'password' && formValues[key] !== '') {
+        updatedUser[key] = formValues[key];
+      } else if (key !== 'password') {
+        updatedUser[key] = formValues[key];
+      }
+    }
+  });
+   // const updatedUser = this.updateProfileForm.value;
+    console.log("updated Userrrrrrrrrrrrr", updatedUser)
+    this.userFacade.updateUser(updatedUser, localStorage.getItem("currUser") as string).subscribe(res => {
+      console.log("result is", res);
       this._snackBar.open("Changes Saved!", "", {
         duration: 1500
       });
@@ -56,15 +88,22 @@ export class UpdateProfilePageComponent {
    * Populates form with current user information in local storage
    */
   ngOnInit() {
-    // Call the getUserInfo function, which returns an Observable
+    // gets the user info from the backend to show in the form
     this.getUserInfo().subscribe(
       (user) => {
-        // Log the user information
         console.log("User update", user);
         if (user) {
               this.updateProfileForm.controls.email.setValue(user.email);
               this.updateProfileForm.controls.firstName.setValue(user.firstName);
               this.updateProfileForm.controls.lastName.setValue(user.lastName);
+              this.updateProfileForm.controls.username.setValue(user.username as string);
+              this.initialFormValues = {
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                username: user.username,
+                password: null,
+              };
             }
   
       },
@@ -82,7 +121,7 @@ export class UpdateProfilePageComponent {
   }
 
   /**
-   * Delte profile of user logged in
+   * Delete profile of user logged in
    * note: needs to be updated later
    */
   deleteFun() {

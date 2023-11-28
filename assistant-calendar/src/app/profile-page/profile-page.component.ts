@@ -21,8 +21,9 @@ import { UserFacade } from '../Facades/user.facade';
 
 })
 export class ProfilePageComponent {
-
-
+ 
+  username = localStorage.getItem("username")
+  
   //list of schedules owned by the user
   dataOwns = [];
 
@@ -44,7 +45,6 @@ export class ProfilePageComponent {
   // this.http.patch(ubsubscribeUrl, options)
     this.userFacade.removeSchedule(schedule._id as string, localStorage.getItem("currUser") as string)
     .subscribe((response: any) => {
-        // Handle the API response here
         console.log('Event deleted from the database:', response);
         this.loadData();
       });
@@ -77,7 +77,7 @@ export class ProfilePageComponent {
       });
       // Subscribe to the scheduleDeleted event
     dialogRef.componentInstance.scheduleDeleted.subscribe(() => {
-      // Call the loadData method after schedule deletion
+      // Call the loadData method after schedule deletion to retrive the schedules again without needing to refresh the page manually
       this.loadData();
     });
 
@@ -92,8 +92,24 @@ export class ProfilePageComponent {
 
 ngOnInit() {
   console.log(localStorage.getItem("currUser"));
-  this.loadData()
 
+  this.loadData()
+  this.updateUsername()
+ 
+}
+
+updateUsername(){
+  this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
+    (user) => {
+
+      //localStorage.setItem("username", this.username as string)
+       this.username = user.username.toString();
+      console.log('User Name:', this.username);
+    },
+    (error) => {
+      console.error('Error fetching user details:', error);
+    }
+  );
 }
 
 //gets the list of owned/subscribed to schedules to be shown in the profile page

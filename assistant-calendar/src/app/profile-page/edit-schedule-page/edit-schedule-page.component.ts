@@ -44,8 +44,7 @@ export class EditSchedulePageComponent implements OnInit{
    getEventById(eventId: string): Observable<any> {
 
     //getEventById
-    return this.eventFacade.getEventById(eventId)//`https://academic-calendar-backend.onrender.com/api/events/id/${eventId}`;
-    //return this.http.get(eventUrl);
+    return this.eventFacade.getEventById(eventId);
   }
 
   createEvent = async (newEvent: any) => {
@@ -87,7 +86,7 @@ getEventDetails() {
   for (const eventId of this.eventIDs) {
     this.getEventById(eventId).subscribe(
       (eventData: any) => {
-        // Assuming eventData is an object, wrap it in an array
+        
         this.eventDetails.push([eventData]);
 
         console.log("eventDetails", this.eventDetails);
@@ -117,7 +116,7 @@ updateEvent(updatedEvent: any){
   });
 }
 
-//to change
+
 //method used to delete an event
 deleteEvent(deletedEvent: any) {
 
@@ -125,7 +124,7 @@ deleteEvent(deletedEvent: any) {
 
   this.eventFacade.deleteEvent( localStorage.getItem("currUser") as string, deletedEvent[0]._id as string)
     .subscribe((response: any) => {
-      // Handle the API response here
+    
       console.log('Event deleted from the database:', response);
        this.eventDetails = []
        this.loadData()
@@ -138,7 +137,7 @@ openDialog(event: any) {
     console.log("event ", event[0]);
     const dialogRef = this.dialog.open(EditEventComponent, {
       data: {
-        name: event[0].name || '', // Add a null check here
+        name: event[0].name || '', 
         type: event[0].type,
         description: event[0].description,
         location: event[0].location,
@@ -175,7 +174,7 @@ openDialog(event: any) {
 openAddEventDialog(){
   const dialogRef = this.dialog.open(AddEventComponent, {
     data: {
-      token: this.token, // Add a null check here
+      token: this.token, 
       scheduleId: this.scheduleId,
       type:"",
       dueDate:"",
@@ -188,7 +187,7 @@ openAddEventDialog(){
     console.log('The dialog was closed');
     if (result) {
       console.log("schedule", this.scheduleId)
-      const scheduleId = this.scheduleId || ''; // Use an empty string as a fallback
+      const scheduleId = this.scheduleId || ''; 
       this.eventFacade.createEvent({
         name: result.name,
         schedule: scheduleId as string ,
@@ -202,10 +201,7 @@ openAddEventDialog(){
         description: result.description
       });
     }
-   // const schedule = this.scheduleId
-    //this.createEvent({name: result.name, schedule:schedule, token:this.token ,type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
-    //this.eventFacade.createEvent({name: result.name, schedule:localStorage.getItem("scId"), token:this.token ,type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description }) //= this.currentEventsSvc.eventList[0];//({name: result.name, schedule:this.scheduleId as string,type:result.type , endTime:result.dueDate, startTime: result.startDate,location: result.location,description: result.description });
-  });
+ });
 }
 
 }
