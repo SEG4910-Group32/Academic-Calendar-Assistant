@@ -41,17 +41,11 @@ export class EventRepository implements EventRepositoryInterface {
   }
 
 
-  updateEvent(event: Event): Observable<any> {
-    return this.http.patch<Event>(this.apiUrl, event);
+  updateEvent(event: Event,token:string, eventId: string ): Observable<any> {
+    return this.http.patch<Event>(`${this.apiUrl}/event/${eventId}/${token}`, event);
   }
 
   deleteEvent(token:string, eventId: string): Observable<void> {
-    return this.http.delete<void>(this.apiUrl,{headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      id: eventId,
-      token: token,
-    }});
+    return this.http.delete<void>(`${this.apiUrl}/event/${eventId}/${token}`);
   }
 }

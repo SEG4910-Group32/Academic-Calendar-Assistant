@@ -9,7 +9,7 @@ export interface EventFacadeInterface {
   
   createEvent(event: any): Observable<any>;
   
-  updateEvent(event: any): Observable<any>;
+  updateEvent(event: any, token:string, eventId: string): Observable<any>;
   
   deleteEvent(token:string, id: string): Observable<void>;
 }

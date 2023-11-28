@@ -27,9 +27,9 @@ export class EventFacade implements EventFacadeInterface {
 
 
 
-  updateEvent(event: any): Observable<any> {
+  updateEvent(event: any,token:string, eventId: string): Observable<any> {
 
-    return this.eventRepository.updateEvent(event);
+    return this.eventRepository.updateEvent(event, token, eventId);
   }
 
   deleteEvent(token:string ,id: string): Observable<void> {

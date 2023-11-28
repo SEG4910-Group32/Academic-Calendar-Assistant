@@ -100,12 +100,12 @@ getEventDetails() {
 }
 
 //to change
-updateEvent(updatedEvent: any){
-  const  editUrl = 'https://academic-calendar-backend.onrender.com/api/events'
-
+updateEvent(updatedEvent: any, eventId:string){
+  
   updatedEvent.id = updatedEvent.id as string
+
   console.log("updated event is" ,updatedEvent, "token ", localStorage.getItem("currUser") as string)
-  this.eventFacade.updateEvent(updatedEvent)
+  this.eventFacade.updateEvent(updatedEvent, localStorage.getItem("currUser") as string, eventId)
     .subscribe((response: any) => {
     // Handle the API response here
     console.log('Event updated succesfully, changes added to the database:', response);
@@ -134,7 +134,7 @@ deleteEvent(deletedEvent: any) {
 //opens the edit event dialog
 openDialog(event: any) {
   if (event && event[0]) {
-    console.log("event ", event[0]);
+    console.log("event[0] ", event[0]);
     const dialogRef = this.dialog.open(EditEventComponent, {
       data: {
         name: event[0].name || '', 
@@ -156,13 +156,13 @@ openDialog(event: any) {
           description: result.description || '',
           location: result.location || '',
           startTime: result.startTime || '',
-          endTime: result.endTime || '',
-          id: event[0]._id,
-          token: token
+          endTime: result.endTime || ''
+
         };
 
         console.log('The dialog was closed, result: ', updatedEvent);
-        this.updateEvent(updatedEvent);
+        console.log("result._id ", result._id)
+        this.updateEvent(updatedEvent, event[0]._id);
         this.eventDetails = []
         this.loadData()
       }
@@ -191,7 +191,7 @@ openAddEventDialog(){
       this.eventFacade.createEvent({
         name: result.name,
         schedule: scheduleId as string ,
-        scheduleid: scheduleId ,
+        //scheduleid: scheduleId ,
         token: localStorage.getItem("currUser"),
         //token: this.token ,
         type: result.type,
@@ -201,7 +201,11 @@ openAddEventDialog(){
         description: result.description
       });
     }
- });
+    // this.eventDetails = []
+    // this.loadData();
+ }
+  
+ );
 }
 
 }
