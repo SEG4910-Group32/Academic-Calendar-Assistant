@@ -88,10 +88,9 @@ export class UpdateProfilePageComponent {
    * Populates form with current user information in local storage
    */
   ngOnInit() {
-    // Call the getUserInfo function, which returns an Observable
+    // gets the user info from the backend to show in the form
     this.getUserInfo().subscribe(
       (user) => {
-        // Log the user information
         console.log("User update", user);
         if (user) {
               this.updateProfileForm.controls.email.setValue(user.email);
@@ -122,7 +121,7 @@ export class UpdateProfilePageComponent {
   }
 
   /**
-   * Delte profile of user logged in
+   * Delete profile of user logged in
    * note: needs to be updated later
    */
   deleteFun() {

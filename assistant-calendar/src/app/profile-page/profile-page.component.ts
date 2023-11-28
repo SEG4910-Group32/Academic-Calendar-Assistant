@@ -46,7 +46,6 @@ export class ProfilePageComponent {
   // this.http.patch(ubsubscribeUrl, options)
     this.userFacade.removeSchedule(schedule._id as string, localStorage.getItem("currUser") as string)
     .subscribe((response: any) => {
-        // Handle the API response here
         console.log('Event deleted from the database:', response);
         this.loadData();
       });
@@ -79,7 +78,7 @@ export class ProfilePageComponent {
       });
       // Subscribe to the scheduleDeleted event
     dialogRef.componentInstance.scheduleDeleted.subscribe(() => {
-      // Call the loadData method after schedule deletion
+      // Call the loadData method after schedule deletion to retrive the schedules again without needing to refresh the page manually
       this.loadData();
     });
       
@@ -105,13 +104,8 @@ updateUsername(){
     (user) => {
 
       //localStorage.setItem("username", this.username as string)
-      // Assuming the 'name' property exists in the User object
        this.username = user.username.toString();
       console.log('User Name:', this.username);
-      //userInfo = user 
-      // Now, you can update your UI with the user name
-      // For example, you can bind it to a property in your component
-      //this.username = userName;
     },
     (error) => {
       console.error('Error fetching user details:', error);

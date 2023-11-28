@@ -47,30 +47,20 @@ export class NavBarComponent {
 
       if (val) {
         console.log("val",val)
-       // this.userFacade.createUser(localStorage.getItem('currUser') as string)
         userInfo = localStorage.getItem('currUser');
         
           this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
             (user) => {
-              // Assuming the 'name' property exists in the User object
                this.username = user.username.toString();
               console.log('User Name:', this.username);
               userInfo = user 
-              // Now, you can update your UI with the user name
-              // For example, you can bind it to a property in your component
-              //this.username = userName;
             },
             (error) => {
               console.error('Error fetching user details:', error);
             }
           );
-        // Log the value of 'this.username'
       console.log("this.username:", this.username);
-    
-        // if (userInfo) {
-        //   let obj = JSON.parse(userInfo as string);
-        //   this.username = obj.firstName + " " + obj.lastName;
-        // }
+   
         if (userInfo) {
           try {
             let obj = JSON.parse(userInfo);
@@ -78,7 +68,6 @@ export class NavBarComponent {
             //localStorage.setItem("username", this.username)
           } catch (error) {
             console.error('Error parsing userInfo:', error);
-            // Handle the error or log it appropriately
           }
         }
         
@@ -107,7 +96,6 @@ export class NavBarComponent {
       this.startIdleTimeoutTimer(50000);
       } catch (error) {
         console.error('Error parsing userInfo:', error);
-        // Handle the error or log it appropriately
       }
       
     }
