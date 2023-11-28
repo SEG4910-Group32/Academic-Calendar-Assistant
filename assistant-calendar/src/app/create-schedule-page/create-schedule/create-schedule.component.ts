@@ -39,7 +39,6 @@ export class CreateScheduleComponent implements OnInit{
   constructor(public dialog: MatDialog, private http: HttpClient, private currentEventsSvc: CurrentEventsService) {
     this.currentEventsSvc.eventList$.subscribe((events) => {
       this.listOfDeliverables = events;
-      currentEventsSvc.eventList = this.listOfDeliverables;
   })
   }
 
