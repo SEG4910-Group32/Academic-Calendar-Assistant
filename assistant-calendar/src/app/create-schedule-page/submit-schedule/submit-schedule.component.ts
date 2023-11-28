@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { CurrentEventsService } from 'src/services/current-events.service';
 import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
 import { Schedule } from 'src/app/Models/schedule.model';
-import { googleCalendar } from '../../../services/googleCalendar.service';
 import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-schedule-id.component";
+import { Event } from 'src/app/Models/event.model';
+
 
 @Component({
   selector: 'app-submit-schedule',
@@ -20,16 +21,14 @@ export class SubmitScheduleComponent {
   outlookCheckbox: boolean = false;
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
+  tempList: Event[] = [];
 
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
     private scheduleFacadeSvc: ScheduleFacade,
     private currentEventsSvc: CurrentEventsService,
-    private googleCalendarService: googleCalendar
   ) {}
-
-  ngOnInit() {}
 
   createScheduleAndEvents() {
     if (this.currentEventsSvc.eventList.length !== 0) {
@@ -53,6 +52,8 @@ export class SubmitScheduleComponent {
 
         this.scheduleFacadeSvc.createEvents(scheduleBody, this.scheduleInDB.id as string, localStorage.getItem("currUser") as string).subscribe(returnSchedule => {
           console.log('Schedule and events created successfully!', returnSchedule);
+          // Open dialog to display the generated ID
+          this.openGenerateScheduleIdDialog(this.scheduleInDB.id as string);
         });
       });
     } else {
@@ -60,89 +61,58 @@ export class SubmitScheduleComponent {
     }
   }
 
+  openGenerateScheduleIdDialog(generatedId: string): void {
+    const dialogRef = this.dialog.open(GenerateScheduleIdComponent, { data: { generatedId }, height: '350px', width: '483px', panelClass: 'dialogClass' });
+  }
+
   openImportDialog() {
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
     this.createScheduleAndEvents();
   }
-}
 
-/*
-  //need to make sure that some of the fields are not required
-  //checks needed before creating the schedule otherwise ics will be corrupted{changes required}
   downloadIcs() {
-    const schedule = this.tempList;
-    console.log("schedule", schedule);
+    const schedule = this.currentEventsSvc.eventList;
 
-    let id = 'id123';
-    let createdTime = new Date().toISOString();
-
-    //Begin ics file
-    var calendarData = new Array;
-    calendarData.push('data:text/calendar;charset=utf8,',
+    // Begin ICS file
+    const calendarData = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0'
-    );
+    ];
 
     // Event details
-    schedule.forEach(element => {
-
-
-      if (element.description && element.startTime && element.endTime && element.location && element.type)
-        calendarData.push('BEGIN:VEVENT',
-          'DESCRIPTION:' + element.description,
-          'DTSTART:' + new Date(element.startTime).toISOString().substring(0, 10),
-          'DTEND:' + new Date(element.endTime).toISOString().substring(0, 10),
-          'LOCATION:' + element.location,
+    schedule.forEach((element: Event) => {
+      if (element.endTime && element.type) {
+        calendarData.push(
+          'BEGIN:VEVENT',
+          element.description ? 'DESCRIPTION:' + element.description : '',
+          element.startTime ? 'DTSTART:' + new Date(element.startTime).toISOString() : '',
+          'DTEND:' + new Date(element.endTime).toISOString(),
+          element.location ? 'LOCATION:' + element.location : '',
           'SUMMARY:' + element.type,
           'TRANSP:TRANSPARENT',
-          'END:VEVENT');
-
+          'END:VEVENT'
+        );
+      }
     });
 
-
-
-
     // End Calendar data
-    calendarData.push('END:VCALENDAR',
-      'UID:' + id,
-      'DTSTAMP:' + createdTime,
-      'PRODID:website-1.0');
+    calendarData.push(
+      'END:VCALENDAR'
+    );
 
-    console.log("test data: \n" + calendarData.join('\n'));
-
-
+    console.log('Calendar Data:', calendarData.join('\n'));
     const blob = new Blob([calendarData.join('\n')], { type: 'text/calendar' });
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
 
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', 'schedule.ics');
+    document.body.appendChild(link);
+
+    // Trigger the download
+    link.click();
+
+    // Remove the link from the DOM
+    document.body.removeChild(link);
   }
-*/
 
-  //the id should be generated in the generateScheduleId component
- /* openImportDialog() {
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
-    this.createScheduleAndEvents(new Schedule({ name: this.scheduleName, description: this.scheduleDescription }));
-  };
-
-
-  async generateUniqueId(): Promise<string> {
-    const chars = '0123456789abcdef';
-    let id = '';
-    for (let i = 0; i < 6; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      id += chars[randomIndex];
-    }
-
-    const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
-      return this.http
-        .get<boolean>(`/schedule/check/id/${id}`)
-        .pipe(map((result) => !!result))
-        .toPromise()
-        .catch(() => false);
-    };
-
-    return id;
-  }
-*/
-
+}
 

@@ -21,8 +21,8 @@ const routes: Routes = [
   { path: 'subscribe', component: SubscribescheduleComponent},
   { path: 'subscribe-schedule', component: SubscribeToScheduleComponent },
   { path: 'profile', component: UpdateProfilePageComponent, canActivate: [AuthenticationGuard] },
-  {path: 'profile-page', component: ProfilePageComponent},
-  {path: 'edit-schedule', component: EditSchedulePageComponent},
+  { path: 'profile-page', component: ProfilePageComponent},
+  { path: 'edit-schedule', component: EditSchedulePageComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
