@@ -2,7 +2,7 @@ import { Event } from './event.model';
 
 export class Schedule {
   id: string | undefined;
-  owner: string | undefined;
+  token: string | undefined;
   name: string | undefined;
   description: string | undefined;
   password: string | undefined;
@@ -13,8 +13,8 @@ export class Schedule {
     if(scheduleData._id){
       this.id = scheduleData._id;
     }
-    if(scheduleData.owner){
-      this.owner = scheduleData.owner
+    if(scheduleData.token){
+      this.token = scheduleData.token
     }
     if(scheduleData.name){
       this.name = scheduleData.name;
