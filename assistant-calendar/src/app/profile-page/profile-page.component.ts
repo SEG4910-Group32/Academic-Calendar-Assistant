@@ -94,8 +94,29 @@ export class ProfilePageComponent {
   
 ngOnInit() {
   console.log(localStorage.getItem("currUser"));
+
   this.loadData()
+  this.updateUsername()
  
+}
+
+updateUsername(){
+  this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
+    (user) => {
+
+      //localStorage.setItem("username", this.username as string)
+      // Assuming the 'name' property exists in the User object
+       this.username = user.username.toString();
+      console.log('User Name:', this.username);
+      //userInfo = user 
+      // Now, you can update your UI with the user name
+      // For example, you can bind it to a property in your component
+      //this.username = userName;
+    },
+    (error) => {
+      console.error('Error fetching user details:', error);
+    }
+  );
 }
 
 //gets the list of owned/subscribed to schedules to be shown in the profile page

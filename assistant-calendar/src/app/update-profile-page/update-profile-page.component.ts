@@ -21,6 +21,8 @@ export class UpdateProfilePageComponent {
     password: ['']
   });
 
+  initialFormValues: { [key: string]: any } | null = null;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -29,9 +31,38 @@ export class UpdateProfilePageComponent {
     private userFacade: UserFacade
   ) { }
 
+  private isFormChanged(): boolean {
+    if (!this.initialFormValues) {
+      return false; // No initial values to compare
+    }
+
+    const formValues = this.updateProfileForm.value;
+    const initialValues = this.initialFormValues;
+
+    return JSON.stringify(formValues) !== JSON.stringify(initialValues);
+  }
+
   update = async (user: Object) => {
-    this.userFacade.updateUser(user, localStorage.getItem("currUser") as string).subscribe(res => {
-      console.log(res);
+    if (!this.isFormChanged()) {
+      // No changes to update
+      return;
+    }
+    const updatedUser: { [key: string]: any } = {};
+  const formValues = this.updateProfileForm.value as { [key: string]: any };
+
+  Object.keys(formValues).forEach((key) => {
+    if (this.initialFormValues && formValues[key] !== this.initialFormValues[key]) {
+      if (key === 'password' && formValues[key] !== '') {
+        updatedUser[key] = formValues[key];
+      } else if (key !== 'password') {
+        updatedUser[key] = formValues[key];
+      }
+    }
+  });
+   // const updatedUser = this.updateProfileForm.value;
+    console.log("updated Userrrrrrrrrrrrr", updatedUser)
+    this.userFacade.updateUser(updatedUser, localStorage.getItem("currUser") as string).subscribe(res => {
+      console.log("result is", res);
       this._snackBar.open("Changes Saved!", "", {
         duration: 1500
       });
@@ -65,6 +96,12 @@ export class UpdateProfilePageComponent {
               this.updateProfileForm.controls.email.setValue(user.email);
               this.updateProfileForm.controls.firstName.setValue(user.firstName);
               this.updateProfileForm.controls.lastName.setValue(user.lastName);
+              this.initialFormValues = {
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                password: null,
+              };
             }
   
       },

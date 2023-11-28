@@ -27,15 +27,7 @@ export class UserFacade {
   // Method to update a user's information
   updateUser(updatedUser: any, token:String): Observable<User> {
     const url = `${this.apiUrl}/user/${token}`;
-    return this.http.patch<User>(url, updatedUser).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Error updating user:', error);
-      
-      // Handle error
-      return throwError(error);
-    })
-  );
-    // return this.http.patch<User>(`${this.apiUrl}/user/${token}`, updatedUser);
+    return this.http.patch<User>(url, updatedUser)
   }
 
     //Method to get user information(userID is the user token)
