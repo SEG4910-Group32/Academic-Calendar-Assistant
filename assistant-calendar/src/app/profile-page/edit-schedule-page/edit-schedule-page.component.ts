@@ -19,7 +19,7 @@ export class EditSchedulePageComponent implements OnInit{
 
   Events: any;
   displayedColumns: string[] = ['name', 'type', 'end time', 'action'];
-  private endpoint = 'https://academic-calendar-backend.onrender.com/api/schedules/id/'
+  //private endpoint = 'https://academic-calendar-backend.onrender.com/api/schedules/id/'
   dataSource: any;
   items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
 
@@ -28,7 +28,7 @@ export class EditSchedulePageComponent implements OnInit{
   eve = localStorage.getItem("sc")
   token = localStorage.getItem("currUser")
 
-  updatedEndpoint = this.endpoint + this.scheduleId
+  //updatedEndpoint = this.endpoint + this.scheduleId
   eventIDs: any[] = [];
   eventDetails: any[] = [];
   editedEvent: any[]=[];
@@ -55,7 +55,7 @@ export class EditSchedulePageComponent implements OnInit{
 }
 
   loadData() {
-    const updatedEndpoint = this.endpoint + this.scheduleId;
+    //const updatedEndpoint = this.endpoint + this.scheduleId;
     const token = localStorage.getItem("currUser");
 
     //to change
@@ -191,7 +191,7 @@ openAddEventDialog(){
       this.eventFacade.createEvent({
         name: result.name,
         schedule: scheduleId as string ,
-        //scheduleid: scheduleId ,
+        scheduleid: scheduleId ,
         token: localStorage.getItem("currUser"),
         //token: this.token ,
         type: result.type,
@@ -201,7 +201,9 @@ openAddEventDialog(){
         description: result.description
       });
     }
-    // this.eventDetails = []
+     this.eventDetails = []
+    //  this.eventArray = []
+    this.getEventDetails();
     // this.loadData();
  }
   
