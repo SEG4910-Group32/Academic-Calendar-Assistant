@@ -3,7 +3,6 @@ import { NgxFileDropEntry } from 'ngx-file-drop';
 import { SyllabusService } from '../../../../services/syllabus.service';
 import {Event} from "../../../Models/event.model";
 import {CurrentEventsService} from "../../../../services/current-events.service";
-import {NONE_TYPE} from "@angular/compiler";
 
 @Component({
   selector: 'app-import-syllabus',

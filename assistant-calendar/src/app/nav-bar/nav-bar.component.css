@@ -65,6 +65,13 @@
     background-color: var(--nav-bar-background-hover);
 }
 
+.nav-bar-item a {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .nav-bar-item+.nav-bar-item {
     margin-left: 3em;
 }
