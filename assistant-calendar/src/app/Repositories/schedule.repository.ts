@@ -30,7 +30,7 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   }
 
   getScheduleByOwner(ownerId: string): Observable<Schedule>{
-    return this.http.get<Schedule>(`${this.apiUrl}/name/${ownerId}`);
+    return this.http.get<Schedule>(`${this.apiUrl}/owner/${ownerId}`);
   }
 
   createSchedule(schedule: Schedule): Observable<any> {
