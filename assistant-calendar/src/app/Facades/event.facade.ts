@@ -21,7 +21,7 @@ export class EventFacade implements EventFacadeInterface {
     return this.eventRepository.getEventById(id);
   }
 
-  createEvent(event: Event): Observable<Event> {
+  createEvent(event: any): Observable<any> {
     return this.eventRepository.createEvent(event);
   }
 

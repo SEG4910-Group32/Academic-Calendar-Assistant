@@ -7,13 +7,13 @@
     <div *ngIf="noEventsExist">
       <h2>This schedule has no events😢</h2>
     </div>
-
+    <div class="button-container">
+      <button class="btn btn-primary" (click)="openAddEventDialog()"> Add event </button>
+    </div>
    
     <!-- if the schedule has events, shows them in a table -->
     <div *ngIf="!noEventsExist">
-      <div class="button-container">
-        <a routerLink="/add-event"><button class="btn btn-primary" > Update profile </button></a>
-      </div>
+      
         <table>
           <div class="nu-table-body">
             <tr>

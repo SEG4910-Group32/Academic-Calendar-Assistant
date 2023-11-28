@@ -11,6 +11,7 @@ import { DataService } from 'src/services/data.service';
 import { Router } from '@angular/router';
 
 import { BnNgIdleService } from 'bn-ng-idle';
+import { UserFacade } from '../Facades/user.facade';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,7 +24,8 @@ export class NavBarComponent {
     public dialog: MatDialog,
     private data: DataService,
     private router: Router,
-    private bnIdle: BnNgIdleService
+    private bnIdle: BnNgIdleService,
+    private userFacade: UserFacade,
   ) {}
 
   username: string = "";
@@ -43,13 +45,32 @@ export class NavBarComponent {
     this.data.loggedInStatus.subscribe(val => {
 
       if (val) {
+        console.log("val",val)
+       // this.userFacade.createUser(localStorage.getItem('currUser') as string)
         userInfo = localStorage.getItem('currUser');
+        
+          this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
+            (user) => {
+              // Assuming the 'name' property exists in the User object
+              const username = user.username;
+              console.log('User Name:', username);
+      
+              // Now, you can update your UI with the user name
+              // For example, you can bind it to a property in your component
+              //this.username = userName;
+            },
+            (error) => {
+              console.error('Error fetching user details:', error);
+            }
+          );
+        
     
         if (userInfo) {
           let obj = JSON.parse(userInfo);
           this.username = obj.firstName + " " + obj.lastName;
         }
     
+        console.log("loggedIn",loggedIn)
         prompts?.classList.add('invisible');
         loggedIn?.classList.remove('invisible');
         

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserFacade } from '../Facades/user.facade';
 
 @Component({
   selector: 'app-update-profile-page',
@@ -24,11 +25,12 @@ export class UpdateProfilePageComponent {
     private router: Router,
     private fb: FormBuilder,
     public http: HttpClient,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private userFacade: UserFacade
   ) { }
 
   update = async (user: Object) => {
-    this.http.patch("http://localhost:3000/api/user/update", user).subscribe(res => {
+    this.userFacade.updateUser(user, localStorage.getItem("currUser") as string).subscribe(res => {
       console.log(res);
       this._snackBar.open("Changes Saved!", "", {
         duration: 1500
@@ -39,7 +41,8 @@ export class UpdateProfilePageComponent {
   };
 
   delete = async (email: string) => {
-    this.http.delete("http://localhost:3000/api/user/delete/" + email).subscribe(res => {
+    //this.http.delete("http://localhost:3000/api/user/delete/" + email)
+    this.userFacade.deleteUser(localStorage.getItem("currUser") as string).subscribe(res => {
       console.log(res);
       this._snackBar.open("User Deleted!", "", {
         duration: 1500
@@ -53,16 +56,24 @@ export class UpdateProfilePageComponent {
    * Populates form with current user information in local storage
    */
   ngOnInit() {
-    let user = localStorage.getItem('currUser');
-
-    if (user) {
-      let userObject = JSON.parse(user);
-      this.updateProfileForm.controls.email.setValue(userObject.email);
-      this.updateProfileForm.controls.firstName.setValue(userObject.firstName);
-      this.updateProfileForm.controls.lastName.setValue(userObject.lastName);
-    }
+    // Call the getUserInfo function, which returns an Observable
+    this.getUserInfo().subscribe(
+      (user) => {
+        // Log the user information
+        console.log("User update", user);
+        if (user) {
+              this.updateProfileForm.controls.email.setValue(user.email);
+              this.updateProfileForm.controls.firstName.setValue(user.firstName);
+              this.updateProfileForm.controls.lastName.setValue(user.lastName);
+            }
+  
+      },
+      (error) => {
+        console.error("Error fetching user information", error);
+      }
+    );
   }
-
+  
   /**
    * Updates profile of logged in user and then displays update status message
    */
@@ -80,6 +91,10 @@ export class UpdateProfilePageComponent {
     if (email) {
       this.delete(email);
     }
+  }
+
+  getUserInfo(){
+    return this.userFacade.getUserById(localStorage.getItem('currUser') as string)
   }
 
   /**
