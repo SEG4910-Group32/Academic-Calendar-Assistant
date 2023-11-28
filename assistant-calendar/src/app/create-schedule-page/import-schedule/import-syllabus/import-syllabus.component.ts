@@ -3,6 +3,7 @@ import { NgxFileDropEntry } from 'ngx-file-drop';
 import { SyllabusService } from '../../../../services/syllabus.service';
 import {Event} from "../../../Models/event.model";
 import {CurrentEventsService} from "../../../../services/current-events.service";
+import {NONE_TYPE} from "@angular/compiler";
 
 @Component({
   selector: 'app-import-syllabus',
@@ -67,9 +68,9 @@ export class ImportSyllabusComponent implements OnInit {
     console.log(this.data.length);
   }
 
-  formatDateAndAddYear(date: string): string {
+  formatDateAndAddYear(date: string): Date | null {
     if (!date) {
-      return '';
+      return null;
     }
 
     const currentDate = new Date();
@@ -78,11 +79,10 @@ export class ImportSyllabusComponent implements OnInit {
 
     if (month && day) {
       const formattedDate = new Date(year, parseInt(month, 10) - 1, parseInt(day, 10));
-      const formattedDateString = `${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${formattedDate.getFullYear()}`;
 
-      return formattedDateString;
+      return formattedDate;
     } else {
-      return '';
+      return null;
     }
   }
 
@@ -98,7 +98,7 @@ export class ImportSyllabusComponent implements OnInit {
           type: deadline.type,
           name: deadline.type || '',
           description: deadline.sentence,
-          endTime: this.formatDateAndAddYear(deadline.date) || '',
+          endTime: this.formatDateAndAddYear(deadline.date) || null,
         } as Event));
         console.log(this.listOfDeliverables);
         this.currentEventsSvc.updateEventList(this.listOfDeliverables);

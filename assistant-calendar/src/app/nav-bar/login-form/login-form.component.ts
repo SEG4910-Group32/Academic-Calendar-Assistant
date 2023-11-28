@@ -44,7 +44,6 @@ export class LoginFormComponent {
     );
 
   };
-  
 
   /**
    * Clear local storage and check for route params
@@ -67,7 +66,6 @@ export class LoginFormComponent {
     private data: DataService,
     private userFacade: UserFacade,
     private userFactory: UserFactory,
-  
   ) {}
 
   /**

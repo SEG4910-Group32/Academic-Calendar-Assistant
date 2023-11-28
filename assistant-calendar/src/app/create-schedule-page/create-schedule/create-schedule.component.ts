@@ -48,6 +48,7 @@ export class CreateScheduleComponent implements OnInit{
 
   createEvent = async (newEvent: Event) => {
     this.currentEventsSvc.eventList.push(newEvent);
+    console.log(this.listOfDeliverables);
   }
 
 
@@ -59,7 +60,7 @@ export class CreateScheduleComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       this.createEvent({
         name: result.type,
-        schedule:"" ,
+        schedule: undefined,
         type:result.type,
         endTime:result.dueDate,
         startTime: result.startDate,
