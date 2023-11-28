@@ -199,12 +199,25 @@ openAddEventDialog(){
         startTime: result.startDate,
         location: result.location,
         description: result.description
-      });
+      })
+      // .subscribe(createdEvent => {
+      //   // The createEvent operation is complete, you can handle the result if needed
+      //   console.log("Event created:", createdEvent);
+      //   this.eventDetails = []
+      //   console.log("here: event details: ",this.eventDetails);
+      //   // Now, you can call loadData and any other operations that depend on the result
+      //   this.loadData();
+      // });;
     }
+    //this.eventDetails.push()
+
+    //this.eventIDs.push()
      this.eventDetails = []
+     console.log("here: event details: ",this.eventDetails);
+    // console.log("events array: ",)
     //  this.eventArray = []
     this.getEventDetails();
-    // this.loadData();
+     this.loadData();
  }
   
  );
