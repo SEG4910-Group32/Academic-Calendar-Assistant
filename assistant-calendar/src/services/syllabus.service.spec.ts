@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetAllEventsService } from './get-all-events.service';
+import { SyllabusService } from './syllabus.service';
 
-describe('GetAllEventsService', () => {
-  let service: GetAllEventsService;
+describe('SyllabusService', () => {
+  let service: SyllabusService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GetAllEventsService);
+    service = TestBed.inject(SyllabusService);
   });
 
   it('should be created', () => {

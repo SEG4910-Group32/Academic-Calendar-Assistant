@@ -2,7 +2,6 @@ import { Component ,ChangeDetectionStrategy} from '@angular/core';
 import {NgFor} from '@angular/common';
 import {MatListModule} from '@angular/material/list';
 import { HttpClient } from '@angular/common/http';
-import { Deliverable } from '../create-schedule-page/create-schedule/deliverable';
 import { Observable } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
 import { MatTable } from '@angular/material/table';
@@ -19,7 +18,7 @@ import { UserFacade } from '../Facades/user.facade';
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.css'],
-  
+
 })
 export class ProfilePageComponent {
  
@@ -28,20 +27,20 @@ export class ProfilePageComponent {
   //list of schedules owned by the user
   dataOwns = [];
 
-  //list of schedules that the user has subscribed to 
+  //list of schedules that the user has subscribed to
   dataSubs = [];
 
-  
+
 
   //the purpose for items is for the list of schedules to be scrollable
   items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
-   
+
   constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade, private userFacade: UserFacade) {}
-  
+
 //unsubscribe schedule method
   unsubscribeFromSchedule(schedule:any ){
     console.log("unsubscribe from schedule called");
-   
+
     console.log("schedule._id", schedule._id,`localStorage.getItem("currUser")`, localStorage.getItem("currUser"))
   // this.http.patch(ubsubscribeUrl, options)
     this.userFacade.removeSchedule(schedule._id as string, localStorage.getItem("currUser") as string)
@@ -49,7 +48,7 @@ export class ProfilePageComponent {
         console.log('Event deleted from the database:', response);
         this.loadData();
       });
-      
+
 
   }
 
@@ -60,12 +59,12 @@ export class ProfilePageComponent {
     localStorage.setItem('scName', sc["name"]);
     localStorage.setItem('sc', sc);
     console.log("sc", sc)
- 
+
   }
 
   //for opening the dialog for deleting owned schedules
   openDialog(schedule: any) {
-   
+
       console.log("schedule ", schedule);
 
       //sends the schedule name and schedule id to the delete dialog component
@@ -73,7 +72,7 @@ export class ProfilePageComponent {
         data: {
           name: schedule.name || '', // Add a null check here
           id : schedule._id
-        
+
         }
       });
       // Subscribe to the scheduleDeleted event
@@ -81,16 +80,16 @@ export class ProfilePageComponent {
       // Call the loadData method after schedule deletion to retrive the schedules again without needing to refresh the page manually
       this.loadData();
     });
-      
+
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         //after the dialog is closed, the data is refreshsed in case a schedule was deleted
         this.loadData();
       });
-    
+
   }
 
-  
+
 ngOnInit() {
   console.log(localStorage.getItem("currUser"));
 

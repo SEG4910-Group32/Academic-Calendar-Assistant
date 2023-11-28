@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-subscribe-to-schedule',
@@ -51,5 +50,5 @@ export class SubscribeToScheduleComponent {
 
     this.getSchedule(this.scheduleId);
   }
-  
+
 }

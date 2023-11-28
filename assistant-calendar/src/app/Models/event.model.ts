@@ -1,11 +1,11 @@
 export class Event {
 
   name!: string;
-  type!: string;  
+  type!: string;
   description!: string;
   location!: string;
-  startTime!: string;
-  endTime!: string;
+  startTime!: Date;
+  endTime!: Date;
   schedule: string|undefined;
 
   constructor(eventData: any) {

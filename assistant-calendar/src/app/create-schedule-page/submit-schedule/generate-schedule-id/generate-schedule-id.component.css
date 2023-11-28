@@ -24,9 +24,9 @@
     border-radius: 7px;
     color: black;
     background-color: #f0f0f0;
-    width: 60%; 
+    width: 60%;
   }
-  
+
   button {
     font-family: inherit;
     font-size: inherit;
@@ -35,6 +35,7 @@
     border: 1px solid #ccc;
     border-radius: 7px;
     background-color: #f4f4f4;
+    cursor: pointer;
   }
   .generateId {
     display: flex;

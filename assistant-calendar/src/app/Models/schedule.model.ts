@@ -1,3 +1,5 @@
+import { Event } from './event.model';
+
 export class Schedule {
   id: string | undefined;
   owner: string | undefined;
@@ -5,7 +7,7 @@ export class Schedule {
   description: string | undefined;
   password: string | undefined;
   subscribedUsers: string[] | undefined;
-  events: string[] | undefined;
+  events: Event[] | undefined;
   constructor(scheduleData: any) {
     // Initialize properties from the provided data
     if(scheduleData._id){
@@ -30,7 +32,7 @@ export class Schedule {
       this.events = scheduleData.events
     }
   }
-  
+
 
   // methods for schedule related behavior
 }
