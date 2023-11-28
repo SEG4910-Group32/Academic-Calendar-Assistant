@@ -1,18 +1,11 @@
-import { Component, Inject } from '@angular/core';
-import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-schedule-id.component";
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SendScheduleService } from '../send-schedule.service';
-import { Deliverable } from '../create-schedule/deliverable';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { GetAllEventsService } from '../create-schedule/get-all-events.service';
-import { tap } from 'rxjs';
-import { Observable } from 'rxjs';
-import { map, timeout } from 'rxjs/operators';
-import { EventFacade } from 'src/app/Facades/event.facade';
 import { CurrentEventsService } from 'src/services/current-events.service';
 import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
 import { Schedule } from 'src/app/Models/schedule.model';
-import { googleCalendar } from './googleCalendar.service';
+import { googleCalendar } from '../../../services/googleCalendar.service';
+import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-schedule-id.component";
 
 @Component({
   selector: 'app-submit-schedule',
@@ -27,81 +20,54 @@ export class SubmitScheduleComponent {
   outlookCheckbox: boolean = false;
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
-  private endpoint = "https://academic-calendar-backend.onrender.com";
-  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacadeSvc: ScheduleFacade, private currentEventsSvc: CurrentEventsService, private _getAllEventsService: GetAllEventsService, private eventsFacade: EventFacade, private googleCalendarService: googleCalendar) {
 
-  }
+  constructor(
+    public dialog: MatDialog,
+    private http: HttpClient,
+    private scheduleFacadeSvc: ScheduleFacade,
+    private currentEventsSvc: CurrentEventsService,
+    private googleCalendarService: googleCalendar
+  ) {}
 
-  //the id should be generated in the generateScheduleId component
-  openImportDialog() {
-    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
+  ngOnInit() {}
 
+  createScheduleAndEvents() {
+    if (this.currentEventsSvc.eventList.length !== 0) {
+      const newSchedule: Schedule = {
+        id: undefined,
+        owner: undefined,
+        name: this.scheduleName,
+        description: this.scheduleDescription,
+        password: undefined,
+        subscribedUsers: undefined,
+        events: undefined,
+      };
 
-    this.createSchedule(new Schedule({ name: this.scheduleName, description: this.scheduleDescription }));
-
-  };
-
-
-  async generateUniqueId(): Promise<string> {
-    const chars = '0123456789abcdef';
-    let id = '';
-    for (let i = 0; i < 6; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      id += chars[randomIndex];
-    }
-
-    const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
-      return this.http
-        .get<boolean>(`/schedule/check/id/${id}`)
-        .pipe(map((result) => !!result))
-        .toPromise()
-        .catch(() => false);
-    };
-
-    return id;
-  }
-  //to save the data from db
-  public listOfDeliverables: Deliverable[] = [];
-  private tempList: Deliverable[] = [];
-
-  createSchedule(newSchedule: Schedule) {
-    const createdTime = new Date().toISOString();
-
-    if (this.currentEventsSvc.eventList.length != 0) {
       this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule => {
         this.scheduleInDB = new Schedule(returnSchedule.schedule);
-        var scheduleBody = {
-          "id": this.scheduleInDB.id,
-          'events': new Array,
-          'token': localStorage.getItem("currUser")
-        }
-        // Create Events
-        this.currentEventsSvc.eventList.forEach(event => {
-          event.schedule = this.scheduleInDB.id
-          event.name = event.type;
-          scheduleBody.events.push(event)
-          // if (this.googleCheckbox) {
-          //   this.googleCalendarService.createEvent(event);
-          // }
+
+        const scheduleBody = {
+          id: this.scheduleInDB.id,
+          events: this.currentEventsSvc.eventList,
+        };
+
+        this.scheduleFacadeSvc.createEvents(scheduleBody, this.scheduleInDB.id as string, localStorage.getItem("currUser") as string).subscribe(returnSchedule => {
+          console.log('Schedule and events created successfully!', returnSchedule);
         });
-        this.scheduleFacadeSvc.createEvents(scheduleBody).subscribe(returnSchedule => {
-        })
       });
-
-    }
-    else {
+    } else {
       console.log("No Events");
-
     }
-  };
-
-
-
-  getAll() {
-    this._getAllEventsService.getUsers().subscribe(data => this.listOfDeliverables = data);
   }
 
-  //need to make sure that some of the fields are not required 
+  openImportDialog() {
+    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
+    this.createScheduleAndEvents();
+  }
+}
+
+/*
+  //need to make sure that some of the fields are not required
   //checks needed before creating the schedule otherwise ics will be corrupted{changes required}
   downloadIcs() {
     const schedule = this.tempList;
@@ -150,10 +116,33 @@ export class SubmitScheduleComponent {
     window.open(url);
 
   }
-  ngOnInit() {
-    this._getAllEventsService.getUsers().
-      subscribe(data => this.listOfDeliverables = data);
+*/
+
+  //the id should be generated in the generateScheduleId component
+ /* openImportDialog() {
+    this.dialog.open(GenerateScheduleIdComponent, { height: '350px', width: '483px', panelClass: 'dialogClass' });
+    this.createScheduleAndEvents(new Schedule({ name: this.scheduleName, description: this.scheduleDescription }));
+  };
+
+
+  async generateUniqueId(): Promise<string> {
+    const chars = '0123456789abcdef';
+    let id = '';
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * chars.length);
+      id += chars[randomIndex];
+    }
+
+    const checkUniqueId = async (id: string): Promise<boolean | undefined> => {
+      return this.http
+        .get<boolean>(`/schedule/check/id/${id}`)
+        .pipe(map((result) => !!result))
+        .toPromise()
+        .catch(() => false);
+    };
+
+    return id;
   }
+*/
 
 
-}

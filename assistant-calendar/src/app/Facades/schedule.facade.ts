@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Schedule } from '../Models/schedule.model';
 import { ScheduleRepository } from '../Repositories/schedule.repository';
 import { ScheduleFacadeInterface } from './interfaces/scheduleFacade.interface';
+import { Event } from '../Models/event.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,8 @@ export class ScheduleFacade implements ScheduleFacadeInterface {
     return this.scheduleRepository.createSchedule(schedule)
   }
 
-  createEvents(body: { id: string | undefined; events: any[]; }): Observable<any> {
-    return this.scheduleRepository.createEvents(body);
+  createEvents(body: { id: string | undefined; events: Event[]; }, scheduleId: string, token:string): Observable<any> {
+    return this.scheduleRepository.createEvents(body, scheduleId, token);
   }
   updateSchedule(schedule: Schedule, scheduleId: string, token:string): Observable<Schedule> {
     return this.scheduleRepository.updateSchedule(schedule, scheduleId,token);

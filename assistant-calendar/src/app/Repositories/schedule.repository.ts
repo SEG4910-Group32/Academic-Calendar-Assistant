@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Schedule } from '../Models/schedule.model';
 import {ScheduleRepositoryInterface} from "./Interfaces/schedule.repository.interface";
+import { Event } from '../Models/event.model';
 
 @Injectable({
   providedIn: 'root',
@@ -33,12 +34,11 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   }
 
   createSchedule(schedule: Schedule): Observable<any> {
-
     return this.http.post<Schedule>(this.apiUrl, schedule);
   }
-  
-  createEvents(body: { id: string | undefined; events: any[]; }) {
-    return this.http.patch<any>(this.apiUrl+'/createEvents', body);
+
+  createEvents(body: { id: string | undefined; events: Event[] }, scheduleId: string, token: string) {
+    return this.http.patch<any>(`${this.apiUrl}/schedule/${scheduleId}/${token}/createEvents`, body);
   }
 
   updateSchedule(schedule: Schedule, scheduleId: string, token:string): Observable<Schedule> {
@@ -58,7 +58,7 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   getOwnedSchedules(tokenId: string):Observable<any>{
     return this.http.get(`${this.apiUrl}/user/${tokenId}/owns`);
   }
-  
+
   getSubscribedSchedules(tokenId: string):Observable<any>{
     return this.http.get(`${this.apiUrl}/user/${tokenId}/subscribed`);
   }

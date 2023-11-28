@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Deliverable } from 'src/app/create-schedule-page/create-schedule/deliverable';
 import { Event } from 'src/app/shared/event.model';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
@@ -29,20 +28,20 @@ export class EditSchedulePageComponent implements OnInit{
   scheduleName = localStorage.getItem("scName")
   eve = localStorage.getItem("sc")
   token = localStorage.getItem("currUser")
- 
+
   updatedEndpoint = this.endpoint + this.scheduleId
   eventIDs: any[] = [];
   eventDetails: any[] = [];
   editedEvent: any[]=[];
   noEventsExist: boolean = false;
-  
+
  constructor(public dialog: MatDialog,private http: HttpClient,private eventFacade: EventFacade, private scheduleFacade: ScheduleFacade ,private currentEventsSvc: CurrentEventsService) {}
- 
+
   ngOnInit(): void {
     this.loadData();
   }
- 
- // gets the event information(like id, name etc) in order to display the events 
+
+ // gets the event information(like id, name etc) in order to display the events
    getEventById(eventId: string): Observable<any> {
 
     //getEventById
@@ -66,7 +65,7 @@ export class EditSchedulePageComponent implements OnInit{
     this.scheduleFacade.getScheduleById(this.scheduleId as string,token as string).subscribe(
       (response: any) => {
         this.Events = response.schedule.events;
-        this.eventIDs = this.Events.map((event: any) => event); 
+        this.eventIDs = this.Events.map((event: any) => event);
         console.log('POST request successful: this.Events', this.Events);
         if (this.Events.length === 0) {
           this.noEventsExist = true
@@ -76,7 +75,7 @@ export class EditSchedulePageComponent implements OnInit{
           // calling a GET request for each event
           this.getEventDetails();
         }
-        
+
       },
       (error: any) => {
         console.error('POST request failed:', error);
@@ -112,7 +111,7 @@ updateEvent(updatedEvent: any){
     .subscribe((response: any) => {
     // Handle the API response here
     console.log('Event updated succesfully, changes added to the database:', response);
-   
+
   },
   (error: any) => {
     console.error('GET request failed for event:', error);
