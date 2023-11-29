@@ -18,7 +18,7 @@
             <input matInput formControlName="id" >
           </mat-form-field>
         
-        <button (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">search</button>
+        <button style="margin-left: 2em;" (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">Search</button>
     </div>
 
     <div *ngIf="scheduleIdForm.controls.id.errors && (scheduleIdForm.controls.id.touched || scheduleIdForm.controls.id.dirty)" class="error-message">
@@ -31,15 +31,17 @@
             id must be 24 character hexadecimal
         </div>
     </div>
-
-    <div *ngFor="let sched of scheduleList">
-        <br>
-        <span>Name: {{sched.name}}</span><br>
-        <span>ID: {{sched.id}}</span><br>
-        <span>Description: {{sched.description}}</span><br>
-        <span>Events: {{sched.events}}</span><br>
-        <span><button type="button" (click)="selectSchedule(sched.id)">Select</button></span>
+    <div class="searchResult" style="width: 80%;">
+        <div class="scheduleCard" *ngFor="let sched of scheduleList">
+            <br>
+            <span>Name: {{sched.name}}</span><br>
+            <span>ID: {{sched.id}}</span><br>
+            <span>Description: {{sched.description}}</span><br>
+            <!-- <span># of Events: {{sched.events?.length}}</span><br> -->
+            <span><button type="button" (click)="selectSchedule(sched.id)">Select</button></span>
+        </div>
     </div>
+    
 
     <div *ngIf="searched==true" class="error-message">
         <div *ngIf="scheduleList.length == 0">

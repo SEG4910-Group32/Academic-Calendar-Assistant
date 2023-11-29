@@ -43,7 +43,6 @@ button {
     font-weight: 600;
     white-space: nowrap;
     cursor: pointer;
-    margin-left: 2em;
     background-color: var(--save-changes-color);
 }
 
@@ -65,4 +64,14 @@ button:hover {
 mat-form-field{
     padding-left: 1em;
     height: auto;
+}
+.scheduleCard{
+    background-color: #f0f0f0;
+    margin: 10px;
+    padding: 10px;
+    display: inline-grid;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 2px 2px 5px grey;
 }

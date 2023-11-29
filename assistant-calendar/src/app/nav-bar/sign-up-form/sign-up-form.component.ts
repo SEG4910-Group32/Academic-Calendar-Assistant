@@ -21,8 +21,7 @@ export class SignUpFormComponent {
     lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     type: ['Student'],
     username: [''],
-    password: ['', [Validators.required, Validators.minLength(8),
-                    Validators.maxLength(16), mustContainValidator()]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16), mustContainValidator()]],
   });
 
   constructor(
@@ -72,8 +71,10 @@ export class SignUpFormComponent {
 
     let valid = true;
 
+    let createdUser = new User(this.signUpForm.value);
+
     if (valid) {
-      this.createUser(new User(this.signUpForm.value));
+      this.createUser(createdUser);
     }
   }
 
@@ -82,7 +83,6 @@ export class SignUpFormComponent {
       (res: any) => {
         console.log("result of sign up ",res)
         this._snackBar.open("User Created!", "", {
-
           duration: 1500
         });
 
@@ -92,7 +92,6 @@ export class SignUpFormComponent {
         console.log(err.error);
         if (err.status === 422) {
           console.log(err.error);
-
           this._snackBar.open(err.error.join('\n'));
         } else {
           this._snackBar.open("Unknown Error Occurred!", "", {
