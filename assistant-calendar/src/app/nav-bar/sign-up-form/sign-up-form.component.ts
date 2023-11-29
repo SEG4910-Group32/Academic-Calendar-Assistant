@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { mustContainValidator } from 'src/app/must-contain-validator';
-import { EmailService } from 'src/app/email.service';
 import { UserFacade } from 'src/app/Facades/user.facade';
 import { User } from 'src/app/Models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -23,16 +21,13 @@ export class SignUpFormComponent {
     lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     type: ['Student'],
     username: [''],
-    password: ['', [Validators.required, Validators.minLength(8),
-                    Validators.maxLength(16), mustContainValidator()]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16), mustContainValidator()]],
   });
 
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<SignUpFormComponent>,
-    private http: HttpClient,
-    private email: EmailService,
     private _snackBar: MatSnackBar,
     private userFacade: UserFacade,
   ) {
@@ -76,8 +71,10 @@ export class SignUpFormComponent {
 
     let valid = true;
 
+    let createdUser = new User(this.signUpForm.value);
+
     if (valid) {
-      this.createUser(new User(this.signUpForm.value));
+      this.createUser(createdUser);
     }
   }
 
@@ -86,7 +83,6 @@ export class SignUpFormComponent {
       (res: any) => {
         console.log("result of sign up ",res)
         this._snackBar.open("User Created!", "", {
-
           duration: 1500
         });
 
@@ -96,7 +92,6 @@ export class SignUpFormComponent {
         console.log(err.error);
         if (err.status === 422) {
           console.log(err.error);
-
           this._snackBar.open(err.error.join('\n'));
         } else {
           this._snackBar.open("Unknown Error Occurred!", "", {

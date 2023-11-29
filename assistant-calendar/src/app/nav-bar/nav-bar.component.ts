@@ -203,8 +203,7 @@ export class NavBarComponent {
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      if (res == 'logout') {
-        localStorage.removeItem('currUser');
+      if (!res && !localStorage.getItem('currUser')) {
         this.data.updateLoggedInStatus(false);
         this.bnIdle.stopTimer();
         this.router.navigate(['/home']);

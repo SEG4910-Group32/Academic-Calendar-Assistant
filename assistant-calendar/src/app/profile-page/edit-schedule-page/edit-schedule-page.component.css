@@ -75,15 +75,6 @@ button:disabled {
     margin-top: 20px
 }
 
-  .button-container{
-    float: right;
-    /* width: 50%;  */
-    /* margin-left: 58%; */
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
- 
-
   table {
     width: 100%;
   }
@@ -108,9 +99,6 @@ button:disabled {
     border: 1px solid black;
   }
   
-  /* .example-item {
-    height: 50px;
-  } */
 
   .nu-table-body {
     overflow-y:auto;
@@ -128,7 +116,7 @@ button:disabled {
   font-weight: 500;
   font-size: 16px;
 }
-#cancelbtn{
+#editbtn{
   background: #FFFFFF;
   border: 1px solid #A4A4A4;
   border-radius: 10px;
@@ -137,4 +125,7 @@ button:disabled {
   color: #434343;
   font-weight: 700;
   font-size: 16px;
+}
+#addevent{
+  margin-top: 50px;
 }
