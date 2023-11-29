@@ -12,10 +12,12 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EditSchedulePageComponent } from './profile-page/edit-schedule-page/edit-schedule-page.component';
 import { AuthenticationGuard } from './authentication.guard';
+import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 
 const routes: Routes = [
   { path: 'home', component: HomepageComponent},
   { path: 'find-schedule', component: FindScheduleComponent },
+  { path: 'schedule-detail/:id', component: ScheduleDetailComponent },
   { path: 'create-schedule', component: CreateSchedulePageComponent },
   { path: 'about-us', component: AboutusComponent },
   { path: 'subscribe', component: SubscribescheduleComponent},

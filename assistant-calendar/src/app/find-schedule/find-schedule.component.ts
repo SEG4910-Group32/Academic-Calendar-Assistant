@@ -146,7 +146,7 @@ export class FindScheduleComponent {
 
   selectSchedule(id: string|undefined) {
     localStorage.setItem("ScheduleDetailID", String(id));
-    console.log("The ID in local storage is: " + localStorage.getItem("ScheduleDetailID"));
+    this.router.navigate(['/schedule-detail', id]);
     }
     
     

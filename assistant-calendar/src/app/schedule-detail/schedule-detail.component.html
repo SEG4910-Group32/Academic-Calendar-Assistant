@@ -1,0 +1,46 @@
+<!-- schedule-detail.component.html -->
+
+<div class="container">
+    <div *ngIf="schedule" class="schedule-details">
+      <h2>Schedule Details</h2>
+    
+      <div>
+        <label>ID:</label>
+        <span>{{ schedule.id }}</span>
+      </div>
+    
+      <div>
+        <label>Owner:</label>
+        <span>{{ schedule.token }}</span>
+      </div>
+    
+      <div>
+        <label>Name:</label>
+        <span>{{ schedule.name }}</span>
+      </div>
+    
+      <div>
+        <label>Description:</label>
+        <span>{{ schedule.description }}</span>
+      </div>
+    
+      <div>
+        <label>Password:</label>
+        <span>{{ schedule.password }}</span>
+      </div>
+    
+      <div>
+        <label>Subscribed Users:</label>
+        <span>{{ schedule.subscribedUsers }}</span>
+      </div>
+    
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ getEventName(event) }}</td>
+          <td>{{ event.type }}</td>
+          <td>{{ event.description }}</td>
+          <td>{{ event.location }}</td>
+          <td>{{ event.startTime | date:'short' }}</td>
+          <td>{{ event.endTime | date:'short' }}</td>
+        </tr>
+      </tbody>
