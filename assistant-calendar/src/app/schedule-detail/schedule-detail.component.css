@@ -1,228 +1,65 @@
-/* Add styles for separating tasks and providing space for buttons and text */
-/* schedule-detail.component.css */
-.tab {
-    overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-  }
-  
-  /* Style the buttons inside the tab */
-  .tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
-    background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .tabcontent {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-  }
-  
-  /* Style the table */
-  table {
-    font-family: Arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
+/* Add these styles in your schedule-detail.component.css */
 
-.task-list {
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-  .deliverables {
-    margin: 10px 0;
-  }
-  .task-details {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999; /* Ensure it appears on top of other content */
-  }
-  .task-details {
-    position: fixed;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Center both horizontally and vertically */
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 999; /* Ensure it appears on top of other content */
-  }
-  
-  .task-details-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-  }
-  
-  .task-details-header button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  
-  .task-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  .centered-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .download-button {
-    margin-top: 10px; /* Add margin to separate the text and button */
-  }
-  .task-table th,
-  .task-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .task-button-large {
-    width: 100%;
-    font-size: 16px;
-    text-align: left;
-    padding: 8px;
-    margin: 5px 0;
-  }
-  
-  .task-item {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 5px 0;
-  }
-  
-  /* Additional space for buttons and text */
-  .centered-buttons {
-    margin: 20px 0;
-  }
-  
-  .scheduledetail-container {
-      text-align: center;
-      padding: 20px;
-      margin: 0 auto;
-      width: 80%;
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    
-    .scheduledetail-header {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    
-    .schedule-name {
-      font-size: 36px; /* Make the schedule name bigger */
-      margin: 20px 0; /* Add margin for spacing */
-    }
-    
-    .events {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px 0; /* Add margin for spacing */
-    }
-    
-    .event {
-      background-color: white;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 30%;
-      text-align: center;
-    }
-    
-    .event h3 {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-    
-    .centered-buttons {
-      margin-top: 20px; /* Add margin for spacing */
-    }
-    
-    .scheduledetail-button {
-      width: 150px;
-      padding: 10px;
-      font-size: 16px;
-      margin-right: 10px;
-    }
-    
-    .checkbox {
-      margin: 0 12px;
-    }
-    
-    .downloadBtn,
-    .createBtn {
-      max-width: 600px;
-    }
-    
-    .downloadBtn .mat-mdc-button-base,
-    .createBtn .mat-mdc-button-base {
-      border-radius: 50px;
-      margin: 8px 8px 8px 0;
-    }
-    ul.centered-buttons {
-      list-style-type: none; /* This removes the list-style dots */
-      padding: 0; /* Remove any padding */
-      margin: 0; /* Remove any margin */
-    }
-    
-    .calenderImg {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #eee;
-      padding: 5px;
-      margin: 10px;
-    }
-    
+.scheduledetail-container {
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 600px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.scheduledetail-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.schedule-name {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.event {
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 45%;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.event h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.scheduledetail-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.scheduledetail-button:hover {
+  background-color: #45a049;
+}
+
+.scheduledetail-button.subscribed,
+.scheduledetail-button.unsubscribed {
+  background-color: #ddd;
+  color: #555;
+  cursor: not-allowed;
+}

@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from 'src/app/Models/schedule.model';
 import { ScheduleFacade } from '../Facades/schedule.facade';
+import { EventFacade } from '../Facades/event.facade';
+import { UserFacade } from '../Facades/user.facade';
+import { Event } from 'src/app/Models/event.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-schedule-detail',
@@ -12,25 +16,17 @@ import { ScheduleFacade } from '../Facades/schedule.facade';
 export class ScheduleDetailComponent implements OnInit {
   scheduleId: string | undefined;
   schedule: Schedule | undefined;
-  isSubscribed: boolean;
-  selectedTask: any;
-  activeTab: string;
-  eventFacade: any;
-  events: any;
-
-  getEventName(eventId: string): string {
-    const event = this.events.find((e: any) => e === eventId);
-    return event ? event.name : 'Event Not Found';
-  }
+  events: Event[] | undefined;
+  isSubscribed: boolean | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private scheduleFacade: ScheduleFacade
-  ) {
-    this.isSubscribed = false;
-    this.activeTab = 'Details';
-  }
+    private scheduleFacade: ScheduleFacade,
+    private eventFacade: EventFacade,
+    private userFacade: UserFacade,
+    
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
@@ -38,23 +34,14 @@ export class ScheduleDetailComponent implements OnInit {
       if (scheduleId) {
         this.scheduleFacade.getScheduleById(scheduleId, localStorage.getItem("currUser") as string)
           .subscribe((schedule) => {
-            console.log('Received Schedule:', schedule);
-  
             if (schedule) {
-              // Log the entire schedule object
-              console.log('Schedule Object:', schedule);
-  
               this.schedule = new Schedule(schedule.schedule);
-              this.checkSubscription();
-  
+
               // Fetch events for the schedule
-              if (this.schedule.events) {
-                this.eventFacade.getEventBySchedule(scheduleId)
-                  .subscribe((events : Event[]) => {
-                    this.events = events;
-                    console.log('Fetched Events:', this.events);
-                  });
-              }
+              this.fetchEvents(scheduleId);
+
+              // Check if the user is subscribed and initialize isSubscribed
+              this.checkSubscription(localStorage.getItem("currUser") as string);
             } else {
               console.error(`Schedule with ID ${scheduleId} not found.`);
             }
@@ -63,64 +50,119 @@ export class ScheduleDetailComponent implements OnInit {
         console.error('No schedule ID provided.');
       }
     });
-  
-    // Update the activeTab based on route query parameter
-    this.route.queryParams.subscribe((params) => {
-      this.activeTab = params['tab'] || 'Details';
-    });
   }
 
-  checkSubscription() {
-    const currentUserString = localStorage.getItem('currUser');
-    if (currentUserString && this.schedule) {
-      const currentUser = JSON.parse(currentUserString);
-      if (currentUser.subscribedSchedules) {
-        this.isSubscribed = currentUser.subscribedSchedules.includes(this.schedule.id || '');
-      }
-    }
+  fetchEvents(scheduleId: string) {
+    this.eventFacade.getEventBySchedule(scheduleId)
+      .subscribe(
+        (events: Event[]) => {
+          this.events = events.map(event => new Event(event));
+          console.log('Fetched Events:', this.events);
+        },
+        (error) => {
+          console.error('Error fetching events:', error);
+        }
+      );
+  }
+
+  checkSubscription(token: string): void {
+    this.scheduleFacade.getSubscribedSchedules(token)
+      .subscribe(
+        (schedules: any) => {
+          const isSubscribed = schedules.schedules.some((schedule: any) => schedule._id === this.schedule?.id);
+          this.isSubscribed = isSubscribed;
+        },
+        (error) => {
+          console.error('Subscription check error:', error);
+        }
+      );
   }
 
   subscribe() {
-    const currentUserString = localStorage.getItem('currUser');
-    if (currentUserString && this.schedule) {
-      const currentUser = JSON.parse(currentUserString);
-      if (currentUser.subscribedSchedules && this.schedule.id) {
-        currentUser.subscribedSchedules.push(this.schedule.id);
-        localStorage.setItem('currUser', JSON.stringify(currentUser));
-        this.isSubscribed = true;
-      }
+    const scheduleId = this.schedule?.id;
+    const token = localStorage.getItem("currUser") as string;
+
+    if (scheduleId) {
+      this.userFacade.addSchedule(scheduleId, token, '')
+        .subscribe(
+          () => {
+            console.log('Subscribed successfully!');
+            // Update UI state
+            this.isSubscribed = true;
+          },
+          (error) => {
+            console.error('Subscription error:', error);
+          }
+        );
     }
   }
 
   unsubscribe() {
-    const currentUserString = localStorage.getItem('currUser');
-    if (currentUserString && this.schedule && this.schedule.id) {
-      const currentUser = JSON.parse(currentUserString);
-      if (currentUser.subscribedSchedules) {
-        currentUser.subscribedSchedules = currentUser.subscribedSchedules.filter((id: string) => id !== this.schedule?.id);
-        localStorage.setItem('currUser', JSON.stringify(currentUser));
-        this.isSubscribed = false;
-      }
+    const scheduleId = this.schedule?.id;
+    const token = localStorage.getItem("currUser") as string;
+
+    if (scheduleId) {
+      this.userFacade.removeSchedule(scheduleId, token)
+        .subscribe(
+          () => {
+            console.log('Unsubscribed successfully!');
+            // Update UI state
+            this.isSubscribed = false;
+          },
+          (error) => {
+            console.error('Unsubscription error:', error);
+          }
+        );
     }
   }
 
   downloadICS() {
-    // Implement the logic to download the ICS file
-  }
+    // Fetch events again to ensure they are up-to-date
+    this.fetchEvents(this.scheduleId as string);
+// use console log to check list of events see if its compatible 
+//maybe json (works with set time out)
+    setTimeout(() => {
+      const calendarData = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0'
+      ];
 
-  showTaskDetails(task: any) {
-    this.selectedTask = task;
-  }
+      if (this.events && this.events.length > 0) {
+        this.events.forEach((element: Event) => {
+          if (element.endTime && element.type) {
+            calendarData.push(
+              'BEGIN:VEVENT',
+              element.description ? 'DESCRIPTION:' + element.description : '',
+              element.startTime ? 'DTSTART:' + new Date(element.startTime).toISOString() : '',
+              'DTEND:' + new Date(element.endTime).toISOString(),
+              element.location ? 'LOCATION:' + element.location : '',
+              'SUMMARY:' + element.type,
+              'TRANSP:TRANSPARENT',
+              'END:VEVENT'
+            );
+          }
+        });
+      }
 
-  closeTaskDetails() {
-    this.selectedTask = null;
+      calendarData.push(
+        'END:VCALENDAR'
+      );
+
+      console.log('Calendar Data:', calendarData.join('\n'));
+      const blob = new Blob([calendarData.join('\n')], { type: 'text/calendar' });
+
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', 'schedule.ics');
+      document.body.appendChild(link);
+
+      link.click();
+
+      document.body.removeChild(link);
+    }, 500); // Adjust the delay time as needed
   }
 
   goToFindSchedule() {
     this.router.navigate(['/find-schedule']);
-  }
-
-  openTab(tabName: string) {
-    this.activeTab = tabName;
   }
 }
