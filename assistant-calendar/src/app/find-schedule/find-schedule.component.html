@@ -18,7 +18,7 @@
             <input matInput formControlName="id" >
           </mat-form-field>
         
-        <button (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">search</button>
+        <button style="margin-left: 2em;" (click)="search()" [disabled]="this.scheduleIdForm.controls.id.errors">Search</button>
     </div>
 
     <div *ngIf="scheduleIdForm.controls.id.errors && (scheduleIdForm.controls.id.touched || scheduleIdForm.controls.id.dirty)" class="error-message">

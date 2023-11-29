@@ -43,7 +43,6 @@ button {
     font-weight: 600;
     white-space: nowrap;
     cursor: pointer;
-    margin-left: 2em;
     background-color: var(--save-changes-color);
 }
 
@@ -74,4 +73,5 @@ mat-form-field{
     border-radius: 10px;
     width: 250px;
     text-align: center;
+    box-shadow: 2px 2px 5px grey;
 }
