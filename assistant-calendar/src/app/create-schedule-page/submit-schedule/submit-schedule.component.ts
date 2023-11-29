@@ -6,6 +6,7 @@ import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
 import { Schedule } from 'src/app/Models/schedule.model';
 import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-schedule-id.component";
 import { Event } from 'src/app/Models/event.model';
+import { DataService } from 'src/services/data.service';
 
 
 @Component({
@@ -22,26 +23,35 @@ export class SubmitScheduleComponent {
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
   tempList: Event[] = [];
+  isLoggedIn: boolean = false;
+
 
   constructor(
     public dialog: MatDialog,
     private http: HttpClient,
     private scheduleFacadeSvc: ScheduleFacade,
     private currentEventsSvc: CurrentEventsService,
+    private dataService: DataService
   ) {}
+
+  ngOnInit(): void {
+    this.dataService.loggedInStatus.subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = loggedIn;
+    });
+  }
 
   createScheduleAndEvents() {
     if (this.currentEventsSvc.eventList.length !== 0) {
       const newSchedule: Schedule = {
         id: undefined,
-        owner: undefined,
+        token: this.isLoggedIn ? localStorage.getItem("currUser") as string : undefined,
         name: this.scheduleName,
         description: this.scheduleDescription,
         password: undefined,
         subscribedUsers: undefined,
         events: undefined,
       };
-
+      console.log(newSchedule);
       this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule => {
         this.scheduleInDB = new Schedule(returnSchedule.schedule);
 
@@ -52,7 +62,6 @@ export class SubmitScheduleComponent {
 
         this.scheduleFacadeSvc.createEvents(scheduleBody, this.scheduleInDB.id as string, localStorage.getItem("currUser") as string).subscribe(returnSchedule => {
           console.log('Schedule and events created successfully!', returnSchedule);
-          // Open dialog to display the generated ID
           this.openGenerateScheduleIdDialog(this.scheduleInDB.id as string);
         });
       });
@@ -72,13 +81,11 @@ export class SubmitScheduleComponent {
   downloadIcs() {
     const schedule = this.currentEventsSvc.eventList;
 
-    // Begin ICS file
     const calendarData = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0'
     ];
 
-    // Event details
     schedule.forEach((element: Event) => {
       if (element.endTime && element.type) {
         calendarData.push(
@@ -94,7 +101,6 @@ export class SubmitScheduleComponent {
       }
     });
 
-    // End Calendar data
     calendarData.push(
       'END:VCALENDAR'
     );
@@ -107,10 +113,8 @@ export class SubmitScheduleComponent {
     link.setAttribute('download', 'schedule.ics');
     document.body.appendChild(link);
 
-    // Trigger the download
     link.click();
 
-    // Remove the link from the DOM
     document.body.removeChild(link);
   }
 

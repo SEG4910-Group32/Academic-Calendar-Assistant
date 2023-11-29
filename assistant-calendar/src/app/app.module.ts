@@ -46,15 +46,14 @@ import { LogoutDialogComponent } from './nav-bar/logout-dialog/logout-dialog.com
 import { BnNgIdleService } from 'bn-ng-idle';
 import { SubscribeToScheduleComponent } from './subscribe-to-schedule/subscribe-to-schedule.component';
 
-import { eventFacadeFactory } from './Factories/event.factory';
 import { EventFacade } from './Facades/event.facade';
 import { ScheduleFacade } from './Facades/schedule.facade';
-import { UserFactory } from './Factories/user.factory';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { EditSchedulePageComponent } from './profile-page/edit-schedule-page/edit-schedule-page.component';
 import { EditEventComponent } from './profile-page/edit-schedule-page/edit-event/edit-event/edit-event.component';
 import { DeleteScheduleComponent } from './profile-page/delete-schedule/delete-schedule/delete-schedule.component';
 import { AddEventComponent } from './profile-page/edit-schedule-page/add-event/add-event/add-event.component';
+import {UserFacade} from "./Facades/user.facade";
 
 
 @NgModule({
@@ -109,7 +108,7 @@ import { AddEventComponent } from './profile-page/edit-schedule-page/add-event/a
     BnNgIdleService,
     EventFacade,
     ScheduleFacade,
-    UserFactory
+    UserFacade
   ],
   bootstrap: [AppComponent]
 })

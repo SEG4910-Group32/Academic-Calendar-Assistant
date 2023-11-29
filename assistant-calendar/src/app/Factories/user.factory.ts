@@ -1,7 +1,6 @@
-import { User } from 'src/app/Models/user.model';
+import { UserFacade } from '../Facades/user.facade';
+import { UserRepository } from '../Repositories/user.repository';
 
-export class UserFactory {
-  static createUser(userData: any): User {
-    return new User(userData);
-  }
+export function userFacadeFactory(userRepository: UserRepository) {
+  return new UserFacade(userRepository);
 }

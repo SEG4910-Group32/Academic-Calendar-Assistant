@@ -46,13 +46,7 @@ export class ScheduleRepository implements ScheduleRepositoryInterface {
   }
 
   deleteSchedule(token:string, scheduleId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/schedule/${scheduleId}/${token}`, {headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      id: scheduleId,
-      token: token,
-    }});
+    return this.http.delete<void>(`${this.apiUrl}/schedule/${scheduleId}/${token}`);
   }
 
   getOwnedSchedules(tokenId: string):Observable<any>{
