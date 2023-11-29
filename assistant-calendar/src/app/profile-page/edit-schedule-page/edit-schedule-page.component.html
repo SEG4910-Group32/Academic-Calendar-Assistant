@@ -1,40 +1,39 @@
 <div class="container">
-    <div class="header">
-      <h1>Edit events for schedule {{scheduleName}}</h1>
-      
-    </div>
-    <br>
-    
-   
-    <!-- if the schedule has events, shows them in a table -->
-    <div *ngIf="!noEventsExist">
-      
-        <table>
-          <div class="nu-table-body">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-            
-            <tr *ngFor="let eventArray of eventDetails; let i = index">
-              <ng-container *ngFor="let event of eventArray">
-                <td >{{ event._id }}</td>
-                <td >{{ event.name }}</td>
-                <td>
-                  <button type="button" id="editbtn" (click)="openDialog(eventArray)">Edit</button>
-                  <button type="button" id="addbtn" (click)="deleteEvent(eventArray)">Delete</button>
-                </td>
-              </ng-container>
-            </tr>
-          </div>
-          </table>      
-    </div>
-    <!-- only shows this message if there are no events in the schedule -->
-    <div *ngIf="noEventsExist">
-      <h2>This schedule has no events😢</h2>
-    </div>
-    <div class="button-container">
-      <button class="btn btn-primary" id="addevent" (click)="openAddEventDialog()"> Add event </button>
-    </div>
+  <div class="header">
+    <h1>Edit events for schedule {{ scheduleName }}</h1>
+  </div>
+  <br>
+
+  <!-- if the schedule has events, shows them in a table -->
+  <div *ngIf="!noEventsExist">
+    <table>
+      <div class="nu-table-body">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+
+        <tr *ngFor="let eventArray of eventDetails; let i = index">
+          <ng-container *ngFor="let event of eventArray">
+            <td>{{ event._id }}</td>
+            <td>{{ event.name }}</td>
+            <td>
+              <button type="button" id="editbtn" (click)="openEditDialog(event)">Edit</button>
+              <button type="button" id="addbtn" (click)="deleteEvent(event._id)">Delete</button>
+            </td>
+          </ng-container>
+        </tr>
+      </div>
+    </table>
+  </div>
+
+  <!-- only shows this message if there are no events in the schedule -->
+  <div *ngIf="noEventsExist">
+    <h2>This schedule has no events😢</h2>
+  </div>
+
+  <div class="button-container">
+    <button class="btn btn-primary" id="addevent" (click)="openAddEventDialog()"> Add event </button>
+  </div>
 </div>
