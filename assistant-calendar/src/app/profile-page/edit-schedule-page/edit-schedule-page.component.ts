@@ -59,6 +59,7 @@ export class EditSchedulePageComponent implements OnInit{
     const token = localStorage.getItem("currUser");
     this.Events = []
     this.eventDetails = [];
+    this.eventIDs = []
     //to change
     //gets the event id for all events in a schedule
     this.scheduleFacade.getScheduleById(this.scheduleId as string,token as string).subscribe(
@@ -107,10 +108,12 @@ updateEvent(updatedEvent: any, eventId:string){
   updatedEvent.id = updatedEvent.id as string
 
   console.log("updated event is" ,updatedEvent, "token ", localStorage.getItem("currUser") as string)
-  this.eventFacade.updateEvent(updatedEvent.id as string, localStorage.getItem("currUser") as string, updatedEvent)
+  this.eventFacade.updateEvent(eventId , localStorage.getItem("currUser") as string, updatedEvent)
     .subscribe((response: any) => {
     // Handle the API response here
     console.log('Event updated succesfully, changes added to the database:', response);
+    this.eventDetails = []
+       this.loadData()
 
   },
   (error: any) => {
