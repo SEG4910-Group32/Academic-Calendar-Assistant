@@ -8,8 +8,7 @@ import {UserFacadeInterface} from "./interfaces/userFacade.interface";
   providedIn: 'root'
 })
 export class UserFacade implements UserFacadeInterface{
-  private apiUrl = 'https://academic-calendar-backend.onrender.com/api/users';
-
+  
   constructor(private userRepository: UserRepository) {}
 
 
@@ -40,7 +39,6 @@ export class UserFacade implements UserFacadeInterface{
   removeSchedule(scheduleId:string, token:string): Observable<void> {
     return this.userRepository.removeSchedule(scheduleId, token);
   }
-  /*need to test removeSchedule*/
 
   login(email: string, password: string): Observable<User> {
     return this.userRepository.login(email, password);
