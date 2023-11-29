@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
-
+import {User} from "../Models/user.model";
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserFacade } from '../Facades/user.facade';
@@ -62,7 +62,7 @@ export class UpdateProfilePageComponent {
   });
    // const updatedUser = this.updateProfileForm.value;
     console.log("updated Userrrrrrrrrrrrr", updatedUser)
-    this.userFacade.updateUser(updatedUser, localStorage.getItem("currUser") as string).subscribe(res => {
+    this.userFacade.updateUser(new User(updatedUser), localStorage.getItem("currUser") as string).subscribe(res => {
       console.log("result is", res);
       this._snackBar.open("Changes Saved!", "", {
         duration: 1500
@@ -105,14 +105,14 @@ export class UpdateProfilePageComponent {
                 password: null,
               };
             }
-  
+
       },
       (error) => {
         console.error("Error fetching user information", error);
       }
     );
   }
-  
+
   /**
    * Updates profile of logged in user and then displays update status message
    */
@@ -126,7 +126,7 @@ export class UpdateProfilePageComponent {
    */
   deleteFun() {
     let email = this.updateProfileForm.controls.email.value;
-    
+
     if (email) {
       this.delete(email);
     }

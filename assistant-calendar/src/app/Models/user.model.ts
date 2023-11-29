@@ -1,14 +1,14 @@
 export class User {
-    
-    id: string;
-    username!: String
+
+    id?: string;
+    username!: string;
     firstName!: string;
     lastName!: string;
     type!: string
-    email!: string; 
+    email!: string;
     password!: string;
-    schedules!: [string];
-    owns!: [string];
+    schedules?: [string];
+    owns?: [string];
 
     constructor(userData: any) {
       this.id = userData.id || '';

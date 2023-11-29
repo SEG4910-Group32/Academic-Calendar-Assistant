@@ -86,7 +86,7 @@ getEventDetails() {
   for (const eventId of this.eventIDs) {
     this.getEventById(eventId).subscribe(
       (eventData: any) => {
-        
+
         this.eventDetails.push([eventData]);
 
         console.log("eventDetails", this.eventDetails);
@@ -105,7 +105,7 @@ updateEvent(updatedEvent: any){
 
   updatedEvent.id = updatedEvent.id as string
   console.log("updated event is" ,updatedEvent, "token ", localStorage.getItem("currUser") as string)
-  this.eventFacade.updateEvent(updatedEvent)
+  this.eventFacade.updateEvent(updatedEvent.id as string, localStorage.getItem("currUser") as string, updatedEvent)
     .subscribe((response: any) => {
     // Handle the API response here
     console.log('Event updated succesfully, changes added to the database:', response);
@@ -124,7 +124,7 @@ deleteEvent(deletedEvent: any) {
 
   this.eventFacade.deleteEvent( localStorage.getItem("currUser") as string, deletedEvent[0]._id as string)
     .subscribe((response: any) => {
-    
+
       console.log('Event deleted from the database:', response);
        this.eventDetails = []
        this.loadData()
@@ -137,7 +137,7 @@ openDialog(event: any) {
     console.log("event ", event[0]);
     const dialogRef = this.dialog.open(EditEventComponent, {
       data: {
-        name: event[0].name || '', 
+        name: event[0].name || '',
         type: event[0].type,
         description: event[0].description,
         location: event[0].location,
@@ -174,7 +174,7 @@ openDialog(event: any) {
 openAddEventDialog(){
   const dialogRef = this.dialog.open(AddEventComponent, {
     data: {
-      token: this.token, 
+      token: this.token,
       scheduleId: this.scheduleId,
       type:"",
       dueDate:"",
@@ -187,7 +187,7 @@ openAddEventDialog(){
     console.log('The dialog was closed');
     if (result) {
       console.log("schedule", this.scheduleId)
-      const scheduleId = this.scheduleId || ''; 
+      const scheduleId = this.scheduleId || '';
       this.eventFacade.createEvent({
         name: result.name,
         schedule: scheduleId as string ,

@@ -5,9 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { mustContainValidator } from 'src/app/must-contain-validator';
 import { EmailService } from 'src/app/email.service';
 import { UserFacade } from 'src/app/Facades/user.facade';
-import { UserFactory } from 'src/app/Factories/user.factory';
 import { User } from 'src/app/Models/user.model';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -25,7 +23,7 @@ export class SignUpFormComponent {
     lastName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
     type: ['Student'],
     username: [''],
-    password: ['', [Validators.required, Validators.minLength(8), 
+    password: ['', [Validators.required, Validators.minLength(8),
                     Validators.maxLength(16), mustContainValidator()]],
   });
 
@@ -37,8 +35,7 @@ export class SignUpFormComponent {
     private email: EmailService,
     private _snackBar: MatSnackBar,
     private userFacade: UserFacade,
-    private userFactory: UserFactory,
-  ) { 
+  ) {
     // Subscribe to changes in firstName and lastName fields
     this.signUpForm.get('firstName')!.valueChanges.subscribe(() => {
       this.updateUsername();
@@ -62,13 +59,13 @@ export class SignUpFormComponent {
     return {
       email: this.signUpForm.controls.email.value,
       username: `${this.signUpForm.controls.firstName.value} ${this.signUpForm.controls.lastName.value}`,
-    
+
       //username:  this.signUpForm.controls.firstName.value +' ' + this.signUpForm.controls.lastName.value,
       //firstName: this.signUpForm.controls.firstName.value,
       //lastName: this.signUpForm.controls.lastName.value,
       password: this.signUpForm.controls.password.value,
       type: "Student"
-      
+
     }
   }
 
@@ -80,11 +77,11 @@ export class SignUpFormComponent {
     let valid = true;
 
     if (valid) {
-      this.createUser(this.signUpForm.value);
+      this.createUser(new User(this.signUpForm.value));
     }
   }
 
-  createUser = async (newUser: Object) => {
+  createUser = async (newUser: User) => {
     this.userFacade.createUser(newUser).subscribe(
       (res: any) => {
         console.log("result of sign up ",res)
@@ -92,14 +89,14 @@ export class SignUpFormComponent {
 
           duration: 1500
         });
-  
+
         this.dialogRef.close();
       },
       (err: any) => {
         console.log(err.error);
         if (err.status === 422) {
           console.log(err.error);
-  
+
           this._snackBar.open(err.error.join('\n'));
         } else {
           this._snackBar.open("Unknown Error Occurred!", "", {
@@ -109,8 +106,8 @@ export class SignUpFormComponent {
       }
     );
   };
-  
-  
+
+
   openSignInForm(): void {
     this.dialogRef.close('openSignIn');
   }

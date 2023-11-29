@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserFacade } from 'src/app/Facades/user.facade';
-import { UserFactory } from 'src/app/Factories/user.factory';
 import { User } from 'src/app/Models/user.model';
 
 import { HttpClient } from '@angular/common/http';
@@ -26,9 +25,9 @@ export class LoginFormComponent {
   redirect: any;
   redirectPath: string = "";
 
-  login = async (user: Object) => {
+  login = async (user: User) => {
 
-    this.userFacade.login(user).subscribe(
+    this.userFacade.login(user.email, user.password).subscribe(
       (res: any) => {
         localStorage.setItem('currUser', res.token);
         this.data.updateLoggedInStatus(true);
@@ -64,8 +63,7 @@ export class LoginFormComponent {
     public dialogRef: MatDialogRef<LoginFormComponent>,
     public http: HttpClient,
     private data: DataService,
-    private userFacade: UserFacade,
-    private userFactory: UserFactory,
+    private userFacade: UserFacade
   ) {}
 
   /**
@@ -83,7 +81,8 @@ export class LoginFormComponent {
    * Attempts login http request
    */
   submit(): void {
-    this.login(this.getFormValues());
+
+    this.login(new User(this.getFormValues()));
   }
 
   /**

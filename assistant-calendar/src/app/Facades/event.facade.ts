@@ -9,7 +9,7 @@ import { EventFacadeInterface } from './interfaces/eventFacade.interface';
 })
 export class EventFacade implements EventFacadeInterface {
 
-  
+
   constructor(private eventRepository: EventRepository) {}
 
   // Define methods to interact with the repository
@@ -26,13 +26,16 @@ export class EventFacade implements EventFacadeInterface {
   }
 
 
-
-  updateEvent(event: any): Observable<any> {
-
-    return this.eventRepository.updateEvent(event);
+  updateEvent(eventId:string, token:string, event: any): Observable<any> {
+    return this.eventRepository.updateEvent(eventId, token, event);
   }
 
   deleteEvent(token:string ,id: string): Observable<void> {
     return this.eventRepository.deleteEvent(token, id);
   }
+
+  getEventBySchedule(scheduleId: string): Observable<Event[]> {
+    return this.eventRepository.getEventBySchedule(scheduleId);
+  }
+
 }
