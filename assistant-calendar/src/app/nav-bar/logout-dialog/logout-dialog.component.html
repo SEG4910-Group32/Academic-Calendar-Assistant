@@ -1,7 +1,13 @@
 <div class="container">
-    <div class="logout-text">Are you sure?</div>
-    <div class="btn-group">
+    <div *ngIf="showConfirmation">
+      <div class="logout-text">Are you sure?</div>
+      <div class="btn-group">
         <button (click)="logout()">Yes</button>
         <button (click)="cancel()">No</button>
+      </div>
     </div>
-</div>
+    
+    <div *ngIf="logoutSuccessful" class="logout-successful">You have logged out successfully.</div>
+    <div *ngIf="logoutUnsuccessful" class="logout-unsuccessful">Your logout was unsuccessful</div>
+  </div>
+  

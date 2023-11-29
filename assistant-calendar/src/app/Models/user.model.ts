@@ -11,14 +11,14 @@ export class User {
     owns?: [string];
 
     constructor(userData: any) {
-      this.id = userData.id || '';
+      this.id = userData.id || undefined;
       this.username = userData.username|| '';
       this.firstName = userData.firstName|| '';
       this.lastName = userData.lastName|| '';
       this.type = userData.type|| '';
       this.email = userData.email|| '';
       this.password = userData.password|| '';
-      this.schedules = userData.schedules|| [];
-      this.owns = userData.owns|| [];
+      this.schedules = userData.schedules|| undefined;
+      this.owns = userData.owns|| undefined;
     }
   }
