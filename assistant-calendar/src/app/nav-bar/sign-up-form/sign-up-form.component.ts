@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { mustContainValidator } from 'src/app/must-contain-validator';
-import { EmailService } from 'src/app/email.service';
 import { UserFacade } from 'src/app/Facades/user.facade';
 import { User } from 'src/app/Models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,8 +29,6 @@ export class SignUpFormComponent {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<SignUpFormComponent>,
-    private http: HttpClient,
-    private email: EmailService,
     private _snackBar: MatSnackBar,
     private userFacade: UserFacade,
   ) {

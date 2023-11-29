@@ -29,19 +29,18 @@ export class LoginFormComponent {
 
     this.userFacade.login(user.email, user.password).subscribe(
       (res: any) => {
-        localStorage.setItem('currUser', res.token);
-        this.data.updateLoggedInStatus(true);
-        if (this.redirect === 'true') {
-          this.router.navigate([this.redirectPath]);
+        if(res.token){
+          localStorage.setItem('currUser', res.token);
+          this.data.updateLoggedInStatus(true);
+          if (this.redirect === 'true') {
+            this.router.navigate([this.redirectPath]);
+          }
         }
         this.dialogRef.close();
-      },
-      (err: any) => {
+      }, (err: any) => {
         console.log(err.error);
-
       }
     );
-
   };
 
   /**
@@ -81,7 +80,6 @@ export class LoginFormComponent {
    * Attempts login http request
    */
   submit(): void {
-
     this.login(new User(this.getFormValues()));
   }
 
