@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 
 import { BnNgIdleService } from 'bn-ng-idle';
 import { UserFacade } from '../Facades/user.facade';
-import { User } from '../Models/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -32,75 +31,77 @@ export class NavBarComponent {
   username: string = "";
 
   ngOnInit() {
+    this.subscribeToRedirectedValue();
+    this.checkAndSetUserInfo();
+    this.subscribeToLoggedInStatus();
+  }
+  
+  private subscribeToRedirectedValue() {
     this.data.currRedirectedVal.subscribe(val => {
       if (val === "true") {
         this.openSignInForm();
       }
     });
-
-    let userInfo //= localStorage.getItem('currUser');
-    let prompts = document.querySelector('.prompts');
-    let loggedIn = document.querySelector('.logged-in');
-
-    // if the user logs in, display the username in nav-bar
+  }
+  
+  private checkAndSetUserInfo() {
+    const userInfo = localStorage.getItem('currUser');
+    console.log(userInfo);
+    if (userInfo) {
+      this.setUserDetails(userInfo);
+    }
+  }
+  
+  private subscribeToLoggedInStatus() {
     this.data.loggedInStatus.subscribe(val => {
-
       if (val) {
-        console.log("val",val)
-        userInfo = localStorage.getItem('currUser');
-        
-          this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
-            (user) => {
-               this.username = user.username.toString();
-              console.log('User Name:', this.username);
-              userInfo = user 
-            },
-            (error) => {
-              console.error('Error fetching user details:', error);
-            }
-          );
-      console.log("this.username:", this.username);
-   
-        if (userInfo) {
-          try {
-            let obj = JSON.parse(userInfo);
-            this.username = obj.firstName + " " + obj.lastName;
-            //localStorage.setItem("username", this.username)
-          } catch (error) {
-            console.error('Error parsing userInfo:', error);
-          }
-        }
-        
-    
-        console.log("loggedIn",loggedIn)
-        prompts?.classList.add('invisible');
-        loggedIn?.classList.remove('invisible');
-        
-        this.startIdleTimeoutTimer(5000);
-      }
-      else {
-        prompts?.classList.remove('invisible');
-        loggedIn?.classList.add('invisible');
+        this.fetchUserDetails();
+      } else {
+        this.clearUserInfo();
       }
     });
-
-    // if the user was already logged in, display the username in nav-bar
-    if (userInfo) {
-      try {
-        let obj = JSON.parse(userInfo);
-      this.username = obj.firstName + " " + obj.lastName;
-      
-      prompts?.classList.add('invisible');
-      loggedIn?.classList.remove('invisible');
-
-      this.startIdleTimeoutTimer(50000);
-      } catch (error) {
-        console.error('Error parsing userInfo:', error);
-      }
-      
-    }
-
   }
+  
+  private fetchUserDetails() {
+    const userId = localStorage.getItem('currUser');
+    if (userId) {
+      this.userFacade.getUserById(userId).subscribe(
+        (user) => {
+          this.setUserDetails(user);
+        },
+        (error) => {
+          console.error('Error fetching user details:', error);
+        }
+      );
+    }
+  }
+  
+  private setUserDetails(user: any) {
+    this.username = `${user.firstName} ${user.lastName}`;
+    this.updateUI();
+    this.startIdleTimeoutTimer(5000);
+  }
+  
+  private clearUserInfo() {
+    this.username = '';
+    this.updateUI();
+  }
+  
+  private updateUI() {
+    const prompts = document.querySelector('.prompts');
+    const loggedIn = document.querySelector('.logged-in');
+  
+    if (prompts && loggedIn) {
+      if (this.username) {
+        prompts.classList.add('invisible');
+        loggedIn.classList.remove('invisible');
+      } else {
+        prompts.classList.remove('invisible');
+        loggedIn.classList.add('invisible');
+      }
+    }
+  }
+  
 
   switchState(state: string): void {
     switch(state) {
