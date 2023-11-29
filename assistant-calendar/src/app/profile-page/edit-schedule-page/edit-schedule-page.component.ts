@@ -57,13 +57,15 @@ export class EditSchedulePageComponent implements OnInit{
   loadData() {
     //const updatedEndpoint = this.endpoint + this.scheduleId;
     const token = localStorage.getItem("currUser");
-
+    this.Events = []
+    this.eventDetails = [];
     //to change
     //gets the event id for all events in a schedule
     this.scheduleFacade.getScheduleById(this.scheduleId as string,token as string).subscribe(
       (response: any) => {
         this.Events = response.schedule.events;
         this.eventIDs = this.Events.map((event: any) => event);
+        console.log('POST request successful: this.eventIDs',this.eventIDs);
         console.log('POST request successful: this.Events', this.Events);
         if (this.Events.length === 0) {
           this.noEventsExist = true
@@ -183,23 +185,26 @@ openAddEventDialog(){
       description:""
     }
   });
+
+  let scheduleId = this.scheduleId || ''; 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
     if (result) {
       console.log("schedule", this.scheduleId)
-      const scheduleId = this.scheduleId || ''; 
-      this.eventFacade.createEvent({
-        name: result.name,
-        schedule: scheduleId as string ,
-        scheduleid: scheduleId ,
-        token: localStorage.getItem("currUser"),
-        //token: this.token ,
-        type: result.type,
-        endTime: result.dueDate,
-        startTime: result.startDate,
-        location: result.location,
-        description: result.description
-      })
+      let scheduleId = this.scheduleId || ''; 
+      this.createNewEvent(result)
+      // this.eventFacade.createEvent({
+      //   name: result.name,
+      //   schedule: scheduleId as string ,
+      //   scheduleid: scheduleId ,
+      //   token: localStorage.getItem("currUser"),
+      //   //token: this.token ,
+      //   type: result.type,
+      //   endTime: result.dueDate,
+      //   startTime: result.startDate,
+      //   location: result.location,
+      //   description: result.description
+      // })
       // .subscribe(createdEvent => {
       //   // The createEvent operation is complete, you can handle the result if needed
       //   console.log("Event created:", createdEvent);
@@ -212,15 +217,37 @@ openAddEventDialog(){
     //this.eventDetails.push()
 
     //this.eventIDs.push()
-     this.eventDetails = []
+    // this.eventDetails = []
      console.log("here: event details: ",this.eventDetails);
     // console.log("events array: ",)
     //  this.eventArray = []
-    this.getEventDetails();
-     this.loadData();
+    // this.getEventDetails();
+    //  this.loadData();
  }
   
  );
+}
+
+//function for creating event
+createNewEvent(result:any){
+this.eventFacade.createEvent({
+        name: result.name,
+        schedule: this.scheduleId as string ,
+        scheduleid: this.scheduleId ,
+        token: localStorage.getItem("currUser"),
+        //token: this.token ,
+        type: result.type,
+        endTime: result.dueDate,
+        startTime: result.startDate,
+        location: result.location,
+        description: result.description
+      })
+      .subscribe(() => {
+        this.eventDetails = []
+        this.loadData();
+      });
+      // this.eventDetails = []
+      // this.loadData();
 }
 
 }
