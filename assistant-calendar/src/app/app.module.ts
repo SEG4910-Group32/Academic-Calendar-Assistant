@@ -54,6 +54,7 @@ import { EditEventComponent } from './profile-page/edit-schedule-page/edit-event
 import { DeleteScheduleComponent } from './profile-page/delete-schedule/delete-schedule/delete-schedule.component';
 import { AddEventComponent } from './profile-page/edit-schedule-page/add-event/add-event/add-event.component';
 import {UserFacade} from "./Facades/user.facade";
+import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import {UserFacade} from "./Facades/user.facade";
     EditSchedulePageComponent,
     EditEventComponent,
     DeleteScheduleComponent,
-    AddEventComponent
+    AddEventComponent,
+    ScheduleDetailComponent
   ],
   imports: [
     BrowserModule,

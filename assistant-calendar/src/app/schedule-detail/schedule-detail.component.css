@@ -1,0 +1,65 @@
+/* Add these styles in your schedule-detail.component.css */
+
+.scheduledetail-container {
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 600px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.scheduledetail-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.schedule-name {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.events {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.event {
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 45%;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.event h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.scheduledetail-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.scheduledetail-button:hover {
+  background-color: #45a049;
+}
+
+.scheduledetail-button.subscribed,
+.scheduledetail-button.unsubscribed {
+  background-color: #ddd;
+  color: #555;
+  cursor: not-allowed;
+}
