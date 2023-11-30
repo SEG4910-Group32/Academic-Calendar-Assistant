@@ -27,7 +27,7 @@
         <a routerLink="../profile-page">Profile</a> 
       </div>
     </div>
-    <div class="prompts" *ngIf="!username">
+    <div class="prompts" *ngIf="!token">
       <div class="sign-in" (click)="openSignInForm()">
         Sign in
       </div>
@@ -35,9 +35,9 @@
         Get Started
       </div>
     </div>
-    <div class="logged-in" *ngIf="username">
+    <div class="logged-in" *ngIf="token">
       <div class="logged-in-user">
-        <div class="user">{{ username }}</div>
+        <div class="user">{{ username | titlecase}}</div>
       </div>
       <div class="logout" (click)="logout()">
         Log Out

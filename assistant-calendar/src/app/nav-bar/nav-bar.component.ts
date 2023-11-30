@@ -29,11 +29,12 @@ export class NavBarComponent {
   ) {}
 
   username: string = "";
-
+  token = localStorage.getItem("currUser");
   ngOnInit() {
     this.subscribeToRedirectedValue();
     this.checkAndSetUserInfo();
     this.subscribeToLoggedInStatus();
+    
   }
   
   private subscribeToRedirectedValue() {
@@ -78,12 +79,19 @@ export class NavBarComponent {
   
   private setUserDetails(user: any) {
     this.username = `${user.firstName} ${user.lastName}`;
+    this.token = localStorage.getItem("currUser");
     this.updateUI();
     this.startIdleTimeoutTimer(5000);
   }
   
   private clearUserInfo() {
-    this.username = '';
+    if(this.token){
+      this.fetchUserDetails();
+    } 
+    else{
+      this.username = '';
+    }
+    this.token = localStorage.getItem("currUser");
     this.updateUI();
   }
   
@@ -91,8 +99,10 @@ export class NavBarComponent {
     const prompts = document.querySelector('.prompts');
     const loggedIn = document.querySelector('.logged-in');
   
+    console.log("prompts: ",prompts, " Logged in", loggedIn);
     if (prompts && loggedIn) {
-      if (this.username) {
+      console.log("prompts: ",prompts, " Logged in", loggedIn);
+      if (this.token) {
         prompts.classList.add('invisible');
         loggedIn.classList.remove('invisible');
       } else {

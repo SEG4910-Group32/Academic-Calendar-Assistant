@@ -9,15 +9,15 @@
     <table>
       <div class="nu-table-body">
         <tr>
-          <th>ID</th>
           <th>Name</th>
+          <th>Due date</th>
           <th>Actions</th>
         </tr>
 
         <tr *ngFor="let eventArray of eventDetails; let i = index">
           <ng-container *ngFor="let event of eventArray">
-            <td>{{ event._id }}</td>
-            <td>{{ event.name }}</td>
+            <td>{{ event.name | titlecase}}</td>
+            <td>{{ event.endTime| date:'short' }}</td>
             <td>
               <button type="button" id="editbtn" (click)="openEditDialog(event)">Edit</button>
               <button type="button" id="addbtn" (click)="deleteEvent(event._id)">Delete</button>
