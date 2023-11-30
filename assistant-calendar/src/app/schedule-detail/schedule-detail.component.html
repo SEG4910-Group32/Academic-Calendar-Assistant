@@ -1,0 +1,27 @@
+<!-- schedule-detail.component.html -->
+<div *ngIf="schedule" class="scheduledetail-container">
+  <p *ngIf="schedule.name" class="schedule-name"><strong>Name:</strong> {{ schedule.name }}</p>
+  <p *ngIf="schedule.description"><strong>Description:</strong> {{ schedule.description }}</p>
+
+  <h2 class="scheduledetail-header">Events</h2>
+  <div *ngFor="let event of events" class="event">
+    <h3 *ngIf="event.name">{{ event.name }}</h3>
+    <p *ngIf="event.type"><strong>Type:</strong> {{ event.type }}</p>
+    <p *ngIf="event.description"><strong>Description:</strong> {{ event.description }}</p>
+    <p *ngIf="event.location"><strong>Location:</strong> {{ event.location }}</p>
+    <p *ngIf="event.startTime"><strong>Start Time:</strong> {{ event.startTime | date:'short' }}</p>
+    <p *ngIf="event.endTime"><strong>End Time:</strong> {{ event.endTime | date:'short' }}</p>
+    <hr>
+  </div>
+  
+  <div *ngIf="(!events || events.length === 0) && (!schedule || (!schedule.name && !schedule.description))">
+    <p>No events available for this schedule.</p>
+  </div>
+
+  <!-- Add the button for downloading ICS file -->
+  <button (click)="downloadICS()" class="scheduledetail-button">Download ICS</button>
+
+  <!-- Add buttons for subscribe and unsubscribe with dynamic styling -->
+  <button (click)="subscribe()" class="scheduledetail-button" [class.subscribed]="isSubscribed" [attr.disabled]="isSubscribed ? true : null">Subscribe</button>
+  <button (click)="unsubscribe()" class="scheduledetail-button" [class.unsubscribed]="!isSubscribed" [attr.disabled]="!isSubscribed ? true : null">Unsubscribe</button>
+</div>
