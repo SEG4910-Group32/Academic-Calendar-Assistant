@@ -75,13 +75,13 @@ button {
 }
 
 .del-btn {
-    background-color: var(--del-btn-color);
+    background-color: var(--rouge-bordeau-color);
     margin-top: 1em;
     cursor: pointer;
 }
 
 .del-btn:hover {
-    background-color: var(--del-btn-color-hover);
+    background-color: var(--rouge-bordeau-hover-color);
 }
 
 .save-changes {

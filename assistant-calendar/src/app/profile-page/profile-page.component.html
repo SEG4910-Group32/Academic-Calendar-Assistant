@@ -18,8 +18,8 @@
           <mat-card-subtitle>{{ schedule["description"] | titlecase }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions class="action-buttons">
-          <button routerLink="/edit-schedule" id="editbtn" (click)="editSchedule(schedule)">Edit Schedule</button>
-          <button id="deletebtn" (click)="openDialog(schedule)">Delete Schedule</button>
+          <button routerLink="/edit-schedule" id="editbtn" (click)="editSchedule(schedule)"><i class="material-icons md-24">edit</i></button>
+          <button id="deletebtn" (click)="openDialog(schedule)"><i class="material-icons md-24">delete</i></button>
         </mat-card-actions>
       </mat-card>
     </cdk-virtual-scroll-viewport>
@@ -35,8 +35,8 @@
           <mat-card-subtitle>{{ schedule["description"] | titlecase }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions class="action-buttons">
-          <button [routerLink]="['/schedule-detail', schedule['_id']]" id="editbtn" >View details</button>
-          <button id="deletebtn" (click)="unsubscribeFromSchedule(schedule)">Unsubscribe</button>
+          <button [routerLink]="['/schedule-detail', schedule['_id']]" id="editbtn" ><i class="material-icons md-24">visibility</i></button>
+          <button id="deletebtn" (click)="unsubscribeFromSchedule(schedule)"><i class="material-icons md-24">unsubscribe</i></button>
         </mat-card-actions>
       </mat-card>
     </cdk-virtual-scroll-viewport>

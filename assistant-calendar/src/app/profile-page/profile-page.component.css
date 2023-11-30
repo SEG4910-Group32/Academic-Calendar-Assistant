@@ -111,12 +111,12 @@ button:disabled {
 }
 
 #deletebtn {
-  background-color: var(--cancel-changes-color);
+  background-color: var(--rouge-bordeau-color);
   color: #FFF;
   cursor: pointer;
   flex: 1;
 }
 
 #deletebtn:hover {
-  background-color: var(--cancel-changes-color-hover);
+  background-color: var(--rouge-bordeau-hover-color);
 }

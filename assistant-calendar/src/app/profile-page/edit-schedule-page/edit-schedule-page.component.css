@@ -33,19 +33,6 @@ h1 {
   background-color: #314671;
 }
 
-/*
-button {
-    border: none;
-    color: #FFF;
-    font-size: 1.1em;
-    border-radius: 0.35em;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    margin-left: 2em;
-    background-color: var(--save-changes-color);
-}*/
-
 button {
   border: none;
   color: #FFF;
@@ -68,10 +55,6 @@ button {
 button:disabled {
     opacity: 0.5;
 }
-
-/* button:hover {
-    background-color: var(--save-changes-color-hover);
-} */
 
 .btn-danger {
     background-color: red
@@ -127,34 +110,6 @@ table{
   margin: 6%;
 }
 
-/*
-#addbtn{
-  width: 100px;
-  height: 47px;
-  background: #435A86;
-  border: 1px solid #676D7A;
-  border-radius: 10px;
-  color: white;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-#editbtn{
-  background: #FFFFFF;
-  border: 1px solid #A4A4A4;
-  border-radius: 10px;
-  width: 100px;
-  height: 47px;
-  color: #434343;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-#addevent{
-  margin-top: 50px;
-}*/
-
-
 .action-buttons{
   display: flex;
   gap: 10px;
@@ -172,12 +127,23 @@ table{
 }
 
 #deletebtn {
-  background-color: var(--cancel-changes-color);
+  background-color: var(--rouge-bordeau-color);
   color: #FFF;
   cursor: pointer;
   flex: 1;
 }
 
 #deletebtn:hover {
-  background-color: var(--cancel-changes-color-hover);
+  background-color: var(--rouge-bordeau-hover-color);
+}
+
+#addevent {
+  background-color: var(--border-green);
+  color: #FFF;
+  cursor: pointer;
+  flex: 1;
+}
+
+#addevent:hover {
+  background-color: var(--background-green);
 }

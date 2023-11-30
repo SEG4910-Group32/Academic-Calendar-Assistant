@@ -22,8 +22,8 @@
     --input-background-main: #F1EFFF;
     --input-border-stroke: #D7D7D7;
     --input-border-stroke-selected: #A4A4A4;
-    --rouge-bordeau-color: #800020;
-    --rouge-bordeau-hover-color: #A00030;
+    --rouge-bordeau-color: #A00030;
+    --rouge-bordeau-hover-color: #800020;
 }
 
 * {
