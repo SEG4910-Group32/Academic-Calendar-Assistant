@@ -2,12 +2,13 @@
 
 .scheduledetail-container {
   text-align: center;
+  justify-content: center;
   padding: 20px;
   margin: 0 auto;
-  max-width: 600px;
+  /*max-width: 600px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 5px;*/
 }
 
 .scheduledetail-header {
@@ -27,14 +28,21 @@
   justify-content: space-around;
 }
 
+.event-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  margin: 20px;
+}
+
 .event {
-  background-color: white;
+  background-color: #f0f0f0;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 45%;
   text-align: left;
-  margin-bottom: 20px;
 }
 
 .event h3 {
