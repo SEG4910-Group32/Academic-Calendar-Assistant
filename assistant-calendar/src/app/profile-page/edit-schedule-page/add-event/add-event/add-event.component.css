@@ -15,25 +15,32 @@
 
 
 #addbtn{
-    width: 318px;
-    height: 47px;
-    background: #435A86;
-    border: 1px solid #676D7A;
-    border-radius: 10px;
-    color: white;
-    font-weight: 500;
-    font-size: 16px;
-  }
+  width: 318px;
+  height: 47px;
+  background: #435A86;
+  border: 1px solid #676D7A;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+#addbtn:disabled{
+  background-color: #ddd;
+  color: #555;
+  cursor: not-allowed;
+}
+
 #cancelbtn{
-    background: #FFFFFF;
-    border: 1px solid #A4A4A4;
-    border-radius: 10px;
-    width: 318px;
-    height: 47px;
-    color: #434343;
-    font-weight: 700;
-    font-size: 16px;
-  }
+  background: #FFFFFF;
+  border: 1px solid #A4A4A4;
+  border-radius: 10px;
+  width: 318px;
+  height: 47px;
+  color: #434343;
+  font-weight: 700;
+  font-size: 16px;
+}
 
   .title h3{
     font-weight: 700;

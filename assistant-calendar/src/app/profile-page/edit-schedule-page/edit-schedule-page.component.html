@@ -5,28 +5,29 @@
   <br>
 
   <!-- if the schedule has events, shows them in a table -->
-  <div *ngIf="!noEventsExist">
+  <div *ngIf="!noEventsExist" class="table-container">
     <table>
-      <div class="nu-table-body">
+      <thead>
         <tr>
           <th>Name</th>
           <th>Due date</th>
           <th>Actions</th>
         </tr>
-
+      </thead>
+      <tbody class="nu-table-body">
         <tr *ngFor="let eventArray of eventDetails; let i = index">
           <ng-container *ngFor="let event of eventArray">
             <td>{{ event.name | titlecase }}</td>
             <td>{{ event.endTime| date:'short' }}</td>
-            <td>
+            <td class="action-buttons">
               <button type="button" id="editbtn" (click)="openEditDialog(event)">Edit</button>
-              <button type="button" id="addbtn" (click)="deleteEvent(event._id)">Delete</button>
+              <button type="button" id="deletebtn" (click)="deleteEvent(event._id)">Delete</button>
             </td>
           </ng-container>
         </tr>
-      </div>
+      </tbody>
     </table>
-  </div>
+  </div>  
 
   <div *ngIf="noEventsExist">
     <h2>This schedule has no events😢</h2>
