@@ -5,7 +5,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { FindScheduleComponent } from './find-schedule/find-schedule.component';
 import { CreateSchedulePageComponent } from './create-schedule-page/create-schedule-page.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'schedule-detail/:id', component: ScheduleDetailComponent },
   { path: 'create-schedule', component: CreateSchedulePageComponent },
   { path: 'about-us', component: AboutusComponent },
-  { path: 'subscribe', component: SubscribescheduleComponent},
   { path: 'profile', component: UpdateProfilePageComponent, canActivate: [AuthenticationGuard] },
   { path: 'profile-page', component: ProfilePageComponent},
   { path: 'edit-schedule', component: EditSchedulePageComponent},

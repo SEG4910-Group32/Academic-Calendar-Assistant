@@ -29,9 +29,9 @@
         <!--<mat-icon *ngIf="file.">picture_as_pdf</mat-icon>-->
         <img class="fileIcon" src="/assets/images/create schedule page/import schedule/pdficon.png" alt="pdf icon" height="20" width="20">
         <mat-card-title >
-          {{file.name}}
+          {{ file.name | titlecase }}
           <mat-card-subtitle>
-            {{file.size}}
+            {{ file.size }}
           </mat-card-subtitle>
         </mat-card-title>
         <!--add delete file functionality here-->

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <h1>Edit events for schedule {{ scheduleName }}</h1>
+    <h1>Edit events for schedule {{ scheduleName | uppercase }}</h1>
   </div>
   <br>
 
@@ -16,7 +16,7 @@
 
         <tr *ngFor="let eventArray of eventDetails; let i = index">
           <ng-container *ngFor="let event of eventArray">
-            <td>{{ event.name | titlecase}}</td>
+            <td>{{ event.name | titlecase }}</td>
             <td>{{ event.endTime| date:'short' }}</td>
             <td>
               <button type="button" id="editbtn" (click)="openEditDialog(event)">Edit</button>
@@ -28,7 +28,6 @@
     </table>
   </div>
 
-  <!-- only shows this message if there are no events in the schedule -->
   <div *ngIf="noEventsExist">
     <h2>This schedule has no events😢</h2>
   </div>

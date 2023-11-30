@@ -39,7 +39,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UpdateProfilePageComponent } from './update-profile-page/update-profile-page.component';
 
 import { AboutusComponent } from './aboutus/aboutus.component';
-import { SubscribescheduleComponent } from './subscribeschedule/subscribeschedule.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogoutDialogComponent } from './nav-bar/logout-dialog/logout-dialog.component';
 
@@ -59,7 +58,6 @@ import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.compo
 @NgModule({
   declarations: [
     AppComponent,
-    SubscribescheduleComponent,
     AboutusComponent,
     FindScheduleComponent,
     LoginFormComponent,
