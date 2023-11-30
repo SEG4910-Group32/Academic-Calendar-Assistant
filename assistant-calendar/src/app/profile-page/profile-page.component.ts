@@ -12,6 +12,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { forkJoin } from 'rxjs';
 import { ScheduleFacade } from '../Facades/schedule.facade';
 import { UserFacade } from '../Facades/user.facade';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class ProfilePageComponent {
   //the purpose for items is for the list of schedules to be scrollable
   items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
 
-  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade, private userFacade: UserFacade) {}
+  constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade, private userFacade: UserFacade,  private router: Router) {}
 
 //unsubscribe schedule method
   unsubscribeFromSchedule(schedule:any ){
@@ -135,5 +136,10 @@ loadData(){
     }
   );
 }
+
+selectSchedule(id: string|undefined) {
+  localStorage.setItem("ScheduleDetailID", String(id));
+  this.router.navigate(['/schedule-detail', id]);
+  }
 
 }
