@@ -13,8 +13,10 @@ import { DataService } from 'src/services/data.service';
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css',
-              '../../form-styles.css']
+  '../../form-styles.css']
 })
+
+
 
 export class LoginFormComponent {
   signInForm = this.fb.group({
@@ -22,6 +24,7 @@ export class LoginFormComponent {
     password: ['', Validators.required]
   });
 
+  loginError: boolean = false;
   redirect: any;
   redirectPath: string = "";
 
@@ -35,8 +38,12 @@ export class LoginFormComponent {
           if (this.redirect === 'true') {
             this.router.navigate([this.redirectPath]);
           }
+          console.log('we got here');
+          this.dialogRef.close();
         }
-        this.dialogRef.close();
+        else{
+          this.loginError = true;
+        }
       }, (err: any) => {
         console.log(err.error);
       }

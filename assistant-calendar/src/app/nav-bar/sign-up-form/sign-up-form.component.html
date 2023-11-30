@@ -80,7 +80,7 @@
     </div>
 
     <div class="form-row">
-        <button mat-stroked-button class="submit-btn" (click)="submit()">Sign Up</button>
+        <button mat-stroked-button class="submit-btn" (click)="submit()" [disabled]="signUpForm.invalid">Sign Up</button>
     </div>
 
     <div class="form-row footer">

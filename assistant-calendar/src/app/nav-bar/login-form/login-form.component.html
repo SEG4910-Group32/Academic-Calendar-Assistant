@@ -32,8 +32,13 @@
     </div>
 
     <div class="form-row">
-        <button  mat-dialog-close mat-stroked-button class="submit-btn" (click)="submit()">Sign In</button>
+        <button  mat-dialog-button mat-stroked-button class="submit-btn" (click)="submit()" [disabled]="signInForm.invalid">Sign In</button>
     </div>
+
+    <div *ngIf="loginError" class="login-error">
+        Incorrect username or password. Please try again.
+    </div>
+      
 
     <div class="form-row footer">
         <div class="row-item">
