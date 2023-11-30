@@ -34,15 +34,13 @@
     <div class="searchResult" style="width: 80%;">
         <div class="scheduleCard" *ngFor="let sched of scheduleList">
             <br>
-            <span>Name: {{sched.name | titlecase}}</span><br>
-            <span>ID: {{sched.id}}</span><br>
-            <span>Description: {{sched.description | titlecase}}</span><br>
-            <!-- <span># of Events: {{sched.events?.length}}</span><br> -->
+            <span>Name: {{ sched.name | uppercase }}</span><br>
+            <span>ID: {{ sched.id }}</span><br>
+            <span>Description: {{ sched.description | titlecase }}</span><br>
             <span><button type="button" (click)="selectSchedule(sched.id)">Select</button></span>
         </div>
     </div>
     
-
     <div *ngIf="searched==true" class="error-message">
         <div *ngIf="scheduleList.length == 0">
             <i class='bx bxs-error-circle'></i>

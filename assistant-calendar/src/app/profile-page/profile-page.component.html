@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <div class="left">
-      <h1>{{username}} </h1>
+      <h1>{{username | uppercase }} </h1>
       <div class="button-container">
         <a routerLink="/profile"><button class="btn btn-primary" > Update profile </button></a>
       </div>
@@ -20,7 +20,7 @@
         <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
       <mat-card *ngFor="let schedule of this.dataOwns" >
         <mat-card-header>
-          <mat-card-title>{{schedule["name"] | titlecase}}</mat-card-title>
+          <mat-card-title>{{schedule["name"] | uppercase }}</mat-card-title>
           <mat-card-subtitle>{{schedule["description"] | titlecase}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
@@ -38,8 +38,8 @@
         <!-- <div *cdkVirtualFor="let schedule of Schedules" class="example-item">{{schedule.name}}</div> -->
       <mat-card *ngFor="let schedule of this.dataSubs" >
         <mat-card-header>
-          <mat-card-title>{{schedule["name"] | titlecase}}</mat-card-title>
-          <mat-card-subtitle>{{schedule["description"] | titlecase}}</mat-card-subtitle>
+          <mat-card-title>{{schedule["name"] | uppercase }}</mat-card-title>
+          <mat-card-subtitle>{{schedule["description"] | titlecase }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions align="end">
           <a><button mat-button id="editbtn" (click)="selectSchedule(schedule['_id'])">View details</button></a>

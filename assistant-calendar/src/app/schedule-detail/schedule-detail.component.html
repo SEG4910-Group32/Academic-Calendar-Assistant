@@ -1,14 +1,14 @@
 <!-- schedule-detail.component.html -->
 <div *ngIf="schedule" class="scheduledetail-container">
-  <p *ngIf="schedule.name" class="schedule-name"><strong>Name:</strong> {{ schedule.name }}</p>
-  <p *ngIf="schedule.description"><strong>Description:</strong> {{ schedule.description }}</p>
+  <p *ngIf="schedule.name" class="schedule-name"><strong>Name:</strong> {{ schedule.name | uppercase }}</p>
+  <p *ngIf="schedule.description"><strong>Description:</strong> {{ schedule.description | titlecase }}</p>
 
   <h2 class="scheduledetail-header">Events</h2>
   <div *ngFor="let event of events" class="event">
-    <h3 *ngIf="event.name">{{ event.name }}</h3>
-    <p *ngIf="event.type"><strong>Type:</strong> {{ event.type }}</p>
-    <p *ngIf="event.description"><strong>Description:</strong> {{ event.description }}</p>
-    <p *ngIf="event.location"><strong>Location:</strong> {{ event.location }}</p>
+    <h3 *ngIf="event.name">{{ event.name | titlecase }}</h3>
+    <p *ngIf="event.type"><strong>Type:</strong> {{ event.type | titlecase }}</p>
+    <p *ngIf="event.description"><strong>Description:</strong> {{ event.description | titlecase }}</p>
+    <p *ngIf="event.location"><strong>Location:</strong> {{ event.location | titlecase }}</p>
     <p *ngIf="event.startTime"><strong>Start Time:</strong> {{ event.startTime | date:'short' }}</p>
     <p *ngIf="event.endTime"><strong>End Time:</strong> {{ event.endTime | date:'short' }}</p>
     <hr>
