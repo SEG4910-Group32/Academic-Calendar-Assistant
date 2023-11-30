@@ -1,5 +1,5 @@
 <div class="nav-bar-container">
-    <div class="logo">
+    <div routerLink="../" class="logo">
       <img src="../../assets/logo imagelogo.png" alt="">
     </div>
     <div class="nav-bar-items">
@@ -37,11 +37,13 @@
     </div>
     <div class="logged-in" *ngIf="token">
       <div class="logged-in-user">
-        <div class="user">{{ username | titlecase}}</div>
+        <p class="welcome-label">Welcome back!</p>
+        <div class="user">{{ username | titlecase }}</div>
       </div>
       <div class="logout" (click)="logout()">
-        Log Out
+        Log out
       </div>
     </div>
-  </div>
+</div>
+
   
