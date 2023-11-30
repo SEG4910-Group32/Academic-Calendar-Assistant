@@ -3,7 +3,7 @@
       <div class="title">
         <h3>Delete Schedule:</h3>
         <br>
-        <p>To delete the schedule, enter the schedule name <b>{{data.name}}</b></p>
+        <p>To delete the schedule, enter the schedule name <b>{{ data.name }}</b></p>
       </div>
       <div class="example-form-fields">   
         <mat-form-field hintLabel="" appearance="fill" class="example-full-width">
@@ -15,8 +15,8 @@
     
     </mat-dialog-content>
     </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close id="cancelbtn" (click)="onNoClick()" >Close</button>
-  <button mat-button mat-dialog-close id="delbtn" (click)="deleteSchedule(scheduleName)">Delete</button>
+<div mat-dialog-actions class="action-buttons">
+  <button mat-dialog-close id="cancelbtn" (click)="onNoClick()" >Close</button>
+  <button mat-dialog-close id="deletebtn" (click)="deleteSchedule(scheduleName)">Delete</button>
   
 </div>

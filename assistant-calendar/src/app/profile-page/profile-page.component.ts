@@ -137,9 +137,4 @@ loadData(){
   );
 }
 
-selectSchedule(id: string|undefined) {
-  localStorage.setItem("ScheduleDetailID", String(id));
-  this.router.navigate(['/schedule-detail', id]);
-  }
-
 }
