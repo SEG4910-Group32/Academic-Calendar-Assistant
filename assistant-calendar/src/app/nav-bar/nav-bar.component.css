@@ -17,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .logo img {
@@ -114,6 +115,7 @@
     border: 2px solid var(--nav-bar-main-text);
     border-radius: 0.4em;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 a {
@@ -128,17 +130,16 @@ a {
 
 .logged-in-user {
     position: relative;
-    transform: translateY(0.2em);
 }
 
-.user::before {
-    position: absolute;
-    content: 'welcome back!';
-    font-weight: 400;
+.welcome-label{
+    font-weight: 100;
     font-size: 0.7em;
-    left: -0.9em;
-    top: -1.7em;
-
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
 }
 
 .user {
