@@ -12,12 +12,12 @@ export class User {
 
     constructor(userData: any) {
       this.id = userData.id || undefined;
-      this.username = userData.username|| '';
-      this.firstName = userData.firstName|| '';
-      this.lastName = userData.lastName|| '';
-      this.type = userData.type|| '';
-      this.email = userData.email|| '';
-      this.password = userData.password|| '';
+      this.username = userData.username|| undefined;
+      this.firstName = userData.firstName|| undefined;
+      this.lastName = userData.lastName|| undefined;
+      this.type = userData.type|| undefined;
+      this.email = userData.email|| undefined;
+      this.password = userData.password|| undefined;
       this.schedules = userData.schedules|| undefined;
       this.owns = userData.owns|| undefined;
     }

@@ -42,8 +42,7 @@
   margin-bottom: 10px;
 }
 
-.scheduledetail-button {
-  background-color: #4caf50;
+button {
   color: #fff;
   border: none;
   padding: 10px;
@@ -51,14 +50,37 @@
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
+  margin: 10px;
+}
+
+.scheduledetail-button {
+  background-color: var(--rouge-bordeau-color);
 }
 
 .scheduledetail-button:hover {
-  background-color: #45a049;
+  background-color: var(--rouge-bordeau-hover-color);
 }
 
-.scheduledetail-button.subscribed,
-.scheduledetail-button.unsubscribed {
+.subscribe-button {
+  background-color: var(--save-changes-color);
+}
+
+.subscribe-button:hover {
+  background-color: var(--save-changes-color-hover);
+}
+
+.unsubscribe-button {
+  background-color: var(--del-btn-color);
+}
+
+.unsubscribe-button:hover {
+  background-color: var(--del-btn-color-hover);
+}
+
+.subscribe-button.subscribed,
+.subscribe-button.unsubscribed,
+.unsubscribe-button.subscribed,
+.unsubscribe-button.unsubscribed{
   background-color: #ddd;
   color: #555;
   cursor: not-allowed;
