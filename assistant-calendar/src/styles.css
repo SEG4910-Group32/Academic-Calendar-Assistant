@@ -13,14 +13,17 @@
     --nav-bar-background-hover: #667eaf;
     --nav-bar-main-text: #DDDBF1;
     --nav-bar-main-text-hover: #ecebf5;
-    --del-btn-color: #D40000;
-    --del-btn-color-hover: #FF0000;
-    --save-changes-color: #1DD119;
-    --save-changes-color-hover: #34F430;
-    --cancel-changes-color-hover: #FC4848;
+    --del-btn-color: #434343;
+    --del-btn-color-hover: #353535;
+    --save-changes-color: #314671;
+    --save-changes-color-hover: #2a3d53;
+    --cancel-changes-color: #434343;
+    --cancel-changes-color-hover: #353535;
     --input-background-main: #F1EFFF;
     --input-border-stroke: #D7D7D7;
     --input-border-stroke-selected: #A4A4A4;
+    --rouge-bordeau-color: #800020;
+    --rouge-bordeau-hover-color: #A00030;
 }
 
 * {

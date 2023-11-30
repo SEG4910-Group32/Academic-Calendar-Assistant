@@ -77,6 +77,7 @@ button {
 .del-btn {
     background-color: var(--del-btn-color);
     margin-top: 1em;
+    cursor: pointer;
 }
 
 .del-btn:hover {
@@ -85,6 +86,7 @@ button {
 
 .save-changes {
     background-color: var(--save-changes-color);
+    cursor: pointer;
 }
 
 .save-changes:hover {
@@ -93,7 +95,8 @@ button {
 
 .cancel-changes {
     margin-left: 2em;
-    background-color: var(--del-btn-color-hover);
+    background-color: var(--cancel-changes-color);
+    cursor: pointer;
 }
 
 .cancel-changes:hover {
