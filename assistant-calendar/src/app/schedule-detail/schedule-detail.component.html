@@ -22,6 +22,6 @@
   <button (click)="downloadICS()" class="scheduledetail-button">Download ICS</button>
 
   <!-- Add buttons for subscribe and unsubscribe with dynamic styling -->
-  <button (click)="subscribe()" class="scheduledetail-button" [class.subscribed]="isSubscribed" [attr.disabled]="isSubscribed ? true : null">Subscribe</button>
-  <button (click)="unsubscribe()" class="scheduledetail-button" [class.unsubscribed]="!isSubscribed" [attr.disabled]="!isSubscribed ? true : null">Unsubscribe</button>
+  <button (click)="subscribe()" class="subscribe-button" [class.subscribed]="isSubscribed" [attr.disabled]="isSubscribed ? true : null">Subscribe</button>
+  <button (click)="unsubscribe()" class="unsubscribe-button" [class.unsubscribed]="!isSubscribed" [attr.disabled]="!isSubscribed ? true : null">Unsubscribe</button>
 </div>
