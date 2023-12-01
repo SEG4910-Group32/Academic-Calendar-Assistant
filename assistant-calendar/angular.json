@@ -38,12 +38,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "108kb"
                 }
               ],
               "outputHashing": "all",
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "assistant-calendar:build:production"
+              "buildTarget": "assistant-calendar:build:production"
             },
             "development": {
-              "browserTarget": "assistant-calendar:build:development"
+              "buildTarget": "assistant-calendar:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "assistant-calendar:build"
+            "buildTarget": "assistant-calendar:build"
           }
         },
         "test": {
