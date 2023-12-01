@@ -36,7 +36,7 @@
             <br>
             <span>Name: {{ sched.name | uppercase }}</span><br>
             <span>ID: {{ sched.id }}</span><br>
-            <span>Description: {{ sched.description | titlecase }}</span><br>
+            <span class="scheduleDescription">Description: {{ sched.description | titlecase }}</span><br>
             <span><button type="button" (click)="selectSchedule(sched.id)">Select</button></span>
         </div>
     </div>
