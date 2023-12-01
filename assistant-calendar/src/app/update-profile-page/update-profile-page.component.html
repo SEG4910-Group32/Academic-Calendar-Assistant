@@ -31,13 +31,13 @@
         </div>
 
         <div class="input-group del-btn-group">
-            <button class="del-btn" (click)="deleteFun()">Delete profile</button>
+            <button class="del-btn" routerLink="/profile-page" (click)="submit()">Save changes</button>
         </div>
 
         <div class="input-group">
             <div class="btn-group">
-                <a routerLink="/profile-page"><button class="save-changes" (click)="submit()">Save changes</button></a>
-                <button class="cancel-changes" (click)="backToHome()">Cancel</button>
+                <button class="save-changes" routerLink="/home" (click)="deleteFun()">Delete profile</button>
+                <button class="cancel-changes" routerLink="/profile-page">Cancel</button>
             </div>
         </div>
     </div>
