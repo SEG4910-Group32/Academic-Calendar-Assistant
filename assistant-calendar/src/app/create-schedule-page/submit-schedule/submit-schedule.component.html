@@ -6,8 +6,6 @@
   </div>
   <div class="form-group">
     <div class="row">
-      <label class="textForm">Schedule Name :</label>
-
       <mat-form-field class="example-full-width">
         <mat-label>Schedule Name :</mat-label>
         <input matInput placeholder="Ex. SEG 4910" [(ngModel)]="scheduleName">
@@ -15,7 +13,6 @@
 
     </div>
     <div class="row">
-      <label class="textForm">Schedule Description :</label>
       <mat-form-field class="example-full-width">
         <mat-label>Schedule Description :</mat-label>
         <textarea matInput placeholder="Enter Description" [(ngModel)]="scheduleDescription"></textarea>
@@ -43,7 +40,6 @@
             <button mat-raised-button color="primary" [disabled]="!scheduleName"
               (click)="openImportDialog()">Create</button>
           </div>
-          <li><span>Or download ics format:</span></li>
           <div class="btn downloadBtn">
             <button mat-raised-button color="primary" (click)="downloadIcs()">Download</button>
           </div>
