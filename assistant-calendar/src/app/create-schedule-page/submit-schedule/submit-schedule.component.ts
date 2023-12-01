@@ -7,6 +7,7 @@ import { Schedule } from 'src/app/Models/schedule.model';
 import { GenerateScheduleIdComponent } from "./generate-schedule-id/generate-schedule-id.component";
 import { Event } from 'src/app/Models/event.model';
 import { DataService } from 'src/services/data.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class SubmitScheduleComponent {
     private http: HttpClient,
     private scheduleFacadeSvc: ScheduleFacade,
     private currentEventsSvc: CurrentEventsService,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class SubmitScheduleComponent {
         this.scheduleFacadeSvc.createEvents(scheduleBody, this.scheduleInDB.id as string, localStorage.getItem("currUser") as string).subscribe(returnSchedule => {
           console.log('Schedule and events created successfully!', returnSchedule);
           this.openGenerateScheduleIdDialog(this.scheduleInDB.id as string);
+          this.currentEventsSvc.eventList = [];
         });
       });
     } else {
@@ -72,6 +75,15 @@ export class SubmitScheduleComponent {
 
   openGenerateScheduleIdDialog(generatedId: string): void {
     const dialogRef = this.dialog.open(GenerateScheduleIdComponent, { data: { generatedId }, height: '350px', width: '483px', panelClass: 'dialogClass' });
+    dialogRef.afterClosed().subscribe(result => {
+      const token = localStorage.getItem('currUser');
+
+      if (token) {
+        this.router.navigate(['/profile-page']);
+      } else {
+        this.router.navigate(['/find-schedule']);
+      }
+    });
   }
 
   openImportDialog() {
