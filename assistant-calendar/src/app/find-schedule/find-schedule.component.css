@@ -74,3 +74,11 @@ mat-form-field{
     width: 250px;
     text-align: center;
 }
+.scheduleDescription{
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    height: 40px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
