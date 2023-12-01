@@ -14,7 +14,6 @@ export class GenerateScheduleIdComponent {
     @Inject(MAT_DIALOG_DATA) public data: { generatedId: string },
     private clipboard: Clipboard
   ) {
-    // Use the generated ID passed from the parent component
     this.code = data.generatedId;
   }
 
