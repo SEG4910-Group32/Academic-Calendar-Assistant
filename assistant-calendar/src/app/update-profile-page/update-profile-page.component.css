@@ -75,22 +75,22 @@ button {
 }
 
 .del-btn {
-    background-color: var(--rouge-bordeau-color);
+    background-color: var(--save-changes-color);
     margin-top: 1em;
     cursor: pointer;
 }
 
 .del-btn:hover {
-    background-color: var(--rouge-bordeau-hover-color);
+    background-color: var(--save-changes-color-hover);
 }
 
 .save-changes {
-    background-color: var(--save-changes-color);
+    background-color: var(--rouge-bordeau-color);
     cursor: pointer;
 }
 
 .save-changes:hover {
-    background-color: var(--save-changes-color-hover);
+    background-color: var(--rouge-bordeau-hover-color);
 }
 
 .cancel-changes {

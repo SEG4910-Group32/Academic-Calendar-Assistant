@@ -49,36 +49,39 @@ export class UpdateProfilePageComponent {
       return;
     }
     const updatedUser: { [key: string]: any } = {};
-  const formValues = this.updateProfileForm.value as { [key: string]: any };
+    const formValues = this.updateProfileForm.value as { [key: string]: any };
 
-  Object.keys(formValues).forEach((key) => {
-    if (this.initialFormValues && formValues[key] !== this.initialFormValues[key]) {
-      if (key === 'password' && formValues[key] !== '') {
-        updatedUser[key] = formValues[key];
-      } else if (key !== 'password') {
-        updatedUser[key] = formValues[key];
+    Object.keys(formValues).forEach((key) => {
+      if (this.initialFormValues && formValues[key] !== this.initialFormValues[key]) {
+        if (key === 'password' && formValues[key] !== '') {
+          updatedUser[key] = formValues[key];
+        } else if (key !== 'password') {
+          updatedUser[key] = formValues[key];
+        }
       }
-    }
-  });
-   // const updatedUser = this.updateProfileForm.value;
-    console.log("updated Userrrrrrrrrrrrr", updatedUser)
-    this.userFacade.updateUser(new User(updatedUser), localStorage.getItem("currUser") as string).subscribe(res => {
-      console.log("result is", res);
-      this._snackBar.open("Changes Saved!", "", {
-        duration: 1500
-      });
-    }, err => {
-      console.log("error");
     });
+      // const updatedUser = this.updateProfileForm.value;
+      console.log("updated User", updatedUser)
+      this.userFacade.updateUser(new User(updatedUser), localStorage.getItem("currUser") as string).subscribe(res => {
+        console.log("result is", res);
+        this._snackBar.open("Changes Saved!", "", {
+        duration: 1500
+        });
+        window.location.reload();
+      }, err => {
+        console.log("error");
+      });
   };
 
   delete = async (email: string) => {
     //this.http.delete("http://localhost:3000/api/user/delete/" + email)
     this.userFacade.deleteUser(localStorage.getItem("currUser") as string).subscribe(res => {
+      localStorage.removeItem('currUser');
       console.log(res);
       this._snackBar.open("User Deleted!", "", {
         duration: 1500
       });
+      window.location.reload();
     }, err => {
       console.log("error");
     });
@@ -126,7 +129,6 @@ export class UpdateProfilePageComponent {
    */
   deleteFun() {
     let email = this.updateProfileForm.controls.email.value;
-
     if (email) {
       this.delete(email);
     }
@@ -136,10 +138,4 @@ export class UpdateProfilePageComponent {
     return this.userFacade.getUserById(localStorage.getItem('currUser') as string)
   }
 
-  /**
-   * Redirects user back to homepage
-   */
-  backToHome() {
-    this.router.navigate(['/home']);
-  }
 }
