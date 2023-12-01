@@ -24,7 +24,7 @@ export class SubmitScheduleComponent {
   generatedId: string | null = null;
   scheduleInDB!: Schedule;
   tempList: Event[] = [];
-  isLoggedIn: boolean = false;
+  storedToken = localStorage.getItem("currUser");
 
 
   constructor(
@@ -38,22 +38,23 @@ export class SubmitScheduleComponent {
 
   ngOnInit(): void {
     this.dataService.loggedInStatus.subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;
+      this.storedToken = localStorage.getItem("currUser");
     });
   }
 
   createScheduleAndEvents() {
     if (this.currentEventsSvc.eventList.length !== 0) {
+        
       const newSchedule: Schedule = {
         id: undefined,
-        token: this.isLoggedIn ? localStorage.getItem("currUser") as string : undefined,
+        token: this.storedToken !== null ? this.storedToken : undefined,
         name: this.scheduleName,
         description: this.scheduleDescription,
         password: undefined,
         subscribedUsers: undefined,
         events: undefined,
       };
-      console.log(newSchedule);
+      console.log("newSchedule", newSchedule);
       this.scheduleFacadeSvc.createSchedule(newSchedule).subscribe(returnSchedule => {
         this.scheduleInDB = new Schedule(returnSchedule.schedule);
 

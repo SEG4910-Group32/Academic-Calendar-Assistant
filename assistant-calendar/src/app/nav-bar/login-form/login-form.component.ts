@@ -38,7 +38,6 @@ export class LoginFormComponent {
           if (this.redirect === 'true') {
             this.router.navigate([this.redirectPath]);
           }
-          console.log('we got here');
           this.dialogRef.close();
         }
         else{

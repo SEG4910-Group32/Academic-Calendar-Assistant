@@ -32,7 +32,7 @@
     </div>
 
     <div class="form-row">
-        <button  mat-dialog-button mat-stroked-button class="submit-btn" (click)="submit()" [disabled]="signInForm.invalid">Sign In</button>
+        <button  mat-dialog-button mat-stroked-button class="submit-btn" (click)="submit()" [disabled]="signInForm.invalid" routerLink="/profile-page">Sign In</button>
     </div>
 
     <div *ngIf="loginError" class="login-error">
