@@ -75,12 +75,16 @@
         </div>
         <div *ngIf="signUpForm.controls.password.errors?.['contains']">
             <i class='bx bxs-error-circle'></i>
-            password must contain at least 1 character and 1 symbol
+            password must contain at least 1 number and 1 symbol
         </div>
     </div>
 
     <div class="form-row">
         <button mat-stroked-button class="submit-btn" (click)="submit()" [disabled]="signUpForm.invalid">Sign Up</button>
+    </div>
+
+    <div *ngIf="signupError" class="signup-error">
+        {{ errorMsg }}
     </div>
 
     <div class="form-row footer">

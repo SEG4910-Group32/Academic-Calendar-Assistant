@@ -10,3 +10,11 @@
 .form-row.footer {
     flex-direction: row;
 }
+
+.signup-error{
+    margin-bottom: 0;
+    margin-top: 16px;
+    text-align: left;
+    color: red;
+    font-size: 12px;
+}

@@ -15,6 +15,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class SignUpFormComponent {
 
+  signupError: boolean = false;
+  errorMsg: string= "";
+
   signUpForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     firstName: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
@@ -23,6 +26,7 @@ export class SignUpFormComponent {
     username: [''],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16), mustContainValidator()]],
   });
+  
 
   constructor(
     private fb: FormBuilder,
@@ -81,12 +85,13 @@ export class SignUpFormComponent {
   createUser = async (newUser: User) => {
     this.userFacade.createUser(newUser).subscribe(
       (res: any) => {
-        console.log("result of sign up ",res)
-        this._snackBar.open("User Created!", "", {
-          duration: 1500
-        });
-
-        this.dialogRef.close();
+        if(res.msg=="User successfully created"){
+          this._snackBar.open(res.msg, "", {
+            duration: 1500
+          });
+          console.log("result of sign up ",res);
+          this.dialogRef.close();
+        }
       },
       (err: any) => {
         console.log(err.error);
@@ -94,9 +99,8 @@ export class SignUpFormComponent {
           console.log(err.error);
           this._snackBar.open(err.error.join('\n'));
         } else {
-          this._snackBar.open("Unknown Error Occurred!", "", {
-            duration: 1500
-          });
+          this.signupError = true;
+          this.errorMsg = err.error.error;
         }
       }
     );
