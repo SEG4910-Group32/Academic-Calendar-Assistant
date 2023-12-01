@@ -9,38 +9,41 @@
     </div>
   </div>
 
-  <div id="mySchedules">
-    <h2>Created Schedules</h2>
-    <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
-      <mat-card *ngFor="let schedule of this.dataOwns" class="schedule-view">
-        <mat-card-header class="schedule-data">
-          <mat-card-title>{{ schedule["name"] | uppercase }}</mat-card-title>
-          <mat-card-subtitle>{{ schedule["description"] | titlecase }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-actions class="action-buttons">
-          <button routerLink="/edit-schedule" id="editbtn" (click)="editSchedule(schedule)"><i class="material-icons md-24">edit</i></button>
-          <button id="deletebtn" (click)="openDialog(schedule)"><i class="material-icons md-24">delete</i></button>
-        </mat-card-actions>
-      </mat-card>
-    </cdk-virtual-scroll-viewport>
+  <div class="user-items">
+    <div id="mySchedules">
+      <h2>Created Schedules</h2>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <mat-card *ngFor="let schedule of this.dataOwns" class="schedule-view">
+          <mat-card-header class="schedule-data">
+            <mat-card-title>{{ schedule["name"] | uppercase }}</mat-card-title>
+            <mat-card-subtitle>{{ schedule["description"] | titlecase }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions class="action-buttons">
+            <button routerLink="/edit-schedule" id="editbtn" (click)="editSchedule(schedule)"><i class="material-icons md-24">edit</i></button>
+            <button id="deletebtn" (click)="openDialog(schedule)"><i class="material-icons md-24">delete</i></button>
+          </mat-card-actions>
+        </mat-card>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  
+    <div id="subscribedSchedules">
+  
+      <h2>Subscribed Schedules</h2>
+      <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+        <mat-card *ngFor="let schedule of this.dataSubs" class="schedule-view">
+          <mat-card-header class="schedule-data">
+            <mat-card-title>{{ schedule["name"] | uppercase }}</mat-card-title>
+            <mat-card-subtitle>{{ schedule["description"] | titlecase }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-actions class="action-buttons">
+            <button [routerLink]="['/schedule-detail', schedule['_id']]" id="editbtn" ><i class="material-icons md-24">visibility</i></button>
+            <button id="deletebtn" (click)="unsubscribeFromSchedule(schedule)"><i class="material-icons md-24">unsubscribe</i></button>
+          </mat-card-actions>
+        </mat-card>
+      </cdk-virtual-scroll-viewport>
+    </div>
   </div>
-
-  <div id="subscribedSchedules">
-
-    <h2>Subscribed Schedules</h2>
-    <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
-      <mat-card *ngFor="let schedule of this.dataSubs" class="schedule-view">
-        <mat-card-header class="schedule-data">
-          <mat-card-title>{{ schedule["name"] | uppercase }}</mat-card-title>
-          <mat-card-subtitle>{{ schedule["description"] | titlecase }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-actions class="action-buttons">
-          <button [routerLink]="['/schedule-detail', schedule['_id']]" id="editbtn" ><i class="material-icons md-24">visibility</i></button>
-          <button id="deletebtn" (click)="unsubscribeFromSchedule(schedule)"><i class="material-icons md-24">unsubscribe</i></button>
-        </mat-card-actions>
-      </mat-card>
-    </cdk-virtual-scroll-viewport>
-  </div>
+  
 </div>
 
   

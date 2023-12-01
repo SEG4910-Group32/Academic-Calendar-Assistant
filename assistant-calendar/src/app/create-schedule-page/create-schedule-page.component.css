@@ -15,3 +15,14 @@
 .step .navigationBtn{
   align-self: flex-end;
 }
+
+.next{
+  background-color: var(--border-green);
+  color: white !important;
+}
+
+.back{
+  background-color: var(--del-btn-color);
+  color: white !important;
+  margin-right: 6px;
+}
