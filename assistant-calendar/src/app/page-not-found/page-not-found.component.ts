@@ -7,6 +7,11 @@ import { Router } from '@angular/router';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.css']
 })
+
+/**
+ * We created this component so that we can display it when the user tries to go to a route that doesn't exist
+ * From this page the user can go back to the home page
+ */
 export class PageNotFoundComponent {
 
   constructor(

@@ -13,6 +13,13 @@ import { DatePipe } from '@angular/common';
   templateUrl: './schedule-detail.component.html',
   styleUrls: ['./schedule-detail.component.css']
 })
+
+/**
+ * This page is created so that the user can see the details of their schedule
+ * specifically the details for each event in the schedule and the schedule name and description
+ * from this page the user can either subscribe/unsubscribe from a schedule
+ * or they can download the ics for the schedule
+ */
 export class ScheduleDetailComponent implements OnInit {
   scheduleId: string | undefined;
   schedule: Schedule | undefined;
@@ -28,6 +35,7 @@ export class ScheduleDetailComponent implements OnInit {
     
   ) {}
 
+  //Gets all the event details for the schedule
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const scheduleId = params.get('id');
@@ -52,6 +60,7 @@ export class ScheduleDetailComponent implements OnInit {
     });
   }
 
+  //gets the event detail for each event using the schedule id
   fetchEvents(scheduleId: string) {
     this.eventFacade.getEventBySchedule(scheduleId)
       .subscribe(
@@ -65,6 +74,7 @@ export class ScheduleDetailComponent implements OnInit {
       );
   }
 
+  ///checks whether the user already subscribed to the schedule or not
   checkSubscription(token: string): void {
     this.scheduleFacade.getSubscribedSchedules(token)
       .subscribe(
@@ -78,6 +88,7 @@ export class ScheduleDetailComponent implements OnInit {
       );
   }
 
+  //will add the schedule id to the list of the schedules that the user has subscribed to 
   subscribe() {
     const scheduleId = this.schedule?.id;
     const token = localStorage.getItem("currUser") as string;
@@ -97,6 +108,7 @@ export class ScheduleDetailComponent implements OnInit {
     }
   }
 
+  //will remove the schedule id to the list of the schedules that the user has subscribed to 
   unsubscribe() {
     const scheduleId = this.schedule?.id;
     const token = localStorage.getItem("currUser") as string;
@@ -115,7 +127,7 @@ export class ScheduleDetailComponent implements OnInit {
         );
     }
   }
-
+//for downloading the ics file for the schedule
   downloadICS() {
     // Fetch events again to ensure they are up-to-date
     this.fetchEvents(this.scheduleId as string);

@@ -14,7 +14,11 @@ import { ScheduleFacade } from 'src/app/Facades/schedule.facade';
   templateUrl: './delete-schedule.component.html',
   styleUrls: ['./delete-schedule.component.css']
 })
-
+/**
+ * This is a dialog that shows up on the page when user clicks on delete for one of their owned schedules
+ * the dialog will ask the user to enter the schedule name exactly as shows to them(it's case sensitive)
+ * if the schedule name is an exact match, the schedule will be deleted
+ */
 
 export class DeleteScheduleComponent {
   action?:string;

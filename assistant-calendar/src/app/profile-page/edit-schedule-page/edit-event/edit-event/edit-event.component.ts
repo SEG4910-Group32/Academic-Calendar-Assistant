@@ -10,6 +10,12 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.css']
 })
+
+/**
+ * We created this component for the edit event dialog
+ * the dialog shows the current data for the event, and the user can edit the fileds that they want and save the changes
+ * when the update button is clicked the data is sent back to the edit-event page to be sent to the database(using the event facade)
+ */
 export class EditEventComponent {
   action?:string;
   local_data:any;

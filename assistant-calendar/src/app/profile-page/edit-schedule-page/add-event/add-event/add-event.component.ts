@@ -9,6 +9,12 @@ import { EditSchedulePageComponent } from '../../edit-schedule-page.component';
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.css']
 })
+
+/**we created this component for the add event dialog in the edit schedule page
+ * the user needs to fill the required fileds which are the name, type and due date 
+ * then they will be able  to create a new event
+ * after clicking on add, the event data will be sent back to the edit-schedule page to be added to the db
+ */
 export class AddEventComponent {
  // dialogRef: any;
 
