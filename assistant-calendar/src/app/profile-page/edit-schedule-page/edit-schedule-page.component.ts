@@ -9,12 +9,22 @@ import { EventFacade } from 'src/app/Facades/event.facade';
   templateUrl: './edit-schedule-page.component.html',
   styleUrls: ['./edit-schedule-page.component.css']
 })
+
+/**
+ * we created the edit schedule page for the user to be able to edit the events for the schedules that they created
+ * when the user clicks on edit in the profile page, they will be navigated to this page http://localhost:4200/edit-schedule
+ * From this page, the user can do 3 things, add event, edit event or delete event
+ * when the user clicks on add event, a new dialog opens up on top of the page with input fileds for a new event
+ * when the user clicks on edit next to an event, the edit event dialog opens up
+ * when the user clicks on delete, the event will be deleted and the list of events will refresh automatically
+ */
 export class EditSchedulePageComponent implements OnInit {
 
   events: any[] = [];
   eventDetails: any[] = [];
   noEventsExist: boolean = false;
 
+  //getting the schedule id and schedule name of the schedule that we want to edit
   scheduleId: string | null = localStorage.getItem("scId");
   scheduleName: string | null = localStorage.getItem("scName");
 
@@ -27,7 +37,10 @@ export class EditSchedulePageComponent implements OnInit {
     this.loadData();
   }
 
+  //gets the list of the events for the current schedule by calling the getEventByschedule method in eventfacade which makes an API call to the backend
   loadData() {
+
+    //returns all the IDs for the events for the current schedule
     this.eventFacade.getEventBySchedule(this.scheduleId as string).subscribe(
       (events: any[]) => {
         this.events = events;
@@ -43,6 +56,7 @@ export class EditSchedulePageComponent implements OnInit {
     );
   }
 
+  //gets the event details using the event id
   loadEventDetails() {
     this.eventDetails = [];
 
@@ -62,6 +76,7 @@ export class EditSchedulePageComponent implements OnInit {
   }
 
 
+  //called when the user edits an event, updates the event in the database and refreshes the event list
   updateEvent(updatedEvent: any, eventId: string) {
     updatedEvent.id = updatedEvent.id as string
     this.eventFacade.updateEvent(eventId, localStorage.getItem("currUser") as string, updatedEvent).subscribe(
@@ -76,6 +91,7 @@ export class EditSchedulePageComponent implements OnInit {
     );
   }
 
+  //used when a user deletes an event, deletes the event from the database and refreshes the event list
   deleteEvent(eventId: string) {
     this.eventFacade.deleteEvent(localStorage.getItem("currUser") as string, eventId).subscribe(
       (response: any) => {
@@ -89,12 +105,14 @@ export class EditSchedulePageComponent implements OnInit {
     );
   }
 
+  //sends the event data to the edit event dialog
   openEditDialog(event: any) {
     if (event) {
       const dialogRef = this.dialog.open(EditEventComponent, {
         data: this.getDialogDataFromEvent(event)
       });
 
+      //updates the event after the dialog is closed
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           const updatedEvent = this.getUpdatedEventData(result);
@@ -117,6 +135,7 @@ export class EditSchedulePageComponent implements OnInit {
       }
     });
 
+    //uses the data from the new event to create new event when add event dialog is closed
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.createNewEvent(result);
@@ -124,6 +143,7 @@ export class EditSchedulePageComponent implements OnInit {
     });
   }
 
+  //function for creating new event
   createNewEvent(result: any) {
     this.eventFacade.createEvent({
       name: result.name,

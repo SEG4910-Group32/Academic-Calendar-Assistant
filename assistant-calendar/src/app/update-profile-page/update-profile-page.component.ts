@@ -12,6 +12,12 @@ import { UserFacade } from '../Facades/user.facade';
   templateUrl: './update-profile-page.component.html',
   styleUrls: ['./update-profile-page.component.css']
 })
+
+/**
+ * we created this page for the user to be able to change their profile information
+ * the password won't be shown in this page, the user can only add a new password and when they click on update 
+ * the changes are sent to the database using the user facade
+ */
 export class UpdateProfilePageComponent {
 
   updateProfileForm = this.fb.group({
@@ -43,6 +49,7 @@ export class UpdateProfilePageComponent {
     return JSON.stringify(formValues) !== JSON.stringify(initialValues);
   }
 
+  //the update only works if the information on the form actually changed, if not, does nothing 
   update = async (user: Object) => {
     if (!this.isFormChanged()) {
       // No changes to update
@@ -73,6 +80,9 @@ export class UpdateProfilePageComponent {
       });
   };
 
+  //the user can also delete their profile fron here
+  //this function calls the deleteUser function in the userFacade which will call the user repository which will call the api 
+  //to delete user
   delete = async (email: string) => {
     //this.http.delete("http://localhost:3000/api/user/delete/" + email)
     this.userFacade.deleteUser(localStorage.getItem("currUser") as string).subscribe(res => {

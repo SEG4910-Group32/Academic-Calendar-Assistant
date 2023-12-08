@@ -7,6 +7,14 @@ import { UserFacade } from 'src/app/Facades/user.facade';
   templateUrl: './logout-dialog.component.html',
   styleUrls: ['./logout-dialog.component.css']
 })
+
+/**
+ * We created the log out component which  will show on top of the page when user clicks on log out
+ * before logging out, the user is asked if they are sure they want to sign out and from there they can click on yes or no
+ * there is also a timer to check if the user hasn't been active for a specific time the app will ask the user if they want to 
+ * sign out
+ */
+
 export class LogoutDialogComponent {
 
   showConfirmation: boolean = true;
@@ -23,7 +31,7 @@ export class LogoutDialogComponent {
       (res: any) => {
         if (res.msg === "Token successfully invalidated") {
           this.logoutSuccessful = true;
-          localStorage.removeItem('currUser');
+          localStorage.removeItem('currUser'); //removes the user token from local storage
         }
         this.showConfirmation = false;
       },

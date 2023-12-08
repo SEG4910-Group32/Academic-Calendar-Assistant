@@ -18,6 +18,13 @@ import { UserFacade } from '../Facades/user.facade';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
+
+/*
+* The navbar component that shows up on top of each component on top of the page
+* the navbar will show a sign in and get started button on the top right if the user is not signed in
+* if the user is signed in, the navbar will show the username of the user and the sign out button
+* the user can also see a button for profile page is he/she is signed in
+*/
 export class NavBarComponent {
 
   constructor(

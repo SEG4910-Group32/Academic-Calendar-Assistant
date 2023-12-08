@@ -21,6 +21,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile-page.component.css'],
 
 })
+
+/**
+ * we created this component for the profile page http://localhost:4200/profile-page
+ * this page is only shown if the user is logged in
+ * from this page, the user can either edit their profile, or edit their schedules
+ * for the schedules owned by the user, they can edit or delete the schedule
+ * for the schedules that the user subscribed to, they can view or unsubscribe to the schedule
+ * the view schedule will navigate to the schedule detial page
+ */
 export class ProfilePageComponent {
  
   username = localStorage.getItem("username")
@@ -38,16 +47,19 @@ export class ProfilePageComponent {
 
   constructor(public dialog: MatDialog, private http: HttpClient, private scheduleFacade: ScheduleFacade, private userFacade: UserFacade,  private router: Router) {}
 
-//unsubscribe schedule method
+//unsubscribe schedule method, used when user clicks for unsubscribe for a schedule that they subscribed to 
+// the function will call the removeschedule method in userFacade, which has the API call to the backend to remove
+//the schedule from the list of schedules for the user
   unsubscribeFromSchedule(schedule:any ){
     console.log("unsubscribe from schedule called");
 
     console.log("schedule._id", schedule._id,`localStorage.getItem("currUser")`, localStorage.getItem("currUser"))
-  // this.http.patch(ubsubscribeUrl, options)
+    // this.http.patch(ubsubscribeUrl, options)
+
     this.userFacade.removeSchedule(schedule._id as string, localStorage.getItem("currUser") as string)
     .subscribe((response: any) => {
         console.log('Event deleted from the database:', response);
-        this.loadData();
+        this.loadData(); // the load data function refreshes the data(schedule list) in the page
       });
 
 
@@ -99,6 +111,7 @@ ngOnInit() {
  
 }
 
+//gets the username for the user using the user token to be displayed on the page
 updateUsername(){
   this.userFacade.getUserById(localStorage.getItem('currUser') as string).subscribe(
     (user) => {

@@ -16,7 +16,11 @@ import { DataService } from 'src/services/data.service';
   '../../form-styles.css']
 })
 
-
+/**
+ * We created the login form for the sign in componet
+ * the component shows on top of the current page that the user is currently on
+ * The user can use their email and password to sign in
+ */
 
 export class LoginFormComponent {
   signInForm = this.fb.group({

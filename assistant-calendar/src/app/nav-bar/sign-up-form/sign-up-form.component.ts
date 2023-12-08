@@ -13,6 +13,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     '../../form-styles.css']
 })
 
+/**
+ * We created this component for signing up for an account
+ * the component shows on top of the current page(like a dialog) and asks for an email, firstname, lastname and password
+ * after all fields are filled in and the password requirements are met, the sign up button is enabled and the user can 
+ * create an account
+ */
+
 export class SignUpFormComponent {
 
   signupError: boolean = false;
@@ -82,6 +89,7 @@ export class SignUpFormComponent {
     }
   }
 
+  //this method calls the create user method in the userfacade which sends and API call to the backend to create a new account
   createUser = async (newUser: User) => {
     this.userFacade.createUser(newUser).subscribe(
       (res: any) => {
