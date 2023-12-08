@@ -17,11 +17,18 @@ To be established
 ### Installing
 
 The tool will be hosted online with an easy-to-access URL
+https://calendarassistant.netlify.app/ 
+
+  
+
+### Usage
 
 #### Installing locally:
 
-1.navigate to the assistant-calendar folder
-2. run the following command to install npm
+1. navigate to the assistant-calendar folder
+
+2.  run the following command to install npm
+
 
          npm install
 
@@ -33,11 +40,7 @@ The tool will be hosted online with an easy-to-access URL
    
 5. navigate to
 
-        http://localhost:4200/home       
-
-### Usage
-
-To be establised
+        http://localhost:4200/home     
 
 
 ## Authors
